@@ -1,0 +1,90 @@
+/* Define the Blue theme variables */
+:root {
+    --blue: #2563eb;
+    --blue-hover: #1d4ed8;
+    --bg-light: #f0f4f8;
+    --text-main: #1e293b;
+    --border-grey: #cbd5e1;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Page Container */
+.page {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Form Grouping */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+/* Input Styling */
+input[type="text"],
+input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--border-grey);
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Prevents input from overflowing container */
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--blue);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* Button Styling */
+.btn {
+    width: 100%;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}

@@ -1,0 +1,102 @@
+/* Define the Purple theme variables */
+:root {
+    --purple: #8b5cf6;
+    --purple-hover: #7c3aed;
+    --bg-light: #f9fafb;
+    --text-dark: #1f2937;
+    --border-soft: #e5e7eb;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Page Container */
+.page {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 95%;
+    max-width: 450px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Dropdown/Select Styling */
+select.form-group {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    appearance: none; /* Removes default arrow to allow for custom styling if desired */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='www.w3.org' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+/* Invoice Preview Area */
+div[style*="dashed"] {
+    background-color: #fcfcfd;
+    border: 2px dashed #d1d5db !important; /* Overriding inline if necessary */
+    border-radius: 12px;
+    color: #6b7280;
+    font-style: italic;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Button Styling */
+.btn {
+    width: 100%;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Print Media Query (Bonus) */
+@media print {
+    body { background: white; }
+    .page { box-shadow: none; width: 100%; border: none; }
+    .btn, select { display: none; } /* Hide UI elements when printing */
+}

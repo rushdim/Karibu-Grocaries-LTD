@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new sale</title>
+    <link rel="stylesheet" href="sales.css">
+</head>
+<body>
+    <div id="newSalePage" class="page">
+        <h2 style="color: var(--green);">New Sale</h2>
+        <div style="display: flex; gap: 20px;">
+            <!-- Available Items -->
+            <div style="flex: 1;">
+                <h3>Available Items</h3>
+                <div id="itemList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- Products derived from dashboard "Total Products: 2" [1] -->
+                    <div class="product-card" onclick="addToCart('Apple', 1.50)"
+                        style="border: 1px solid #ddd; padding: 10px; cursor: pointer;">
+                        Soyabean - ugx1.50
+                    </div>
+                    <div class="product-card" onclick="addToCart('Milk', 3.00)"
+                        style="border: 1px solid #ddd; padding: 10px; cursor: pointer;">
+                        G-nuts - ugx3.00
+                    </div>
+                </div>
+            </div>
+            <!-- Cart -->
+            <div style="flex: 1; border-left: 1px solid #eee; padding-left: 20px;">
+                <h3>Cart</h3>
+                <ul id="cartItems"></ul>
+                <p><strong>Total: UGX<span id="cartTotal">0.00</span></strong></p>
+                <button class="btn" style="background: var(--green);">Complete Sale</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KGL Director</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="cdn.jsdelivr.net" rel="stylesheet">
+    <link href="cdnjs.cloudflare.com" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/Home/st.css">
+
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar with Icons -->
+            <nav class="col-md-2 sidebar p-3">
+                <h4 class="mb-4">KGL Admin</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-3"><a href="/Home/dash.html" class="nav-link text-white">
+                            <i class="fas fa-home"></i>     Home</a></li>
+                    <li class="nav-item mb-3"><a onclick="showSection ('procurement')" href="/procurment/procurment.html"
+                            class="nav-link text-white"><i class="fas fa-truck me-2"></i>
+                            Procurement</a></li>
+                    <li class="nav-item mb-3"><a href="/sales/sales.html" class="nav-link text-white"><i
+                                class="fas fa-file-invoice-dollar me-2"></i> Credit Sales</a></li>
+                    <li class="nav-itemnmb-3">
+                        <a href="/sales/newSale.html"   class="nav-link text-white ">
+
+                            
+                            <i class="fas fa-cash-register"></i>
+                            <span>New Sale</span>
+
+
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a href="/product/addProduct.html" class="nav-link text-white ">
+
+                            <i class="fas fa-box"></i>
+                            <span>Add Product</span>
+
+                    </li>
+                    <li  class="nav-item mb-3" >
+                        <a href="/customer/customer.html" class="nav-link text-white" >
+                            
+                                <i class="fas fa-user-plus"> </i>
+                                <span>Add Customer</span>
+                            
+                        </a>
+
+                    </li>
+                        
+                    <li class="nav-item mb-3" >
+                        <a href="/invoic/invoice.html" class="nav-link text-white">
+                            
+                                <i class="fas fa-file-invoice"></i>
+                                <span>Create Invoice</span>
+                            
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3" >
+                        <a href="/report/report.html" class="nav-link text-white">
+                        
+                        
+                                <i class="fas fa-chart-bar"></i>
+                                <span>View Reports</span>
+                            
+                        </a>
+
+                    </li>
+                    <li>
+                        <a  href="/settings/setting.html" class="nav-link text-white">
+                        <i class="fa-solid fa-gear settings-icon" onclick="showPage('settings-page')"></i>
+                        <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content: Displaying Results -->
+            <main class="col main-content">
+                <header class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Director Overview:</h2>
+                    <img width="80" src="/img/2.png" class="rounded-circle" alt="Admin Profile">
+                </header>
+
+
+
+                <!-- Aggregated Totals (Requirement [2]) -->
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card stat-card bg-primary text-white p-3 shadow-sm">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5>Total Revenue</h5>
+                                    <h3 id="aggSales">UgX 45,000,000</h3>
+                                </div>
+                                <i class="fas fa-money-bill-wave fa-2x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card bg-success text-white p-3 shadow-sm">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5>Total Stock</h5>
+                                    <h3>12,500 kg</h3>
+                                </div>
+                                <i class="fas fa-boxes fa-2x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produce Images & Results -->
+                <h4 class="mb-3">Inventory Status (Maganjo & Matugga)</h4>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="card h-100 p-2 text-center">
+                            <img src="/img/Beans.jpg" class="produce-img mb-2" alt="Beans">
+                            <h6>Beans</h6>
+                            <small class="text-muted">Stock: 4,000kg</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card h-100 p-2 text-center">
+                            <img src="/img/maize.webp" class="produce-img mb-2" alt="Maize">
+                            <h6>Grain Maize</h6>
+                            <small class="text-muted">Stock: 8,500kg</small>
+                        </div>
+                        
+                    </div>
+                   
+                        
+                            <!-- Stats Grid [1] -->
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-info">
+                                        <span>Today's Sales</span>
+                                        <h2 id="todaySales">0</h2>
+                                    </div>
+                                    <div class="icon-circle green"><i class="fas fa-chart-line"></i></div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-info">
+                                        <span>Total Customers</span>
+                                        <h2 id="totalCustomers">0</h2>
+                                    </div>
+                                    <div class="icon-circle blue"><i class="fas fa-users"></i></div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-info">
+                                        <span>Total Products</span>
+                                        <h2 id="totalProducts">2</h2>
+                                    </div>
+                                    <div class="icon-circle orange"><i class="fas fa-box"></i></div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-info">
+                                        <span>Low Stock</span>
+                                        <h2 id="lowStock">0</h2>
+                                    </div>
+                                    <div class="icon-circle red"><i class="fas fa-exclamation-triangle"></i></div>
+                                </div>
+                            </div>
+                    
+                            <!-- Quick Actions Section [1] -->
+                            <section class="quick-actions">
+                                <h3>Quick Actions</h3>
+                                <div class="action-grid">
+                                    <a href="/sales/newSale.html" style="text-decoration: none;">
+                    
+                                        <button class="action-btn green-border">
+                                            <i class="fas fa-cash-register"></i>
+                                            <span>New Sale</span>
+                                        </button>
+                    
+                                    </a>
+                                    <a href="/product/addProduct.html" style="text-decoration: none;">
+                                        <button class="action-btn orange-border">
+                                            <i class="fas fa-box"></i>
+                                            <span>Add Product</span>
+                                        </button>
+                                    </a>
+                                    <a href="/customer/customer.html" style="text-decoration: none;">
+                                        <button class="action-btn blue-border">
+                                            <i class="fas fa-user-plus"></i>
+                                            <span>Add Customer</span>
+                                        </button>
+                                    </a>
+                    
+                                    <a href="/invoic/invoice.html" style="text-decoration: none;">
+                                        <button class="action-btn purple-border">
+                                            <i class="fas fa-file-invoice"></i>
+                                            <span>Create Invoice</span>
+                                        </button>
+                                    </a>
+                    
+                                    <a href="/report/report.html" style="text-decoration: none;">
+                    
+                                        <button class="action-btn navy-border">
+                                            <i class="fas fa-chart-bar"></i>
+                                            <span>View Reports</span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </section>
+                        </div>
+                        <script>
+                            const dashboardData = {
+                                sales: 0,
+                                customers: 0,
+                                products: 2,
+                                lowStock: 0
+                            };
+
+                            // Function to update the UI
+                            function updateDashboard() {
+                                document.getElementById('todaySales').innerText = dashboardData.sales;
+                                document.getElementById('totalCustomers').innerText = dashboardData.customers;
+                                document.getElementById('totalProducts').innerText = dashboardData.products;
+                                document.getElementById('lowStock').innerText = dashboardData.lowStock;
+                            }
+
+                            // Run on load
+                            window.onload = updateDashboard;
+                        </script>
+                  
+                    
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

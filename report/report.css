@@ -1,0 +1,79 @@
+/* Define the Navy theme variables */
+:root {
+    --navy: #1e293b;
+    --navy-light: #334155;
+    --bg-reports: #f1f5f9;
+    --card-bg: #ffffff;
+    --accent-gray: #e2e8f0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-reports);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligned to top for dashboard feel */
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 50px;
+}
+
+/* Page Container */
+.page {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 800px; /* Wider for side-by-side reports */
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: left;
+    font-size: 1.75rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--accent-gray);
+    padding-bottom: 10px;
+}
+
+/* Flex Container for Charts */
+div[style*="display: flex"] {
+    display: flex;
+    gap: 20px !important; /* Increased spacing for clarity */
+}
+
+/* Individual Report Card/Chart Styling */
+div[style*="flex: 1"] {
+    flex: 1;
+    height: 200px !important; /* Made taller for better chart visibility */
+    background-color: #f8fafc !important; /* Soft gray instead of #eee */
+    border: 1px solid var(--accent-gray);
+    border-radius: 12px;
+    color: var(--navy-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+
+/* Hover effect for data cards */
+div[style*="flex: 1"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--navy);
+}
+
+/* Responsive: Stack charts on small screens */
+@media (max-width: 600px) {
+    div[style*="display: flex"] {
+        flex-direction: column;
+    }
+    
+    .page {
+        padding: 1.5rem;
+    }
+}

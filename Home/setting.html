@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="/settings/style.css">
+</head>
+
+<body>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard-page" class="page-container">
+        <header>
+            <h1>Dashboard</h1>
+            <!-- Settings Icon -->
+            <i class="fa-solid fa-gear settings-icon" onclick="showPage('settings-page')"></i>
+        </header>
+        <main>
+            <p>Welcome to your main dashboard area.</p>
+        </main>
+    </div>
+
+    <!-- SETTINGS PAGE (Hidden by default) -->
+    <div id="settings-page" class="page-container hidden">
+        <header>
+            <i class="fa-solid fa-arrow-left back-btn" onclick="showPage('dashboard-page')"></i>
+            <h1>Settings</h1>
+        </header>
+        <main>
+            <div class="settings-item">
+                <label>Language:</label>
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="en">Arabic</option>
+
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </main>
+    </div>
+
+    <script src="/settings/script.js"></script>
+</body>
+
+</html>
