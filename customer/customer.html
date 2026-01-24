@@ -8,17 +8,55 @@
 </head>
 
 <body>
-    <div id="addCustomerPage" class="page">
-        <h2 style="color: var(--blue);">Add New Customer</h2>
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text">
-        </div>
-        <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel">
-        </div>
-        <button class="btn" style="background: var(--blue);">Register Customer</button>
+<div id="addCustomerPage" class="page">
+    <h2 style="color: var(--blue);">Add New Customer</h2>
+
+    <!-- Feedback message container -->
+    <div id="customerMessage" style="margin-bottom: 15px; font-weight: bold;"></div>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="customerName" placeholder="John Doe">
     </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="customerPhone" placeholder="0700000000">
+    </div>
+    <button id="registerBtn" class="btn" style="background: var(--blue);">Register Customer</button>
+</div>
+<script>
+    document.getElementById('registerBtn').addEventListener('click', function () {
+            // 1. Get input values
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const messageDiv = document.getElementById('customerMessage');
+
+            // 2. Clear previous messages
+            messageDiv.innerText = "";
+            messageDiv.style.color = "red";
+
+            // 3. Validation Logic
+            if (name === "") {
+                messageDiv.innerText = "Error: Full Name is required.";
+                return;
+            }
+
+            // Regex for exactly 10 digits (common for phone validation)
+            const phonePattern = /^\d{10}$/;
+            if (!phonePattern.test(phone)) {
+                messageDiv.innerText = "Error: Please enter a valid 10-digit phone number.";
+                return;
+            }
+
+            // 4. Success Logic
+            messageDiv.style.color = "green";
+            messageDiv.innerText = "Success: Customer '" + name + "' has been registered!";
+
+            // Clear inputs after successful registration
+            document.getElementById('customerName').value = "";
+            document.getElementById('customerPhone').value = "";
+        });
+
+</script>
 </body>
 </html>

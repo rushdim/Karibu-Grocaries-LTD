@@ -10,19 +10,59 @@
 
 <body>
 
+
+
+
+
     <!-- Add Product (Orange) -->
     <div id="addProductPage" class="page">
         <h2 style="color: var(--orange);">Add New Product</h2>
+
+        <!-- Status Message Container -->
+        <div id="message" style="margin-bottom: 15px; font-weight: bold;"></div>
+
         <div class="form-group">
             <label>Product Name</label>
-            <input type="text" placeholder="e.g. Maize">
+            <input type="text" id="productName" placeholder="e.g. Soyabeans">
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="number" step="0.01">
+            <input type="number" id="productPrice" step="0.01">
         </div>
-        <button class="btn" style="background: var(--orange);">Save Product</button>
+        <button id="saveBtn" class="btn" style="background: var(--orange);">Save Product</button>
     </div>
+    <script>
+        document.getElementById('saveBtn').addEventListener('click', function () {
+            // Get input values
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value;
+            const messageDiv = document.getElementById('message');
+
+            // Reset message style
+            messageDiv.style.color = "red";
+            messageDiv.innerText = "";
+
+            // 1. Validation Logic
+            if (name === "") {
+                messageDiv.innerText = "Error: Product name is required.";
+                return;
+            }
+
+            if (price === "" || parseFloat(price) <= 0) {
+                messageDiv.innerText = "Error: Please enter a valid price greater than 0.";
+                return;
+            }
+
+            // 2. Success Logic
+            messageDiv.style.color = "green";
+            messageDiv.innerText = "Success: Product '" + name + "' has been added!";
+
+            // 3. Optional: Clear inputs after success
+            document.getElementById('productName').value = "";
+            document.getElementById('productPrice').value = "";
+        });
+    </script>
+
 </body>
 
 </html>
