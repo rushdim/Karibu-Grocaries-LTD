@@ -103,80 +103,45 @@
     </div>
 
     <script>
-        // 1. DATA PERSISTENCE: Initial Setup for 2026
-        document.addEventListener('DOMContentLoaded', () => {
-            const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-            const adminExists = users.find(u => u.username === 'kgl_admin');
+       
 
-            if (!adminExists) {
-                const defaultUser = {
-                    username: "kgl_admin",
-                    password: "groceries2026",
-                    role: "Manager"
-                };
-                users.push(defaultUser);
-                localStorage.setItem('registeredUsers', JSON.stringify(users));
-                console.log("2026 Default User Created.");
-            }
-        });
-
-        // 2. CUSTOM TOAST FUNCTION
+        // CUSTOM TOAST FUNCTION
         function showToast(message, type) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `custom-toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
             toast.innerHTML = `<span>${message}</span>`;
-
             container.appendChild(toast);
 
-            // Remove after 3 seconds
             setTimeout(() => {
                 toast.classList.add('fade-out');
                 setTimeout(() => toast.remove(), 500);
             }, 3000);
         }
 
-        // 3. LOGIN VALIDATION & ERROR HANDLING
+        // LOGIN BYPASS: Accepts any input
         document.getElementById('loginForm').onsubmit = (e) => {
             e.preventDefault();
 
             const userVal = document.getElementById('adminUser').value.trim();
             const passVal = document.getElementById('adminPass').value.trim();
 
-            // Validation: Empty Fields
+            // Just ensure they aren't completely empty for basic UX
             if (!userVal || !passVal) {
-                showToast("Please enter both username and password.", "error");
-                return;
-    
-            }
-     
-
-            const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-            const user = users.find(u => u.username === userVal);
-
-            // Validation: User Not Found
-            if (!user) {
-                showToast("Username does not exist.", "error");
+                showToast("Please enter something to continue.", "error");
                 return;
             }
 
-            // Validation: Wrong Password
-            if (user.password !== passVal) {
-                showToast("Incorrect password. Please try again.", "error");
-                return;
-            }
+            // SUCCESS: No database check. We just create a session for whoever logged in.
+            showToast(`Welcome, ${userVal}! Redirecting...`, "success");
 
-            // 4. INTEGRATION & ROUTING
-            showToast("Login Successful! Redirecting...", "success");
-
-            // Store Current Session
             localStorage.setItem('currentSession', JSON.stringify({
-                name: user.username,
-                role: user.role,
-                timestamp: "2026-01-24"
+                name: userVal,
+                role: "Guest/Admin", // Assigned role
+                timestamp: new Date().toISOString().split('T')[0]
             }));
 
-            // Redirect after toast is visible
+            // Redirect
             setTimeout(() => {
                 window.location.href = "Dashboard/dashboard.html";
             }, 1200);
