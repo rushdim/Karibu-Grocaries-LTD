@@ -1,0 +1,90 @@
+/* General Page Styling */
+body {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    background-color: #eaeded; /* Light gray background */
+    margin: 0;
+    padding: 20px;
+    color: #0f1111;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* White Banner Section */
+.basket-banner {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    gap: 30px;
+}
+
+.illustration img {
+    max-width: 250px;
+    height: auto;
+}
+
+.content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.deals-link {
+    color: #007185;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.deals-link:hover {
+    text-decoration: underline;
+    color: #c7511f;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 20px; /* Rounded pill shape */
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid #d5d9d9;
+}
+
+.btn-primary {
+    background-color: #ffd814;
+    border-color: #fcd200;
+}
+
+.btn-primary:hover {
+    background-color: #f7ca00;
+}
+
+.btn-secondary {
+    background-color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #f7fafa;
+}
+
+/* Bottom Sections */
+.spacer {
+    height: 100px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.disclaimer {
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+}

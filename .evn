@@ -1,0 +1,2 @@
+MONGO_URI=mongodb+srv://rushdim:Rushdi@1234@kglproject.ycxdniv.mongodb.net/KGL_DB?retryWrites=true&w=majority
+PORT=3000

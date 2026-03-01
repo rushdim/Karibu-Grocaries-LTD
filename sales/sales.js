@@ -1,4 +1,8 @@
-document.getElementById('saleForm').addEventListener('submit', function(event) {
+
+
+           // mongodb+srv://rushdim:<db_password>@kglproject.ycxdniv.mongodb.net/?appName=KGLproject
+// 
+        document.getElementById('saleForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
 
     // Get form data

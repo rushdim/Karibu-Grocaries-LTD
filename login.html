@@ -75,6 +75,9 @@
                 transform: translateX(20px);
             }
         }
+        .create {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -98,54 +101,22 @@
                     <input type="password" id="adminPass" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success w-100">Login</button>
+                <p class="create">Need an account?
+                    <a href="/signin/sing.html">
+                    Create Account  
+                
+                    </a>
+                </p>
             </form>
         </div>
     </div>
 
-    <script>
+    <script src="login.js">
+
+          
+
        
 
-        // CUSTOM TOAST FUNCTION
-        function showToast(message, type) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `custom-toast ${type === 'success' ? 'toast-success' : 'toast-error'}`;
-            toast.innerHTML = `<span>${message}</span>`;
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.add('fade-out');
-                setTimeout(() => toast.remove(), 500);
-            }, 3000);
-        }
-
-        // LOGIN BYPASS: Accepts any input
-        document.getElementById('loginForm').onsubmit = (e) => {
-            e.preventDefault();
-
-            const userVal = document.getElementById('adminUser').value.trim();
-            const passVal = document.getElementById('adminPass').value.trim();
-
-            // Just ensure they aren't completely empty for basic UX
-            if (!userVal || !passVal) {
-                showToast("Please enter something to continue.", "error");
-                return;
-            }
-
-            // SUCCESS: No database check. We just create a session for whoever logged in.
-            showToast(`Welcome, ${userVal}! Redirecting...`, "success");
-
-            localStorage.setItem('currentSession', JSON.stringify({
-                name: userVal,
-                role: "Guest/Admin", // Assigned role
-                timestamp: new Date().toISOString().split('T')[0]
-            }));
-
-            // Redirect
-            setTimeout(() => {
-                window.location.href = "Dashboard/dashboard.html";
-            }, 1200);
-        };
     </script>
 </body>
 

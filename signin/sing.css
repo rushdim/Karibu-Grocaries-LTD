@@ -1,0 +1,117 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-wrapper {
+  width: 350px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.logo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.logo img {
+  height: 30px;
+}
+.tld {
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+/* Card Styling */
+.auth-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px 26px;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #a6a6a6;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+/* Amazon Yellow Button */
+.btn-primary {
+  width: 100%;
+  background: #ffd814;
+  border: 1px solid #fcd200;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-primary:hover {
+  background: #f7ca00;
+}
+
+.legal-text {
+  font-size: 12px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+.help-link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+a {
+  color: #0066c0;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #c45500;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e7e7e7;
+  margin: 20px 0;
+}
+
+/* Footer Styling */
+.auth-footer {
+  margin-top: 30px;
+  font-size: 11px;
+}
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.auth-footer p {
+  color: #555;
+}

@@ -1,3 +1,7 @@
+
+
+           // mongodb+srv://rushdim:<db_password>@kglproject.ycxdniv.mongodb.net/?appName=KGLproject
+
 document.getElementById('procurementForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -23,3 +27,5 @@ document.getElementById('procurementForm').addEventListener('submit', function(e
     // Optional: Reset the form after submission
     event.target.reset();
 });
+
+
