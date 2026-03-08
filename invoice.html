@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="invoice.css">
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="createInvoicePage" class="page">
+            <h2 style="color: var(--purple);">Create Invoice & Sales Dashboard</h2>
+            
+            <!-- Sales Form -->
+            <div class="sales-form">
+                <h3>Add New Sale</h3>
+                <div class="form-group-container">
+                    <input 
+                        v-model="newSale.productName" 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Product Name"
+                    >
+                    <input 
+                        v-model.number="newSale.quantity" 
+                        type="number" 
+                        class="form-input" 
+                        placeholder="Quantity"
+                        min="1"
+                    >
+                    <input 
+                        v-model.number="newSale.price" 
+                        type="number" 
+                        class="form-input" 
+                        placeholder="Price"
+                        min="0"
+                        step="0.01"
+                    >
+                    <button @click="addSale" class="btn btn-add" style="background: var(--purple);">Add Sale</button>
+                </div>
+            </div>
+
+            <!-- Recent Sales List -->
+            <div v-if="sales.length > 0" class="recent-sales">
+                <h3>Recent Sales</h3>
+                <select v-model="selectedSaleIndex" class="form-group">
+                    <option value="">Select Recent Sale...</option>
+                    <option v-for="(sale, index) in sales" :key="index" :value="index">
+                        {{ sale.productName }} - ${{ (sale.quantity * sale.price).toFixed(2) }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Invoice Preview Area with Charts -->
+            <div class="invoice-preview" v-if="sales.length > 0">
+                <h3>Sales Dashboard</h3>
+                
+                <!-- Summary Stats -->
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <p class="stat-label">Total Sales</p>
+                        <p class="stat-value">${{ totalSales.toFixed(2) }}</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="stat-label">Average Sale</p>
+                        <p class="stat-value">${{ averageSale.toFixed(2) }}</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="stat-label">Total Items</p>
+                        <p class="stat-value">{{ totalItems }}</p>
+                    </div>
+                </div>
+
+                <!-- Charts Container -->
+                <div class="charts-container">
+                    <!-- Sales Trends Chart -->
+                    <div class="chart-box">
+                        <h4>Sales Trends</h4>
+                        <canvas id="salesTrendsChart"></canvas>
+                    </div>
+
+                    <!-- Product Breakdown Chart -->
+                    <div class="chart-box">
+                        <h4>Product Breakdown</h4>
+                        <canvas id="productBreakdownChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Sales Details Table -->
+                <div class="sales-table">
+                    <h4>Sales Details</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(sale, index) in sales" :key="index">
+                                <td>{{ sale.productName }}</td>
+                                <td>{{ sale.quantity }}</td>
+                                <td>${{ sale.price.toFixed(2) }}</td>
+                                <td>${{ (sale.quantity * sale.price).toFixed(2) }}</td>
+                                <td>
+                                    <button @click="removeSale(index)" class="btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div v-else style="border: 1px dashed #ccc; padding: 20px; text-align: center; border-radius: 12px;">
+                <p>No sales recorded yet. Add a sale to see the dashboard!</p>
+            </div>
+
+            <!-- Print Invoice Button -->
+            <button @click="printInvoice" v-if="sales.length > 0" class="btn" style="background: var(--purple); margin-top: 10px;">Print Invoice</button>
+        </div>
+    </div>
+
+    <script src="invoice.js"></script>
+</body>
+</html>
