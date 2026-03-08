@@ -30,7 +30,9 @@
             
           
         </div>
+        
     </header>
+   
 
     <main class="container">
         <!-- Sidebar -->
@@ -41,6 +43,13 @@
                 <a href="/HomePage/home.html">
                     <i class="fas fa-home"></i> Home
                 </a>
+              </li>
+
+              <li>
+                <a href="/overview/video.html">
+                video Overview
+                <i class="fas fa-video"></i>
+            </a>
               </li>
                
                 <li>
@@ -62,34 +71,64 @@
                                     
                                 </a>
                             </li>
-                <li>Karibu Devices & Accessories</li>
-                <li>Karibu Agricultral Products</li>
+                <li>
+                    <a href="/all Products/product.html">
+                        <i class="fa-brands fa-product-hunt"></i>
+                    </a>
+                    All Products
+                </li>
+                <li>
+                    <a href="/Contact/contact.html">
+                        <i class="fa-solid fa-address-book"></i>
+                        Contact Us
+                    </a>
+        
+                </li>
                 
-                <li> All karibu Products </li>
-                <li>Karibu </li>
+                <li>
+                    <a href="/creataccount/signin.html">
+                        <i class="fa-solid fa-user-plus"></i>
+                        create account
+                    </a>
+                </li>
+                <li>
+                    <a href="/settings/setting.html">
+                        <i class="fa-solid fa-gear"></i>
+                        
+                    Settings
+
+                    </a>
+            
+                </li>
             </ul>
         </aside>
+        
+        <div id="no-results-msg" style="display: none; text-align: center; padding: 40px; width: 100%;">
+            <h3>No products found</h3>
+            <p>Try searching for "Beans" or "Onion".</p>
+        </div>
+
+      
+        <!-- Product Grid -->
+
 
         
-
-        <!-- Product Grid -->
-        <section>
             <div class="row g-3">
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img src="/img/Beans.jpg" class="produce-img mb-2" alt="Beans">
                         <h6>Beans</h6>
                         <small class="text-muted">Stock: 4,000kg</small>
                         <a href="/Basket/basket.html">
                         
-                            <button class="btn btn-primary mt-2">
+                            <button class="btn btn-primary mt-2">   
                         
                                 Add to Basket
                             </button>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/beans2.jpg" class="produce-img mb-2" alt="Maize">
                         <h6>Bean</h6>
@@ -105,7 +144,7 @@
             
                 </div>
                 <!-- G-nuts Card -->
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img src="/img/g-nuts.jpg" class="produce-img mb-2" alt="G-nuts">
                         <h6>G-nuts</h6>
@@ -121,7 +160,7 @@
                 </div>
             
                 <!-- Tomatow Card -->
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img src="/img/tommatow.jpg" class="produce-img mb-2" alt="Tomatow">
                         <h6>Tomatow</h6>
@@ -135,7 +174,7 @@
                         </a>
                     </div>
                 </div>
-        <div class="col-md-3">
+        <div class="col-md-3 product-item">
             <div class="card h-100 p-2 text-center">
                 <img width="200" src="/img/maize.webp" class="produce-img mb-2" alt="Maize">
                 <h6>Maize</h6>
@@ -151,7 +190,7 @@
         </div>
           
 
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/onion.jpg" class="produce-img mb-2" alt="Maize">
                         <h6>Onion</h6>
@@ -165,7 +204,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/kassava.jpg" class="produce-img mb-2" alt="Kassava">
                         <h6>Kassava</h6>
@@ -179,7 +218,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/eggplant.jpg" class="produce-img mb-2" alt="Eggplant">
                         <h6>Eggplant</h6>
@@ -193,7 +232,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/carote.jpg" class="produce-img mb-2" alt="Carote">
                         <h6>Carote</h6>
@@ -208,7 +247,7 @@
                     </div>
                 </div>
            
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/okrajpg.webp" class="produce-img mb-2" alt="Okra">
                     <h6>Okra</h6>
@@ -224,7 +263,7 @@
             </div>
             
 
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/greenpaper.jpg" class="produce-img mb-2" alt="Green Paper">
                     <h6>Green Paper</h6>
@@ -238,7 +277,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/matunda.jpg" class="produce-img mb-2" alt="Maize">
                     <h6>Passion Fruits</h6>
@@ -252,7 +291,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/banana.jpg" class="produce-img mb-2" alt="Maize">
                     <h6>Banana</h6>
@@ -266,7 +305,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/cabage.jpg" class="produce-img mb-2" alt="Carote">
                     <h6>Cabage</h6>
@@ -280,7 +319,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 product-item">
                 <div class="card h-100 p-2 text-center">
                     <img width="200" src="/img/sukuma.jpg" class="produce-img mb-2" alt="Maize">
                     <h6>Sukuma Wiki</h6>
@@ -294,7 +333,7 @@
                     </a>
                 </div>
             </div>
-                <div class="col-md-3">
+                <div class="col-md-3 product-item">
                     <div class="card h-100 p-2 text-center">
                         <img width="200" src="/img/sweetpotato.jpg" class="produce-img mb-2" alt="Sweet Potato">
                         <h6>Sweet Potato</h6>
@@ -312,6 +351,7 @@
     </main>
 
     <script src="home.js"></script>
+ 
 </body>
 
 </html>

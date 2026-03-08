@@ -8,11 +8,11 @@
 </head>
 
 <body>
-<div id="addCustomerPage" class="page">
+<!-- <div id="addCustomerPage" class="page">
     <h2 style="color: var(--blue);">Add New Customer</h2>
 
-    <!-- Feedback message container -->
-    <div id="customerMessage" style="margin-bottom: 15px; font-weight: bold;"></div>
+    Feedback message container -->
+    <!-- <div id="customerMessage" style="margin-bottom: 15px; font-weight: bold;"></div>
 
     <div class="form-group">
         <label>Full Name</label>
@@ -23,10 +23,34 @@
         <input type="tel" id="customerPhone" placeholder="0700000000">
     </div>
     <button id="registerBtn" class="btn" style="background: var(--blue);">Register Customer</button>
-</div>
-<script src="customer.js">
+</div> --> 
+<div id="app" class="page">
+    <h2 style="color: var(--blue);">Add New Customer</h2>
 
-     // customer.js
+    <!-- Feedback Nachricht -->
+    <div v-if="message" :style="{ color: messageColor, marginBottom: '15px', fontWeight: 'bold' }">
+        {{ message }}
+    </div>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" v-model="customer.name" placeholder="John Doe">
+    </div>
+
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" v-model="customer.phone" placeholder="0700000000">
+    </div>
+
+    <button @click="registerCustomer" class="btn" style="background: var(--blue);">
+        Register Customer
+    </button>
+</div>
+
+<!-- Vue.js CDN -->
+<script src="https://unpkg.com"></script>
+<script src="customer.js"></script>
+
 
 
 </script>

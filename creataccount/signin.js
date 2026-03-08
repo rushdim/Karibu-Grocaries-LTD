@@ -1,3 +1,33 @@
+
+
+// Toggle Password Visibility
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+// Update the verifyAndSave function to redirect to a success page
+async function verifyAndSave() {
+    const code = document.getElementById('verify-code').value;
+    const email = localStorage.getItem('pendingEmail');
+
+    try {
+        const response = await fetch(`${API_URL}/verify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, code })
+        });
+
+        if (response.ok) {
+            // Redirect to a dedicated success page
+            window.location.href = "/registration-success.html"; 
+        } else {
+            showStatus("Invalid Code. Try again.", "error");
+        }
+    } catch (err) {
+        showStatus("Connection error.", "error");
+    }
+}
 // Function to show smooth notifications
 function showStatus(message, type = "success") {
     // Remove existing toast if present

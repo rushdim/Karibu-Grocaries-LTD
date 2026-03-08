@@ -122,5 +122,73 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+
+const { verifyToken } = require('./auth');
+
+// This route is protected by the verifyToken function 
+app.post('/update-profile', verifyToken, (req, res) => {
+    const updatedData = req.body;
+    // Specific place: Saving to the JSON folder identified in the source [1]
+    const filePath = path.join(__dirname, '../JSON/users.json');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        let users = JSON.parse(data);
+        // Find the user by the ID stored in the JWT
+        const index = users.findIndex(u => u.id === req.user.id);
+        if (index !== -1) {
+            users[index] = { ...users[index], ...updatedData };
+            fs.writeFile(filePath, JSON.stringify(users, null, 2), (err) => {
+                if (err) return res.status(500).send("Error saving data");
+                res.send("Information updated successfully in JSON storage.");
+            });
+        }
+    });
+});
+// Registration Route
+app.post('/register', async (req, res) => {
+    const { name, email, password } = req.body;
+    const code = Math.floor(1000 + Math.random() * 9000).toString(); // Generate 4-digit code
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        // Save user as unverified
+        await User.findOneAndUpdate(
+            { email }, 
+            { name, email, password: hashedPassword, verificationCode: code, isVerified: false },
+            { upsert: true, new: true }
+        );
+
+        // Send Email
+        await transporter.sendMail({
+            from: '"Karibu Groceries" <karibugroceries@gmail.com>',
+            to: email,
+            subject: "Your Verification Code",
+            text: `Welcome to Karibu! Your code is: ${code}`
+        });
+
+        res.status(200).send("Verification code sent.");
+    } catch (err) {
+        res.status(500).send("Error processing registration.");
+    }
+});
+
+// Verification Route
+app.post('/verify', async (req, res) => {
+    const { email, code } = req.body;
+    const user = await User.findOne({ email, verificationCode: code });
+
+    if (user) {
+        user.isVerified = true;
+        user.verificationCode = null; // Clear code after use
+        await user.save();
+        res.status(200).send("Verified successfully");
+    } else {
+        res.status(400).send("Invalid code.");
+    }
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
+

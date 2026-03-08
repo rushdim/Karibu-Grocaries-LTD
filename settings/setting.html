@@ -4,48 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="cdnjs.cloudflare.com">
-    <link rel="stylesheet" href="style.css">
+    <title>Karibu Groceries | Admin & Shop</title>
+    <link rel="stylesheet" href="/settings/style.css">
+    <script src="https://kit.fontawesome.com" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <!-- DASHBOARD PAGE -->
-    <div id="dashboard-page" class="page-container">
-        <header>
-            <h1>Dashboard</h1>
-            <!-- Settings Icon -->
-            <i class="fa-solid fa-gear settings-icon" onclick="showPage('settings-page')"></i>
-        </header>
-        <main>
-            <p>Welcome to your main dashboard area.</p>
-        </main>
-    </div>
+    <nav class="navbar">
+        <div class="logo">Karibu <span>Groceries</span></div>
+        <div class="user-info">Founder: Rushdi Mustafa</div>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </nav>
 
-    <!-- SETTINGS PAGE (Hidden by default) -->
-    <div id="settings-page" class="page-container hidden">
-        <header>
-            <i class="fa-solid fa-arrow-left back-btn" onclick="showPage('dashboard-page')"></i>
-            <h1>Settings</h1>
-        </header>
-        <main>
-            <div class="settings-item">
-                <label>Language:</label>
-                <select id="language-select">
-                    <option value="en">English</option>
-                    <option value="en">Arabic</option>
+    <main class="dashboard">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h3>Categories</h3>
+            <ul>
+                <li class="active" onclick="filterShop('all')">All Products</li>
+                <li onclick="filterShop('fresh')">Fresh Produce</li>
+                <li onclick="filterShop('pantry')">Pantry</li>
+                <li onclick="filterShop('dairy')">Dairy</li>
+            </ul>
+        </aside>
 
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                </select>
+        <!-- Product Display Area -->
+        <section class="content">
+            <div class="header-flex">
+                <h1>Marketplace</h1>
+                <p id="date-display"></p>
             </div>
-            <button class="logout-btn" onclick="handleLogout()">Logout</button>
-        </main>
+
+            <div class="product-grid" id="product-list">
+                <!-- Products will be injected by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Cart UI -->
+    <div id="cart-sidebar" class="cart-hidden">
+        <h3>Your Basket</h3>
+        <div id="cart-items"></div>
+        <hr>
+        <button class="checkout-btn">Checkout via WhatsApp</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/settings/script.js"></script>
 </body>
 
 </html>

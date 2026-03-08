@@ -1,0 +1,61 @@
+/* Add FontAwesome for icons in your <head> */
+.contact-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.contact-info {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.info-item {
+    margin-bottom: 25px;
+}
+
+.info-item p { margin: 0; color: #555; }
+
+.social-links a {
+    display: inline-block;
+    margin-right: 15px;
+    color: #2e7d32; /* Grocery Green */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.contact-form button {
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-form button:hover { background-color: #1b5e20; }

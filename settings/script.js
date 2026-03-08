@@ -1,80 +1,46 @@
-// // Function to switch between views
-// function showPage(pageId) {
-//     // Hide all pages
-//     document.querySelectorAll('.page-container').forEach(page => {
-//         page.classList.add('hidden');
-//     });
-//     // Show the selected page
-//     document.getElementById(pageId).classList.remove('hidden');
-// }
+const products = [
+    { id: 1, name: "Fresh Tomatoes", price: 5000, category: "fresh" },
+    { id: 2, name: "Local Rice 5kg", price: 25000, category: "pantry" },
+    { id: 3, name: "Organic Milk", price: 3000, category: "dairy" },
+];
 
-// // Function to handle logout
-// function handleLogout() {
-//     if (confirm("Are you sure you want to logout?")) {
-//         // In a real app, clear sessions/tokens here
-//         alert("Logging out...");
-//         window.location.reload(); // Redirects to start (or your login page)
-//     }
-// }
+let cart = [];
 
-// // Handle Language Change
-// document.getElementById('language-select').addEventListener('change', (e) => {
-//     alert("Language changed to: " + e.target.value);
-// });
-// Function to switch between pages
-function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page-container').forEach(page => {
-        page.classList.add('hidden');
-    });
-    // Show requested page
-    document.getElementById(pageId).classList.remove('hidden');
+// Initialize Page
+document.addEventListener("DOMContentLoaded", () => {
+    displayProducts(products);
+    document.getElementById('date-display').innerText = "Launch Date: January 2026";
+});
+
+// Render Products
+function displayProducts(items) {
+    const list = document.getElementById('product-list');
+    list.innerHTML = items.map(p => `
+        <div class="card">
+            <h4>${p.name}</h4>
+            <p>UGX ${p.price.toLocaleString()}</p>
+            <button onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+    `).join('');
 }
 
-// Function to handle Logout
-function handleLogout() {
-    const confirmLogout = confirm("Are you sure you want to logout?");
-    if (confirmLogout) {
-        // Clear session data if any (example)
-        localStorage.removeItem('isAdminLoggedIn');
-        
-        // Redirect to admin login page
-        // Ensure you have a file named 'admin_login.html'
-        window.location.href = "admin_login.html"; 
+// Logical Filter
+function filterShop(cat) {
+    if(cat === 'all') displayProducts(products);
+    else {
+        const filtered = products.filter(p => p.category === cat);
+        displayProducts(filtered);
     }
 }
 
-// Function to toggle Dark Mode
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-theme');
-    const isDark = document.body.classList.contains('dark-theme');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+// Cart Logic
+function addToCart(id) {
+    const item = products.find(p => p.id === id);
+    cart.push(item);
+    document.getElementById('cart-count').innerText = cart.length;
+    alert(`${item.name} added to Karibu Basket!`);
 }
 
-// Function to save settings and show success
-function saveSettings() {
-    const feedback = document.getElementById('settings-feedback');
-    const username = document.getElementById('admin-username').value;
-
-    if (username.trim() === "") {
-        feedback.style.color = "red";
-        feedback.innerText = "Error: Username cannot be empty.";
-    } else {
-        feedback.style.color = "green";
-        feedback.innerText = "Success: Settings updated for 2026!";
-        
-        // In a real app, you'd send 'username' to a server here
-        console.log("Settings Saved:", {
-            username: username,
-            lang: document.getElementById('language-select').value
-        });
-    }
+function toggleCart() {
+    document.getElementById('cart-sidebar').classList.toggle('cart-hidden');
 }
-
-// Load theme on page start
-window.onload = () => {
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-theme');
-        document.getElementById('dark-mode-toggle').checked = true;
-    }
-};

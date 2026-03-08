@@ -96,13 +96,17 @@
                     <label class="form-label">Username</label>
                     <input type="text" id="adminUser" class="form-control">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="adminPass" class="form-control">
+                <div class="input-group">
+                    <input type="password" id="adminPass" class="form-control" required>
+                    <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </span>
                 </div>
+
+                
                 <button type="submit" class="btn btn-success w-100">Login</button>
                 <p class="create">Need an account?
-                    <a href="/signin/sing.html">
+                    <a style="text-decoration: none;" href="/signin/sing.html">
                     Create Account  
                 
                     </a>
@@ -110,6 +114,8 @@
             </form>
         </div>
     </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 
     <script src="login.js">
 

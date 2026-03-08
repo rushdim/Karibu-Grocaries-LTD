@@ -1,3 +1,32 @@
+
+    // 1. Wait for the page to load
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-bar');
+        const noResults = document.getElementById('no-results-msg');
+        const items = document.querySelectorAll('.product-item');
+
+        // 2. Listen for typing in the search bar
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let hasMatch = false;
+
+            // 3. Loop through every product
+            items.forEach(item => {
+                const name = item.querySelector('h6').textContent.toLowerCase();
+                
+                if (name.includes(query)) {
+                    item.style.display = ""; // Show
+                    hasMatch = true;
+                } else {
+                    item.style.display = "none"; // Hide
+                }
+            });
+
+            // 4. Show/Hide the "No Results" message
+            noResults.style.display = hasMatch ? "none" : "block";
+        });
+    });
+
 // Example product data
 const products = [
     { name: "Ring Battery Doorbell", price: "$69.99", img: "https://via.placeholder.com" },

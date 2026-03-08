@@ -1,21 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Invoice & Status Chart</title>
+    <!-- Adding Vue.js and Chart.js via CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="invoice.css">
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .form-group {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="createInvoicePage" class="page">
+    <div id="app" class="page">
         <h2 style="color: var(--purple);">Create Invoice</h2>
-        <select class="form-group">
-            <option>Select Recent Sale...</option>
+
+        <!-- Step 1: Status Selection -->
+        <label>Update User Invoice Status:</label>
+        <select v-model="currentStatus" @change="updateChart" class="form-group">
+            <option value="Paid">Paid</option>
+            <option value="Pending">Pending</option>
+            <option value="Overdue">Overdue</option>
         </select>
-        <div style="border: 1px dashed #ccc; padding: 20px; text-align: center;">
-            <p>Invoice Preview will appear here</p>
+
+        <!-- Step 2: The Bar Chart Canvas -->
+        <div class="chart-container">
+            <canvas id="userStatusChart"></canvas>
         </div>
-        <button class="btn" style="background: var(--purple); margin-top: 10px;">Print Invoice</button>
+
+        <div style="border: 1px dashed #ccc; padding: 20px; text-align: center;">
+            <p>Invoice Preview for: {{ currentStatus }} Status</p>
+        </div>
+
+        <button class="btn" @click="exportToWord" style="background: var(--purple); margin-top: 10px;">
+            Print Invoice (Open in Word)
+        </button>
+
     </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    currentStatus: 'Paid',
+                    chart: null,
+                    // Sample data that could eventually come from your JSON folder [1]
+                    userData: {
+                        Paid: 15,
+                        Pending: 8,
+                        Overdue: 5
+                    }
+                }
+            },
+            mounted() {
+                this.renderChart();
+            },
+            methods: {
+                renderChart() {
+                    const ctx = document.getElementById('userStatusChart').getContext('2d');
+                    this.chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Paid', 'Pending', 'Overdue'],
+                            datasets: [{
+                                label: 'Number of Invoices',
+                                data: [this.userData.Paid, this.userData.Pending, this.userData.Overdue],
+                                backgroundColor: ['#4CAF50', '#FFC107', '#F44336']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+                },
+                updateChart() {
+                    // Logic to simulate data changing based on status
+                    // In a real app, this would fetch from your backend folder [1]
+                    this.userData[this.currentStatus] += 1;
+                    this.chart.data.datasets.data = [
+                        this.userData.Paid,
+                        this.userData.Pending,
+                        this.userData.Overdue
+                    ];
+                    this.chart.update();
+                }
+            }
+        }).mount('#app');
+
+        
+    </script>
 </body>
+
 </html>
