@@ -212,6 +212,11 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+// This tells the server what to show at the main URL
+app.get('/', (req, res) => {
+    res.send("<h1>Karibu Groceries Backend is Live!</h1><p>The server is running successfully.</p>");
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
 
