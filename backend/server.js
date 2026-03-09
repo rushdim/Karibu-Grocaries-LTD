@@ -188,6 +188,29 @@ app.post('/verify', async (req, res) => {
     }
 });
 
+const Product = require('./models/product'); // Adjust path as needed
+
+// Route to Add a Product (Admin Page)
+app.post('/api/products', async (req, res) => {
+    try {
+        const { name, price } = req.body;
+        const newProduct = new Product({ name, price });
+        await newProduct.save();
+        res.status(201).json({ success: true, product: newProduct });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Route to Get All Products (Home Page)
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find().sort({ dateAdded: -1 });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));

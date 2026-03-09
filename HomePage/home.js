@@ -59,3 +59,51 @@ document.getElementById('search-btn').addEventListener('click', () => {
     const query = document.getElementById('search-bar').value;
     alert("Searching for: " + query);
 });
+
+async function displayProducts() {
+    const grid = document.getElementById('productGrid');
+    const spinner = document.getElementById('loadingSpinner');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    // 1. If not logged in, ensure spinner is hidden and stop
+    if (!isLoggedIn) {
+        if (spinner) spinner.style.display = 'none';
+        grid.innerHTML = '<p class="text-center w-100">Please login to view products.</p>';
+        return;
+    }
+
+    // 2. If logged in, show spinner while fetching
+    if (spinner) spinner.style.display = 'block';
+
+    try {
+        const response = await fetch('http://localhost:3000/api/products');
+        const products = await response.json();
+
+        // 3. Hide spinner once data arrives
+        if (spinner) spinner.style.display = 'none';
+        grid.innerHTML = ""; 
+
+        if (products.length === 0) {
+            grid.innerHTML = '<p class="text-center w-100">No products found.</p>';
+            return;
+        }
+
+        grid.innerHTML = products.map(p => `
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${p.name}</h5>
+                        <p class="text-warning fw-bold">Ksh ${p.price}</p>
+                        <button class="btn btn-dark w-100 rounded-pill">Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+    } catch (err) {
+        // Hide spinner even if there is an error
+        if (spinner) spinner.style.display = 'none';
+        grid.innerHTML = '<p class="text-danger text-center w-100">Error loading products.</p>';
+    }
+}
+

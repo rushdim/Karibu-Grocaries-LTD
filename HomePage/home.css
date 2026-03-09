@@ -161,3 +161,26 @@ h6 {
   margin-bottom: 30px;
   text-align: center;
 }
+
+
+#productGrid {
+    margin-top: 20px;
+}
+
+.product-card {
+    transition: transform 0.2s;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card-price {
+    color: #ff8c00; /* Your orange theme */
+    font-size: 1.2rem;
+    font-weight: bold;
+}

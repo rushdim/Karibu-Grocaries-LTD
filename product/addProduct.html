@@ -36,6 +36,28 @@
         
 
     </script>
+    <script>
+        async function loadProducts() {
+                // You'll need a div with id="productGrid" in your home HTML
+                const grid = document.getElementById('productGrid') || document.querySelector('.container');
+
+                const response = await fetch('http://localhost:3000/api/products');
+                const products = await response.json();
+
+                const html = products.map(p => `
+        <div class="product-card" style="border: 1px solid #ddd; padding: 15px; margin: 10px; border-radius: 8px;">
+            <h4>${p.name}</h4>
+            <p style="color: var(--orange); font-weight: bold;">Ksh ${p.price}</p>
+            <button class="btn" style="background: orange; color: white; border: none; padding: 5px 10px;">Add to Basket</button>
+        </div>
+        `).join('');
+
+                grid.innerHTML = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">${html}</div>`;
+            }
+
+            document.addEventListener('DOMContentLoaded', loadProducts);
+
+    </script>
 
 </body>
 
