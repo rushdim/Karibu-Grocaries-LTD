@@ -1,10 +1,10 @@
 {
   "name": "karibu-groceries-ltd",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "home.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "echo 'No build needed for backend'"
+    "start": "node home.js",
+    "build": "npm install"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
