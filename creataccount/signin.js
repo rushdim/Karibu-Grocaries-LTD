@@ -14,8 +14,8 @@ async function verifyAndSave() {
     try {
         const response = await fetch(`${API_URL}/verify`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, code })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
         });
 
         if (response.ok) {
@@ -46,7 +46,7 @@ function showStatus(message, type = "success") {
     }, 4000);
 }
 
-const API_URL = "http://localhost:3000"; // Your Node.js Server URL
+const API_URL = "https://your-app-name.up.railway.app"; // Your Node.js Server URL
 
 function validatePassword(pw) {
     const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;

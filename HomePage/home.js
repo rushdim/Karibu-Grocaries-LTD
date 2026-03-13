@@ -76,7 +76,8 @@ async function displayProducts() {
     if (spinner) spinner.style.display = 'block';
 
     try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch('https://your-railway-app-name.up.railway.app/products');
+        
         const products = await response.json();
 
         // 3. Hide spinner once data arrives

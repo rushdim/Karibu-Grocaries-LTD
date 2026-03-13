@@ -2,6 +2,9 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config({ path: path.join(__dirname, '.env') }); // Looks in the same folder as server.js
 
+app.use(express.json()); // Allows the server to read JSON data
+app.use(express.urlencoded({ extended: true })); // Allows reading form data
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
