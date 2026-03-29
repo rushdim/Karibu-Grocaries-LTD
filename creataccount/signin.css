@@ -58,6 +58,28 @@ button:hover { background-color: #2d6a4f; }
     position: relative;
     width: 100%;
 }
+.hidden {
+    display: none;
+}
+
+#strength-bar {
+    background-color: #ddd;
+    border-radius: 3px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
 .toggle-password {
     position: absolute;
     right: 10px;
@@ -70,6 +92,20 @@ button:hover { background-color: #2d6a4f; }
 
 .status-toast.success { background-color: #2ecc71; } /* Fluent Green */
 .status-toast.error { background-color: #e74c3c; }   /* Fluent Red */
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    user-select: none;
+}
+
+.input-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
 
 @keyframes slideDown {
     from { top: -50px; opacity: 0; }
