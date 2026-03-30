@@ -60,12 +60,12 @@ app.post('/register', async (req, res) => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                sender: { name: "Karibu Groceries", email: "karibugroceries@gmail.com" },
+                sender: { name: "Karibu Groceries LTD", email: "karibugroceries@gmail.com" },
                 to: [{ email: email, name: name }],
                 subject: "Verify Your Karibu Account",
                 htmlContent: `
                     <div style="font-family: Arial; border: 1px solid #eee; padding: 20px; border-radius: 10px; max-width: 500px;">
-                        <h2 style="color: #2ecc71;">Welcome to Karibu Groceries!</h2>
+                        <h2 style="color: #2ecc71;">Welcome to Karibu Groceries Online Marketing!</h2>
                         <p>Hello <strong>${name}</strong>,</p>
                         <p>Your verification code is:</p>
                         <div style="background: #f4f4f4; padding: 15px; text-align: center; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333;">
