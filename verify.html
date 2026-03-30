@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account - Karibu Groceries</title>
+    <link rel="stylesheet" href="style.css"> <!-- Reusing your existing styles -->
+    <style>
+        .hidden {
+            display: none !important;
+        }
+
+        .verify-card {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            color: #2ecc71;
+            margin-bottom: 15px;
+        }
+
+        #login-btn-container button {
+            background-color: #27ae60;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box verify-card">
+            <h2>Verify Your Account</h2>
+            <p id="verify-msg">Please enter the 4-digit code sent to your email.</p>
+
+            <div id="verify-section">
+                <div class="input-group">
+                    <input type="text" id="verify-code" placeholder="Enter Code (e.g. 1234)" maxlength="4"
+                        style="text-align: center; font-size: 24px; letter-spacing: 5px;">
+                </div>
+                <button onclick="verifyAndSave()">Verify Now</button>
+            </div>
+
+            <!-- This section stays hidden until success -->
+            <div id="success-section" class="hidden">
+                <div class="success-icon">Check! ✅</div>
+                <h3>Account Verified!</h3>
+                <p>Welcome to the family. You can now log in to start shopping.</p>
+                <div id="login-btn-container">
+                    <button onclick="window.location.href='login.html'">Go to Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="verify.js"></script>
+</body>
+
+</html>

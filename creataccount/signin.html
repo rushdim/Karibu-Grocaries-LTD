@@ -14,60 +14,41 @@
         <div id="register-form" class="form-box">
             <h2>Karibu Groceries</h2>
             <p>Freshness at your doorstep.</p>
-
-            <div class="input-group">
-                <input type="text" id="reg-name" placeholder="Full Name">
-            </div>
-
-            <div class="input-group">
-                <input type="email" id="reg-email" placeholder="Email Address">
-            </div>
-
-            <!-- Password Field with Strength Meter -->
-            <div class="input-group">
-                <div style="position: relative;">
-                    <input type="password" id="reg-password" placeholder="Password (8+ chars)"
-                        oninput="checkStrength()">
-                    <span onclick="togglePassword('reg-password')" class="eye-icon">👁️</span>
+        
+            <!-- Wrapped in a form to stop browser warnings -->
+            <form onsubmit="event.preventDefault(); sendVerification();">
+                <div class="input-group">
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
                 </div>
-                <!-- Strength Meter Bar -->
-                <div id="strength-meter-container"
-                    style="height: 5px; width: 100%; background: #eee; margin-top: 5px; border-radius: 10px; overflow: hidden;">
-                    <div id="strength-bar" style="height: 100%; width: 0%; transition: 0.3s ease;"></div>
+        
+                <div class="input-group">
+                    <input type="email" id="reg-email" placeholder="Email Address" required>
                 </div>
-                <small id="strength-text" style="font-size: 12px;"></small>
-            </div>
-
-            <!-- Confirm Password Field -->
-            <div class="input-group">
-                <div style="position: relative;">
-                    <input type="password" id="confirm-password" placeholder="Confirm Password">
-                    <span onclick="togglePassword('confirm-password')" class="eye-icon">👁️</span>
+        
+                <div class="input-group">
+                    <div style="position: relative;">
+                        <input type="password" id="reg-password" placeholder="Password (8+ chars)" oninput="checkStrength()"
+                            required>
+                        <span onclick="togglePassword('reg-password')" class="eye-icon">👁️</span>
+                    </div>
+                    <div id="strength-meter-container"
+                        style="height: 5px; width: 100%; background: #eee; margin-top: 5px; border-radius: 10px; overflow: hidden;">
+                        <div id="strength-bar" style="height: 100%; width: 0%; transition: 0.3s ease;"></div>
+                    </div>
+                    <small id="strength-text" style="font-size: 12px;"></small>
                 </div>
-            </div>
-
-            <button onclick="sendVerification()">Create Account</button>
+        
+                <div class="input-group">
+                    <div style="position: relative;">
+                        <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                        <span onclick="togglePassword('confirm-password')" class="eye-icon">👁️</span>
+                    </div>
+                </div>
+        
+                <!-- Changed to type="submit" so the form submits correctly -->
+                <button type="submit">Create Account</button>
+            </form>
             <p class="toggle">Already have an account? <a href="/login.html"><span>login</span></a></p>
-        </div>
-
-        <!-- Verification Section (Hidden by default) -->
-        <div id="verify-section" class="form-box hidden">
-            <h2>Verify Email</h2>
-            <p>Enter the 4-digit code sent to your email.</p>
-            <input type="text" id="verify-code" placeholder="Enter Code (e.g. 1234)">
-            <button onclick="verifyAndSave()">Verify & Register</button>
-        </div>
-
-        <!-- Login Section (Hidden by default) -->
-        <div id="login-form" class="form-box hidden">
-            <h2>Welcome Back</h2>
-            <input type="email" id="login-email" placeholder="Email Address">
-            <div style="position: relative;">
-                <input type="password" id="login-password" placeholder="Password">
-                <span onclick="togglePassword('login-password')" class="eye-icon">👁️</span>
-            </div>
-            <button onclick="login()">Login</button>
-            <p class="toggle">Need an account? <a href="/signin/sing.html"><span>Sign Up</span></a></p>
         </div>
     </div>
     <script src="/creataccount/signin.js"></script>

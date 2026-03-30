@@ -23,10 +23,29 @@
                 <ul class="nav flex-column">
                     <li class="nav-item mb-3"><a href="/HomePage/index.html" class="nav-link text-white">
                             <i class="fas fa-home"></i> Home</a></li>
+                            <div id="admin-sidebar-tools">
                     <li class="nav-item mb-3"><a onclick="showSection ('procurement')"
                             href="/procurment/procurment.html" class="nav-link text-white"><i
                                 class="fas fa-truck me-2"></i>
                             Procurement</a></li>
+                            <li class="nav-item mb-3">
+                                <a href="/product/addProduct.html" class="nav-link text-white ">
+                            
+                                    <i class="fas fa-box"></i>
+                                    <span>Add Product</span>
+                            
+                            </li>
+                            <li class="nav-item mb-3">
+                                <a href="/report/report.html" class="nav-link text-white">
+                            
+                            
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>View Reports</span>
+                            
+                                </a>
+                            </li>
+                            </div>
+
                     <li class="nav-item mb-3"><a href="/sales/sales.html" class="nav-link text-white"><i
                                 class="fas fa-file-invoice-dollar me-2"></i> Credit Sales</a></li>
                     <li class="nav-itemnmb-3">
@@ -39,13 +58,7 @@
 
                         </a>
                     </li>
-                    <li class="nav-item mb-3">
-                        <a href="/product/addProduct.html" class="nav-link text-white ">
-
-                            <i class="fas fa-box"></i>
-                            <span>Add Product</span>
-
-                    </li>
+                    
                     <li class="nav-item mb-3">
                         <a href="/customer/customer.html" class="nav-link text-white">
 
@@ -64,15 +77,7 @@
 
                         </a>
                     </li>
-                    <li class="nav-item mb-3">
-                        <a href="/report/report.html" class="nav-link text-white">
-
-
-                            <i class="fas fa-chart-bar"></i>    
-                            <span>View Reports</span>
-
-                        </a>
-
+                   
                     </li>
                   
                     <li>
@@ -88,14 +93,19 @@
             <!-- Main Content: Displaying Results -->
             <main class="col main-content">
                 <header class="d-flex justify-content-between align-items-center mb-4">
-                    <h2>Director Overview:</h2>
-                    <img width="80" src="/img/2.png" class="rounded-circle" alt="Admin Profile">
+                    <div>
+                        <h2 id="welcome-title">Director Overview</h2>
+                        <!-- This ID below is where the Name will appear -->
+                        <p id="user-greeting" class="text-muted">Welcome, Rushdi Mustafa Yousif Adam</p>
+                    </div>
+                    <img width="80" src="/img/2.png" class="rounded-circle border shadow-sm" alt="Admin Profile">
                 </header>
 
 
 
                 <!-- Aggregated Totals (Requirement [2]) -->
-                <div class="row g-4 mb-5">
+                <div class="row g-4 mb-5" id="admin-stats-grid">
+
                     <div class="col-md-4">
                         <div class="card stat-card bg-primary text-white p-3 shadow-sm">
                             <div class="d-flex justify-content-between">
@@ -322,19 +332,20 @@
                         </div>
                     </section>
                 </div>
-                <script src="dashborad.js">
-
-
-
-
-                </script>
-
+                
 
 
         </div>
         </main>
     </div>
     </div>
+    <script src="dashborad.js">
+
+
+
+
+    </script>
+
     <script src="script.js"></script>
 </body>
 

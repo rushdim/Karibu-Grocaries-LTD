@@ -1,10 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config();
 
 const app = express();
 
@@ -28,20 +26,12 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
-const Product = require('./backend/models/product'); 
-
-// --- EMAIL CONFIG ---
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'karibugroceries@gmail.com',
-        pass: process.env.EMAIL_PASS // Use App Password from .env
-    }
-});
+// Ensure the product model exists in your folder structure
+const Product = require('./models/product'); 
 
 // --- AUTH ROUTES ---
 
-// Registration
+// 1. Registration (Using Brevo API)
 app.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
     const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
@@ -51,94 +41,107 @@ app.post('/register', async (req, res) => {
     }
 
     try {
-        // PREVENT OVERWRITING VERIFIED USERS
-        const existingUser = await User.findOne({ email });
-        if (existingUser && existingUser.isVerified) {
-            return res.status(400).json({ message: "Email already registered. Please login." });
-        }
-
         const hashedPassword = await bcrypt.hash(password, 10);
         const code = Math.floor(1000 + Math.random() * 9000).toString();
 
+        // Save/Update User in MongoDB
         await User.findOneAndUpdate(
-            { email }, 
-            { name, email, password: hashedPassword, verificationCode: code, isVerified: false },
+            { email: email.toLowerCase() }, 
+            { name, email: email.toLowerCase(), password: hashedPassword, verificationCode: code, isVerified: false },
             { upsert: true, new: true }
         );
 
-        await transporter.sendMail({
-            from: '"Karibu Groceries" <karibugroceries@gmail.com>',
-            to: email,
-            subject: 'Verify Your Karibu Account',
-            text: `Welcome ${name}! Your verification code is: ${code}`
+        // Send Email via Brevo API
+        const response = await fetch('https://brevo.com', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: "Karibu Groceries", email: "karibugroceries@gmail.com" },
+                to: [{ email: email, name: name }],
+                subject: "Verify Your Karibu Account",
+                htmlContent: `
+                    <div style="font-family: Arial; border: 1px solid #eee; padding: 20px; border-radius: 10px; max-width: 500px;">
+                        <h2 style="color: #2ecc71;">Welcome to Karibu Groceries!</h2>
+                        <p>Hello <strong>${name}</strong>,</p>
+                        <p>Your verification code is:</p>
+                        <div style="background: #f4f4f4; padding: 15px; text-align: center; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333;">
+                            ${code}
+                        </div>
+                        <p style="margin-top: 20px;">Enter this code on the website to activate your account.</p>
+                    </div>
+                `
+            })
         });
 
-        res.status(200).json({ message: "Verification code sent!" });
+        if (response.ok) {
+            console.log(`Verification code ${code} sent to ${email} ✅`);
+            res.status(200).json({ message: "Verification code sent! Check your inbox." });
+        } else {
+            const errorBody = await response.text();
+            console.error("Brevo API Error:", errorBody);
+            res.status(500).json({ message: "User saved, but email failed to send." });
+        }
+
     } catch (error) {
-        console.error("Reg Error:", error);
-        res.status(500).json({ message: "Error processing registration." });
+        console.error("Registration Error:", error);
+        res.status(500).json({ message: "Server error during registration." });
     }
 });
 
-// Verification
+// 2. Verification
 app.post('/verify', async (req, res) => {
     const { email, code } = req.body;
     try {
-        const user = await User.findOne({ email, verificationCode: code });
-
+        const user = await User.findOne({ email: email.toLowerCase(), verificationCode: code });
         if (user) {
             user.isVerified = true;
             user.verificationCode = null;
             await user.save();
-            res.status(200).json({ message: "Account verified successfully!" });
+            res.status(200).json({ success: true, message: "Verified! You can now log in." });
         } else {
-            res.status(400).json({ message: "Invalid or expired verification code." });
+            res.status(400).json({ message: "Invalid or expired code." });
         }
     } catch (err) {
         res.status(500).json({ message: "Verification error." });
     }
 });
 
-// Login
+// 3. Login (Includes Admin Role Check)
 app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         
-        if (!user) {
-            return res.status(401).json({ success: false, message: "User not found." });
-        }
-
-        if (!user.isVerified) {
-            return res.status(401).json({ success: false, message: "Please verify your email first." });
+        if (!user || !user.isVerified) {
+            return res.status(401).json({ message: "User not found or not verified." });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            res.json({ success: true, user: { name: user.name, email: user.email, role: "User" } });
+            // Define Admin Status
+            const isAdmin = (user.email === "karibugroceries@gmail.com");
+            
+            res.json({ 
+                success: true, 
+                user: { 
+                    name: isAdmin ? "Rushdi Mustafa Yousif Adam" : user.name, 
+                    email: user.email,
+                    role: isAdmin ? "admin" : "user"
+                } 
+            });
         } else {
-            res.status(401).json({ success: false, message: "Invalid password." });
+            res.status(401).json({ message: "Invalid password." });
         }
     } catch (error) {
-        res.status(500).json({ success: false, message: "Server error" });
+        res.status(500).json({ message: "Server error" });
     }
 });
 
 // --- PRODUCT ROUTES ---
-
-app.post('/api/products', async (req, res) => {
-    try {
-        const { name, price } = req.body;
-        const existing = await Product.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
-        if (existing) return res.status(409).json({ message: "Product already exists" });
-
-        const newProduct = new Product({ name, price });
-        await newProduct.save();
-        res.status(201).json(newProduct);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
 
 app.get('/api/products', async (req, res) => {
     try {
@@ -149,18 +152,18 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-app.delete('/api/products/:id', async (req, res) => {
+app.post('/api/products', async (req, res) => {
     try {
-        await Product.findByIdAndDelete(req.params.id);
-        res.json({ message: "Product deleted successfully" });
+        const newProduct = new Product(req.body);
+        await newProduct.save();
+        res.status(201).json(newProduct);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-app.get('/', (req, res) => {
-    res.send("<h1>Karibu Groceries Backend is Live!</h1>");
-});
+// --- SERVER STATUS ---
+app.get('/', (req, res) => res.send("Karibu Groceries API is Running... 🚀"));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT} 🚀`));
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));

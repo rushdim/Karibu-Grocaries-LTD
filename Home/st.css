@@ -57,6 +57,16 @@ body {
     font-weight: bold;
     border: 1px solid #ddd;
 }
+/* Add this inside your <style> block in the <head> */
+.admin-only { 
+    display: block; /* Shown by default */
+}
+
+/* If the JS adds a 'hidden' class, it disappears */
+.hidden { 
+    display: none !important; 
+}
+
 
 /* Border colors for buttons [1] */
 .green-border { border-color: #4caf50; color: #4caf50; }
