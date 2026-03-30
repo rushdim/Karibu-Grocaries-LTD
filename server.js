@@ -51,13 +51,12 @@ app.post('/register', async (req, res) => {
             { upsert: true, new: true }
         );
 
-        // Send Email via Brevo API
-     const response = await fetch('https://brevo.com', {
-
+        // --- FIXED BREVO API CALL ---
+        const response = await fetch('https://brevo.com', { // FIXED URL
             method: 'POST',
             headers: {
                 'accept': 'application/json',
-                'api-key': process.env.BREVO_API_KEY,
+                'api-key': process.env.BREVO_API_KEY, // Key must be in Railway Variables
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
@@ -66,7 +65,7 @@ app.post('/register', async (req, res) => {
                 subject: "Verify Your Karibu Account",
                 htmlContent: `
                     <div style="font-family: Arial; border: 1px solid #eee; padding: 20px; border-radius: 10px; max-width: 500px;">
-                        <h2 style="color: #2ecc71;">Welcome to Karibu Groceries Online Marketing!</h2>
+                        <h2 style="color: #2ecc71;">Welcome to Karibu Groceries!</h2>
                         <p>Hello <strong>${name}</strong>,</p>
                         <p>Your verification code is:</p>
                         <div style="background: #f4f4f4; padding: 15px; text-align: center; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333;">
@@ -123,9 +122,7 @@ app.post("/api/login", async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            // Define Admin Status
             const isAdmin = (user.email === "karibugroceries@gmail.com");
-            
             res.json({ 
                 success: true, 
                 user: { 
@@ -143,7 +140,6 @@ app.post("/api/login", async (req, res) => {
 });
 
 // --- PRODUCT ROUTES ---
-
 app.get('/api/products', async (req, res) => {
     try {
         const products = await Product.find().sort({ createdAt: -1 });
