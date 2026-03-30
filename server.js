@@ -52,7 +52,8 @@ app.post('/register', async (req, res) => {
         );
 
         // Send Email via Brevo API
-        const response = await fetch('https://brevo.com', {
+     const response = await fetch('https://brevo.com', {
+
             method: 'POST',
             headers: {
                 'accept': 'application/json',
