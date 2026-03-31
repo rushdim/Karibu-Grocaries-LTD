@@ -68,7 +68,7 @@ document.getElementById('loginForm').onsubmit = async (e) => {
 
             // 3. Redirect to Dashboard
             setTimeout(() => {
-                window.location.href = "dashboard.html"; 
+                window.location.href = "/Dashboard/dashboard.html"; 
             }, 1500);
 
         } else {

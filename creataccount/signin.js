@@ -34,7 +34,7 @@ async function login() {
     }
 }
 
-// 2. REGISTRATION (SEND CODE)
+// 2. REGISTRATION (DIRECT REDIRECT)
 async function sendVerification() {
     const name = document.getElementById('reg-name').value;
     const email = document.getElementById('reg-email').value;
@@ -50,7 +50,7 @@ async function sendVerification() {
     }
 
     if (!validatePassword(password)) {
-        return showStatus("Password must be 8+ chars, with a number and symbol (!@#).", "error");
+        return showStatus("Password must be 8+ chars, with a number and symbol.", "error");
     }
 
     try {
@@ -60,45 +60,21 @@ async function sendVerification() {
             body: JSON.stringify({ name, email, password })
         });
 
-        if (response.ok) {
-            showStatus(`Code sent to ${email}!`, "success");
-            document.getElementById('register-form').classList.add('hidden');
-            document.getElementById('verify-section').classList.remove('hidden');
-            localStorage.setItem('pendingEmail', email);
-        } else {
-            const errorText = await response.text();
-            showStatus(errorText || "Registration failed", "error");
-        }
-    } catch (err) {
-        showStatus("Server error. Try again later.", "error");
-    }
-}
-
-// 3. VERIFY CODE & SAVE
-async function verifyAndSave() {
-    const code = document.getElementById('verify-code').value;
-    const email = localStorage.getItem('pendingEmail');
-
-    if (!code) return showStatus("Please enter the code.", "error");
-
-    try {
-        const response = await fetch(`${API_URL}/verify`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, code })
-        });
+        const data = await response.json();
 
         if (response.ok) {
-            showStatus("Account Verified! Redirecting...", "success");
+            showStatus("Registration successful! Redirecting to login...", "success");
+            
+            // Go straight to login page after 2 seconds
             setTimeout(() => {
                 window.location.href = "login.html"; 
             }, 2000);
         } else {
-            const errorMsg = await response.text();
-            showStatus(errorMsg || "Invalid Code. Try again.", "error");
+            showStatus(data.message || "Registration failed", "error");
         }
     } catch (err) {
-        showStatus("Connection error.", "error");
+        console.error("Reg Error:", err);
+        showStatus("Server error. Try again later.", "error");
     }
 }
 
@@ -119,6 +95,8 @@ function checkStrength() {
     const bar = document.getElementById('strength-bar');
     const text = document.getElementById('strength-text');
     
+    if (!bar || !text) return;
+
     let strength = 0;
     if (password.length >= 8) strength++;
     if (/[A-Z]/.test(password)) strength++;
@@ -127,8 +105,6 @@ function checkStrength() {
 
     const colors = ["#ff4d4d", "#ffa500", "#ffff00", "#2ecc71"];
     const labels = ["Weak", "Fair", "Good", "Strong"];
-
-    if (!bar || !text) return; // Guard clause
 
     if (password.length === 0) {
         bar.style.width = "0%";
