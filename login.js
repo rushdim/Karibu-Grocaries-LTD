@@ -68,8 +68,16 @@ document.getElementById('loginForm').onsubmit = async (e) => {
 
             // 3. Redirect to Dashboard
             setTimeout(() => {
-                window.location.href = "/Dashboard/dashboard.html"; 
+               if (userSession.role === "admin") {
+                    // Admin goes to the Dashboard folder
+                    window.location.href = "../Dashboard/dashboard.html"; 
+                } else {
+                    // Normal user goes to the main website home page
+                    // Adjust this path if your index.html is in a different folder
+                    window.location.href = "../HomePage/index.html"; 
+                }
             }, 1500);
+
 
         } else {
             showToast(data.message || "Invalid credentials.", "error");

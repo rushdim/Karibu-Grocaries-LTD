@@ -67,7 +67,7 @@ async function sendVerification() {
             
             // Go straight to login page after 2 seconds
             setTimeout(() => {
-                window.location.href = "login.html"; 
+                window.location.href = "../login.html"; 
             }, 2000);
         } else {
             showStatus(data.message || "Registration failed", "error");
