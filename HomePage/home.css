@@ -1,230 +1,171 @@
-/* Grundstil: Natur-Farben für Farmer-Webseite */
+/* 1. BASE STYLES */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  background-color: #f0f4f0; /* Helles Natur-Grau/Grün */
+  background-color: #f0f4f0;
   color: #2d3436;
 }
 
-/* Navbar: Dunkles Waldgrün */
+/* 2. NAVBAR (Always at the top) */
 .navbar {
   background-color: #1b4d3e; 
   color: white;
   display: flex;
   align-items: center;
-  padding: 12px 5%;
+  padding: 10px 5%;
   justify-content: space-between;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
-  z-index: 1000;
-}
-
-/* Links & Sidebar Icons */
-.nav-links a, .sidebar ul li a, .card a {
-  text-decoration: none !important;
-  color: inherit;
+  z-index: 1001; /* Higher than sidebar */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .search-container {
   flex-grow: 1;
-  margin: 0 40px;
+  margin: 0 20px;
   display: flex;
 }
 
 #search-bar {
   width: 100%;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 25px 0 0 25px;
   border: 1px solid #ddd;
   outline: none;
 }
 
 #search-btn {
-  background-color: #8db600; /* Apfelgrün */
+  background-color: #8db600;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 20px;
   border-radius: 0 25px 25px 0;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-#search-btn:hover {
-  background-color: #769a00;
-}
-
-/* --- Dashboard Layout Fix --- */
-.container {
-  display: flex;
-  flex-direction: row; /* Forces Sidebar and Grid to be side-by-side */
-  align-items: flex-start;
-  gap: 30px;
-  padding: 30px 5%;
-  max-width: 1600px;
-  margin: 0 auto;
-}
-
-/* Sidebar Styling */
-.sidebar {
-  width: 260px;
-  flex-shrink: 0; /* Prevents sidebar from squishing */
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  height: fit-content;
-  position: sticky;
-  top: 100px;
-}
-
-.sidebar h3 {
-  font-size: 1.2rem;
-  color: #1b4d3e;
-  border-bottom: 2px solid #8db600;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-}
-
-.sidebar ul {
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin: 18px 0;
-  list-style: none;
-  font-weight: 500;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.sidebar ul li:hover {
-  color: #8db600;
-  transform: translateX(8px);
-}
-
-/* --- Product Grid Fix (The "Narrow Strip" Killer) --- */
-#productGrid {
-  flex-grow: 1; /* Takes up all remaining space on the right */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* Responsive columns */
-  gap: 25px;
-  width: 100%;
-}
-/* 1. Tell the container to be a row (Sidebar on left, Products on right) */
+/* 3. LAYOUT (Sidebar Left, Content Right) */
 .container {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start;
     max-width: 100% !important;
+    gap: 30px;
+    padding: 20px;
+    margin: 0;
+}
+
+/* 4. FIXED SIDEBAR */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 80px; /* Sits below Navbar */
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.sidebar ul {
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  text-decoration: none;
+  color: #1b4d3e;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #8db600;
+  transform: translateX(5px);
+}
+
+/* 5. MAIN PRODUCT AREA (Right Side) */
+.main-content {
+    flex-grow: 1;
+    min-width: 300px;
+}
+
+#productGrid {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
-/* 2. Fix the sidebar width so it doesn't squash */
-.sidebar {
-    width: 250px !important;
-    flex-shrink: 0; /* Important: prevents sidebar from getting smaller */
-}
-
-/* 3. Tell the product grid to fill all remaining space */
-#productGrid {
-    flex-grow: 1; /* Takes the rest of the screen */
-    display: flex;
-    flex-wrap: wrap; /* Allows cards to move to the next line */
-    width: 100%;
-}
-
-/* 4. Force EVERY card to be a specific width (Like Bootstrap col-md-3) */
-.product-item {
-    width: calc(25% - 20px); /* 4 cards per row */
-    min-width: 230px; /* This stops the "narrow strip" bug */
-    margin-bottom: 20px;
-}
-
-
-/* Card Styling */
-.product-item .card, .card {
-  background: white;
+/* 6. PRODUCT CARDS */
+.product-item .card {
   border: none;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   overflow: hidden;
-  height: 100%;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .product-item .card:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
-  transform: translateY(-8px);
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* Image Handling (Auto-Images) */
 .produce-img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-bottom: 1px solid #f0f0f0;
-  background-color: #eaedea; /* Fallback color while loading */
+  border-radius: 8px 8px 0 0;
 }
 
-/* Price & Text Styling */
-h6 {
-  font-size: 1.15rem;
-  margin: 15px 0 5px 0;
-  color: #1b4d3e;
-  font-weight: 700;
-  padding: 0 15px;
-}
-
-.text-muted {
-  font-size: 1rem;
-  color: #b12704 !important; /* Farmer Red for Price */
-  font-weight: 800;
-  padding: 0 15px 15px 15px;
-}
-
-/* Add to Basket Button */
 .btn-primary {
   background-color: #8db600 !important;
   border: none !important;
-  border-radius: 0 0 15px 15px !important; /* Rounded only at bottom */
-  padding: 12px !important;
-  font-weight: bold;
-  color: white !important;
-  transition: 0.3s !important;
   width: 100%;
+  padding: 10px;
+  font-weight: bold;
 }
 
-.btn-primary:hover {
-  background-color: #1b4d3e !important;
-}
+/* 7. RESPONSIVE MOBILE BREAKPOINTS */
 
-/* Hero Section */
-#hero {
-  grid-column: 1 / -1; /* Makes hero span full width of the grid if placed inside */
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com');
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 80px 40px;
-  border-radius: 20px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-/* Responsive Fix for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .container {
-    flex-direction: column;
+    flex-direction: column !important; /* Stack Sidebar above products */
   }
+
   .sidebar {
-    width: 100%;
-    position: static;
+    width: 100% !important;
+    position: static; /* Stop being fixed */
+    height: auto;
+    padding: 15px;
   }
+
+  /* Make sidebar links a horizontal swiping menu on mobile */
+  .sidebar ul {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar ul li {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
   .search-container {
-    margin: 0 10px;
+    width: 100%;
+    margin-top: 10px;
   }
 }
