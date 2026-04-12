@@ -158,88 +158,12 @@ body {
   }
 }
 
-/* --- HEADER: Logo & Search Horizontal --- */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #1b4d3e;
-    padding: 10px 2%;
-}
-
-.nav-content {
-    display: flex;
-    align-items: center; /* Vertically centers logo and search */
-    justify-content: space-between;
-    width: 100%;
-    gap: 15px;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* Prevents logo from squishing */
-}
-
-.nav-logo {
-    width: 40px; /* Small size for consistency */
-    height: auto;
-}
-
-.search-container {
-    display: flex;
-    flex-grow: 1; /* Search bar takes remaining space */
-    max-width: 600px;
-}
-
-/* --- LAYOUT: Fixed Sidebar & Content --- */
-.container {
-    display: flex !important;
-    flex-direction: row !important;
-    max-width: 100% !important;
-    align-items: flex-start;
-    padding: 0;
-}
-
-.sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 60px; /* Sits exactly below the navbar */
-    height: calc(100vh - 60px);
-    overflow-y: auto;
-    background: white;
-    z-index: 999;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-}
-
-/* --- MOBILE OPTIMIZATION --- */
-@media (max-width: 768px) {
-    /* Logo text hidden on tiny phones to save space for search */
-    .logo-text {
-        display: none;
-    }
-
-    .sidebar {
-        width: 60px; /* Collapses to icon-only on mobile */
-    }
-    
-    .sidebar span {
-        display: none; /* Hide link text on mobile icons */
-    }
-}
-
 
 @media (max-width: 576px) {
   .navbar {
     flex-direction: column;
     padding: 15px;
-  }
+  
   
   .search-container {
     width: 100%;
