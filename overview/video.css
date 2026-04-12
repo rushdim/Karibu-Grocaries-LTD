@@ -1,0 +1,28 @@
+/* Prevent the whole page from scrolling */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;      /* Exactly 100% of screen height */
+    width: 100vw;       /* Exactly 100% of screen width */
+    overflow: hidden;   /* Disables all scrolling */
+    background-color: #000; /* Professional black background for video */
+}
+
+/* Center the video wrapper in the dead center of the screen */
+.video-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+video {
+    /* Responsive sizing that fits the screen height OR width */
+    max-width: 90%;     /* Prevents hitting the sides */
+    max-height: 80vh;   /* Prevents hitting the top/bottom */
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
