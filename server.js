@@ -118,7 +118,7 @@ app.post("/api/products", async (req, res) => {
 });
 
 // --- SERVER STATUS ---
-app.get("/", (req, res) => res.send("Karibu Groceries API is Running... 🚀"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () =>
