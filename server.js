@@ -1,10 +1,4 @@
-// --- MIDDLEWARE ---
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
-// ADD THIS LINE:
-app.use(express.static(__dirname)); 
 
 
 const express = require("express");
@@ -16,10 +10,16 @@ require("dotenv").config();
 const app = express();
 
 // --- MIDDLEWARE ---
+
+
+
+// ADD THIS LINE:
+ 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
+app.use(express.static(__dirname));
 // --- DATABASE CONNECTION ---
 mongoose
   .connect(process.env.MONGO_URI)
