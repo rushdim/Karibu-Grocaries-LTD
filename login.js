@@ -1,4 +1,6 @@
-const API_URL = "https://karibu-grocaries-ltd-production.up.railway.app";
+// This automatically detects if you are on localhost or railway
+const API_URL = window.location.origin; 
+
 
 /* --- UTILS: TOAST NOTIFICATIONS --- */
 function showToast(message, type) {

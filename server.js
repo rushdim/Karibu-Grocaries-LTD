@@ -40,7 +40,7 @@ const Product = require("./models/product");
 // --- AUTH ROUTES ---
 
 // 1. Registration (Auto-Verified)
-app.post("/register", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { name, email, password } = req.body;
   const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
