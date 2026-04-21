@@ -21,10 +21,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(__dirname));
 // --- DATABASE CONNECTION ---
-mongoose
-  .connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB ✅"))
-  .catch((err) => console.error("MongoDB Connection error:", err));
+  .catch((err) => {
+    console.error("CRITICAL CONNECTION ERROR ❌:", err.message);
+    // This will tell us if it's an "Authentication Failed" or "Connection Timeout"
+  });
+
 
 // --- MODELS ---
 const userSchema = new mongoose.Schema({
@@ -38,73 +41,59 @@ const User = mongoose.model("User", userSchema);
 const Product = require("./models/product");
 
 // --- AUTH ROUTES ---
+// --- AUTH ROUTES ---
 
-// 1. Registration (Auto-Verified)
-app.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-  const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+// 1. Registration (Change this path from /api/login to /api/register)
+app.post("/api/register", async (req, res) => {
+    const { name, email, password } = req.body;
+    const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    
+    if (!pwRegex.test(password)) {
+        return res.status(400).json({ message: "Password must be 8+ chars with a number and symbol." });
+    }
 
-  if (!pwRegex.test(password)) {
-    return res.status(400).json({ 
-      message: "Password must be 8+ chars with a number and symbol." 
-    });
-  }
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create or Update User - Set isVerified to true immediately
-    await User.findOneAndUpdate(
-      { email: email.toLowerCase() },
-      {
-        name,
-        email: email.toLowerCase(),
-        password: hashedPassword,
-        isVerified: true, 
-      },
-      { upsert: true, new: true }
-    );
-
-    console.log(`User ${email} registered successfully ✅`);
-    res.status(200).json({ message: "Registration successful! You can now log in." });
-
-  } catch (error) {
-    console.error("Registration Error:", error);
-    res.status(500).json({ message: "Server error during registration." });
-  }
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.findOneAndUpdate(
+            { email: email.toLowerCase() },
+            { name, email: email.toLowerCase(), password: hashedPassword, isVerified: true },
+            { upsert: true, new: true }
+        );
+        res.status(200).json({ message: "Registration successful! You can now log in." });
+    } catch (error) {
+        console.error("Registration Error:", error);
+        res.status(500).json({ message: "Server error during registration." });
+    }
 });
 
-// 2. Login (Includes Admin Role Check)
+// 2. Login (Keep this as /api/login)
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email: email.toLowerCase() });
-
-    if (!user) {
-      return res.status(401).json({ message: "User not found." });
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email: email.toLowerCase() });
+        if (!user) {
+            return res.status(401).json({ message: "User not found." });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+            const isAdmin = user.email === "karibugroceries@gmail.com";
+            res.json({
+                success: true,
+                user: {
+                    name: isAdmin ? "Rushdi Mustafa Yousif Adam" : user.name,
+                    email: user.email,
+                    role: isAdmin ? "admin" : "user",
+                },
+            });
+        } else {
+            res.status(401).json({ message: "Invalid password." });
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+        res.status(500).json({ message: "Server error during login." });
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      // Admin Check: Only this specific email gets admin rights
-      const isAdmin = user.email === "karibugroceries@gmail.com";
-      
-      res.json({
-        success: true,
-        user: {
-          name: isAdmin ? "Rushdi Mustafa Yousif Adam" : user.name,
-          email: user.email,
-          role: isAdmin ? "admin" : "user",
-        },
-      });
-    } else {
-      res.status(401).json({ message: "Invalid password." });
-    }
-  } catch (error) {
-    console.error("Login Error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
 });
+
 
 // --- PRODUCT ROUTES ---
 app.get("/api/products", async (req, res) => {
