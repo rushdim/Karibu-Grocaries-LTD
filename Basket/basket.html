@@ -11,22 +11,51 @@
     <div class="main-container">
         <!-- Top Banner Section -->
         <section class="basket-banner">
-           
             <div class="content">
-                <h1>Your Karibu Basket is empty</h1>
-                
-                <div class="button-group">
-                    <button class="btn btn-primary">
-                        <a href="/login.html" style="text-decoration: none;">Sign in to your account
-                            </a>
-                        </button>
-                    <button class="btn btn-secondary">
-                        <a href="/creataccount/signin.html" style="text-decoration: none;">Sign up now
-                            </a>
-                        </button>
+                <!-- Auth Section: Shown only if NOT logged in -->
+                <div id="auth-prompt">
+                    <h1>Your Karibu Basket is empty</h1>
+                    <div class="button-group">
+                        <button class="btn btn-primary"><a href="/login.html">Sign in</a></button>
+                        <button class="btn btn-secondary"><a href="/creataccount/signin.html">Sign up</a></button>
+                    </div>
+                </div>
+        
+                <!-- Checkout Section: Shown only if logged in -->
+                <div id="checkout-section" style="display: none;">
+                    <h1>Complete Your Purchase</h1>
+        
+                    <div class="payment-methods">
+                        <h3>Select Payment Method</h3>
+        
+                        <!-- Uganda Payment -->
+                        <div class="method-card">
+                            <label>
+                                <input type="radio" name="payment" value="uganda">
+                                🇺🇬 Mobile Money (MTN/Airtel)
+                            </label>
+                            <div id="uganda-details" class="payment-input" style="display: none;">
+                                <input type="text" placeholder="Phone Number (e.g. 077...)" class="form-control">
+                            </div>
+                        </div>
+        
+                        <!-- Sudan Payment -->
+                        <div class="method-card">
+                            <label>
+                                <input type="radio" name="payment" value="sudan">
+                                🇸🇩 Sudan Bank (BOK/Fawry)
+                            </label>
+                            <div id="sudan-details" class="payment-input" style="display: none;">
+                                <input type="text" placeholder="Account Number / Card Number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <button id="pay-btn" class="btn btn-success">Pay Now</button>
                 </div>
             </div>
         </section>
+
 
         
         
