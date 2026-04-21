@@ -1,3 +1,12 @@
+// --- MIDDLEWARE ---
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+// ADD THIS LINE:
+app.use(express.static(__dirname)); 
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
