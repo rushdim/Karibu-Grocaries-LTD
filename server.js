@@ -67,30 +67,32 @@ app.post("/api/register", async (req, res) => {
 });
 
 // 2. Login (Keep this as /api/login)
-app.post("/api/login", async (req, res) => {
-    const { email, password } = req.body;
+app.post("/api/login", (req, res) => {
     try {
-        const user = await User.findOne({ email: email.toLowerCase() });
-        if (!user) {
-            return res.status(401).json({ message: "User not found." });
+        const { email, password } = req.body;
+
+        // Validate input
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
         }
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (isMatch) {
-            const isAdmin = user.email === "karibugroceries@gmail.com";
-            res.json({
-                success: true,
+
+        // Example login check
+        if (email === "karibugroceries@gmail.com" && password === "Rushdi@1234") {
+            return res.status(200).json({
+                message: "Login successful",
                 user: {
-                    name: isAdmin ? "Rushdi Mustafa Yousif Adam" : user.name,
-                    email: user.email,
-                    role: isAdmin ? "admin" : "user",
-                },
+                    name: "Rushdi Mustafa Yousif Adam",
+                    email: email
+                }
             });
-        } else {
-            res.status(401).json({ message: "Invalid password." });
         }
+
+        // Invalid login
+        return res.status(401).json({ message: "Invalid credentials" });
+
     } catch (error) {
-        console.error("Login Error:", error);
-        res.status(500).json({ message: "Server error during login." });
+        console.error("SERVER ERROR:", error);
+        return res.status(500).json({ message: "Server error" });
     }
 });
 

@@ -1,5 +1,5 @@
 // This automatically detects if you are on localhost or railway
-const API_URL = window.location.origin; 
+const API_URL = "https://karibu-grocaries-ltd-production-7a76.up.railway.app";
 
 
 /* --- UTILS: TOAST NOTIFICATIONS --- */
@@ -51,7 +51,15 @@ document.getElementById('loginForm').onsubmit = async (e) => {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await response.json();
+       let data;
+
+try {
+    data = await response.json();
+} catch (err) {
+    console.error("Invalid JSON from server");
+    showToast("Server returned invalid response", "error");
+    return;
+}
 
         if (response.ok) {
             // 1. Identify if this is Rushdi (Admin)
