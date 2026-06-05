@@ -18,6 +18,20 @@ function showToast(message, type) {
     }, 3000);
 }
 
+
+const isAdmin = (email === "karibugroceries@gmail.com");
+const userSession = {
+  name: data.user.name,
+  email: email,
+  role: isAdmin ? "admin" : "customer"
+};
+localStorage.setItem('userSession', JSON.stringify(userSession));
+
+if (isAdmin) {
+  window.location.href = "../Dashboard/dashboard.html";
+} else {
+  window.location.href = "../index.html";
+}
 /* --- LOGIC: PASSWORD TOGGLE --- */
 const toggleBtn = document.querySelector('#togglePassword');
 const passField = document.querySelector('#adminPass');
