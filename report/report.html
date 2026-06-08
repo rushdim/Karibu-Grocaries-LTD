@@ -1,24 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports</title>
-    <link rel="stylesheet" href="report.css">
+    <title>Reports — Karibu Groceries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+        }
+
+        .card-stat {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar {
+            background: #1a2035;
+            min-height: 100vh;
+            padding: 20px 0;
+            position: fixed;
+            width: 240px;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 3px solid #2d9e5f;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        @media(max-width:768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div id="viewReportsPage" class="page">
-        <h2 style="color: var(--navy);">System Reports</h2>
-        <div style="display: flex; gap: 10px;">
-            <div
-                style="flex: 1; height: 100px; background: #eee; display: flex; align-items: center; justify-content: center;">
-                Sales Report Chart</div>
-            <div
-                style="flex: 1; height: 100px; background: #eee; display: flex; align-items: center; justify-content: center;">
-                Inventory Report Chart</div>
+
+    <nav class="sidebar">
+        <div style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;">
+            <img src="/img/2.png" alt="logo" style="height: 40px; margin-bottom: 8px;">
+            <h5 style="color: white; margin: 0; font-size: 16px;">Karibu Admin</h5>
+        </div>
+        <a href="/Dashboard/dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a href="/report/report.html" class="sidebar-link active"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="/all Products/product.html" class="sidebar-link"><i class="fas fa-box"></i> Products</a>
+        <a href="/invoic/invoice.html" class="sidebar-link"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="/settings/settings.html" class="sidebar-link"><i class="fas fa-cog"></i> Settings</a>
+        <a href="/login.html" class="sidebar-link" style="color: #ff6b6b;"><i class="fas fa-sign-out-alt"></i>
+            Logout</a>
+    </nav>
+
+    <div class="main">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <h3 style="color: #1a2035;">📊 Sales Reports</h3>
+                <p style="color: #999; font-size: 13px;">Admin access only</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="filterReport('today')" class="btn btn-sm"
+                    style="background: #1a6b3c; color: white; border-radius: 20px;">Today</button>
+                <button onclick="filterReport('week')" class="btn btn-sm"
+                    style="background: #2196F3; color: white; border-radius: 20px;">This Week</button>
+                <button onclick="filterReport('all')" class="btn btn-sm"
+                    style="background: #9c27b0; color: white; border-radius: 20px;">All Time</button>
+                <button onclick="exportCSV()" class="btn btn-sm"
+                    style="background: #ff9800; color: white; border-radius: 20px;"><i class="fas fa-download"></i>
+                    Export</button>
+            </div>
+        </div>
+
+        <!-- SUMMARY STATS -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="card-stat text-center">
+                    <i class="fas fa-money-bill-wave" style="color: #1a6b3c; font-size: 28px; margin-bottom: 10px;"></i>
+                    <h4 id="reportRevenue" style="color: #1a2035;">0</h4>
+                    <p style="color: #999; font-size: 12px;">Total Revenue (UGX)</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card-stat text-center">
+                    <i class="fas fa-shopping-bag" style="color: #2196F3; font-size: 28px; margin-bottom: 10px;"></i>
+                    <h4 id="reportOrders" style="color: #1a2035;">0</h4>
+                    <p style="color: #999; font-size: 12px;">Total Orders</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card-stat text-center">
+                    <i class="fas fa-star" style="color: #ff9800; font-size: 28px; margin-bottom: 10px;"></i>
+                    <h4 id="reportBest" style="color: #1a2035;">—</h4>
+                    <p style="color: #999; font-size: 12px;">Best Selling</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card-stat text-center">
+                    <i class="fas fa-calculator" style="color: #9c27b0; font-size: 28px; margin-bottom: 10px;"></i>
+                    <h4 id="reportAvg" style="color: #1a2035;">0</h4>
+                    <p style="color: #999; font-size: 12px;">Avg Order Value</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHARTS -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-8">
+                <div class="card-stat">
+                    <h5 style="color: #1a2035; margin-bottom: 20px;">📈 Sales Over Time</h5>
+                    <canvas id="salesChart" height="120"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-stat">
+                    <h5 style="color: #1a2035; margin-bottom: 20px;">🏆 Top Products</h5>
+                    <canvas id="productsChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- SALES TABLE -->
+        <div class="card-stat">
+            <h5 style="color: #1a2035; margin-bottom: 20px;">📋 Sales History</h5>
+            <div style="overflow-x: auto;">
+                <table class="table table-hover" style="font-size: 13px;">
+                    <thead style="background: #f5f7fa;">
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Amount (UGX)</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesTable">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999; padding: 30px;">No sales data yet
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <script src="report.js"></script>
-    
+
+    <script>
+        let allSales = JSON.parse(localStorage.getItem('karibu_sales')) || [];
+        let salesChart, productsChart;
+
+        function filterReport(period) {
+            const now = new Date();
+            let filtered = allSales;
+            if (period === 'today') {
+                filtered = allSales.filter(s => new Date(s.date).toDateString() === now.toDateString());
+            } else if (period === 'week') {
+                const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+                filtered = allSales.filter(s => new Date(s.date) >= weekAgo);
+            }
+            renderReport(filtered);
+        }
+
+        function renderReport(sales) {
+            const revenue = sales.reduce((sum, s) => sum + s.price, 0);
+            const avg = sales.length > 0 ? Math.round(revenue / sales.length) : 0;
+            const productCount = {};
+            sales.forEach(s => productCount[s.name] = (productCount[s.name] || 0) + 1);
+            const best = Object.entries(productCount).sort((a, b) => b[1] - a[1])[0];
+
+            document.getElementById('reportRevenue').textContent = revenue.toLocaleString();
+            document.getElementById('reportOrders').textContent = sales.length;
+            document.getElementById('reportBest').textContent = best ? best[0] : '—';
+            document.getElementById('reportAvg').textContent = avg.toLocaleString();
+
+            // Table
+            const tbody = document.getElementById('salesTable');
+            if (sales.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #999; padding: 30px;">No sales data</td></tr>';
+            } else {
+                tbody.innerHTML = sales.slice().reverse().map((s, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td><strong>${s.name}</strong></td>
+            <td style="color: #1a6b3c; font-weight: bold;">${s.price.toLocaleString()}</td>
+            <td>${new Date(s.date).toLocaleDateString()}</td>
+            <td>${new Date(s.date).toLocaleTimeString()}</td>
+          </tr>
+        `).join('');
+            }
+
+            // Sales chart
+            const days = {};
+            sales.forEach(s => {
+                const d = new Date(s.date).toLocaleDateString();
+                days[d] = (days[d] || 0) + s.price;
+            });
+            if (salesChart) salesChart.destroy();
+            salesChart = new Chart(document.getElementById('salesChart'), {
+                type: 'line',
+                data: {
+                    labels: Object.keys(days),
+                    datasets: [{ label: 'Revenue (UGX)', data: Object.values(days), borderColor: '#1a6b3c', backgroundColor: 'rgba(26,107,60,0.1)', tension: 0.4, fill: true }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            // Products chart
+            const top5 = Object.entries(productCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            if (productsChart) productsChart.destroy();
+            productsChart = new Chart(document.getElementById('productsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: top5.map(p => p[0]),
+                    datasets: [{ data: top5.map(p => p[1]), backgroundColor: ['#1a6b3c', '#2196F3', '#ff9800', '#9c27b0', '#f44336'] }]
+                },
+                options: { responsive: true }
+            });
+        }
+
+        function exportCSV() {
+            const rows = [['Product', 'Price (UGX)', 'Date', 'Time']];
+            allSales.forEach(s => {
+                rows.push([s.name, s.price, new Date(s.date).toLocaleDateString(), new Date(s.date).toLocaleTimeString()]);
+            });
+            const csv = rows.map(r => r.join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'karibu_sales_report.csv';
+            a.click();
+        }
+
+        filterReport('all');
+    </script>
 </body>
+
 </html>

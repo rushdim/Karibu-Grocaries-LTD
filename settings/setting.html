@@ -4,55 +4,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karibu Groceries | Admin & Shop</title>
-    <link rel="stylesheet" href="/settings/style.css">
-    <script src="https://kit.fontawesome.com" crossorigin="anonymous"></script>
+    <title>Settings — Karibu Groceries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .settings-card h5 {
+            color: #1a6b3c;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            border-color: #1a6b3c;
+            box-shadow: 0 0 0 0.2rem rgba(26, 107, 60, 0.15);
+        }
+
+        .btn-save {
+            background: #1a6b3c;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: #ddd;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.on {
+            background: #1a6b3c;
+        }
+
+        .toggle-knob {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: left 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.on .toggle-knob {
+            left: 26px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="logo">Karibu <span>Groceries</span></div>
-        <div class="user-info">Founder: Rushdi Mustafa</div>
-        <div class="cart-icon" onclick="toggleCart()">
-            🛒 <span id="cart-count">0</span>
+    <nav
+        style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="/img/2.png" alt="logo" style="height: 45px;">
+            <h3 style="color: white; margin: 0; font-size: 20px;">Settings</h3>
         </div>
+        <a href="/Dashboard/dashboard.html" style="color: white; text-decoration: none; font-size: 14px;">←
+            Dashboard</a>
     </nav>
 
-    <main class="dashboard">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <h3>Categories</h3>
-            <ul>
-                <li class="active" onclick="filterShop('all')">All Products</li>
-                <li onclick="filterShop('fresh')">Fresh Produce</li>
-                <li onclick="filterShop('pantry')">Pantry</li>
-                <li onclick="filterShop('dairy')">Dairy</li>
-            </ul>
-        </aside>
+    <div style="max-width: 800px; margin: 30px auto; padding: 0 20px;">
 
-        <!-- Product Display Area -->
-        <section class="content">
-            <div class="header-flex">
-                <h1>Marketplace</h1>
-                <p id="date-display"></p>
+        <!-- PROFILE SETTINGS -->
+        <div class="settings-card">
+            <h5><i class="fas fa-user"></i> Profile Settings</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Full Name</label>
+                    <input type="text" id="profileName" class="form-control" placeholder="Rushdi Mustafa">
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Email</label>
+                    <input type="email" id="profileEmail" class="form-control" placeholder="karibugroceries@gmail.com">
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Phone</label>
+                    <input type="tel" id="profilePhone" class="form-control" placeholder="+256 789 817 673">
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Location</label>
+                    <input type="text" id="profileLocation" class="form-control" placeholder="Kampala, Uganda">
+                </div>
+                <div class="col-12">
+                    <button class="btn-save" onclick="saveProfile()">💾 Save Profile</button>
+                </div>
             </div>
+        </div>
 
-            <div class="product-grid" id="product-list">
-                <!-- Products will be injected by JavaScript -->
+        <!-- STORE SETTINGS -->
+        <div class="settings-card">
+            <h5><i class="fas fa-store"></i> Store Settings</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Store Name</label>
+                    <input type="text" id="storeName" class="form-control" value="Karibu Groceries LTD">
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Currency</label>
+                    <select id="currency" class="form-control">
+                        <option>UGX — Ugandan Shilling</option>
+                        <option>USD — US Dollar</option>
+                        <option>KES — Kenyan Shilling</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Working Hours</label>
+                    <input type="text" id="workHours" class="form-control" value="Mon-Sat: 8am - 8pm">
+                </div>
+                <div class="col-md-6">
+                    <label style="font-weight: 600; font-size: 13px;">Delivery Area</label>
+                    <input type="text" id="deliveryArea" class="form-control" value="Kampala and surroundings">
+                </div>
+                <div class="col-12">
+                    <button class="btn-save" onclick="saveStore()">💾 Save Store Settings</button>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
 
-    <!-- Floating Cart UI -->
-    <div id="cart-sidebar" class="cart-hidden">
-        <h3>Your Basket</h3>
-        <div id="cart-items"></div>
-        <hr>
-        <button class="checkout-btn">Checkout via WhatsApp</button>
+        <!-- NOTIFICATIONS -->
+        <div class="settings-card">
+            <h5><i class="fas fa-bell"></i> Notifications</h5>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="margin: 0; font-weight: 600; font-size: 14px;">New Order Alerts</p>
+                        <small style="color: #999;">Get notified when a new order arrives</small>
+                    </div>
+                    <div class="toggle-switch on" id="toggle-orders" onclick="toggleSwitch('orders')">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="margin: 0; font-weight: 600; font-size: 14px;">Low Stock Alerts</p>
+                        <small style="color: #999;">Alert when product stock is running low</small>
+                    </div>
+                    <div class="toggle-switch" id="toggle-stock" onclick="toggleSwitch('stock')">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="margin: 0; font-weight: 600; font-size: 14px;">WhatsApp Notifications</p>
+                        <small style="color: #999;">Receive order summaries via WhatsApp</small>
+                    </div>
+                    <div class="toggle-switch on" id="toggle-whatsapp" onclick="toggleSwitch('whatsapp')">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DANGER ZONE -->
+        <div class="settings-card" style="border: 2px solid #ffebee;">
+            <h5 style="color: #d32f2f;"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h5>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button onclick="clearSales()"
+                    style="background: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+                    🗑️ Clear Sales History
+                </button>
+                <button onclick="clearBasket()"
+                    style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+                    🗑️ Clear All Basket Data
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <script src="/settings/script.js"></script>
+    <script>
+        // Load saved settings
+        window.onload = () => {
+            const profile = JSON.parse(localStorage.getItem('karibu_profile')) || {};
+            if (profile.name) document.getElementById('profileName').value = profile.name;
+            if (profile.email) document.getElementById('profileEmail').value = profile.email;
+            if (profile.phone) document.getElementById('profilePhone').value = profile.phone;
+        };
+
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById('profileName').value,
+                email: document.getElementById('profileEmail').value,
+                phone: document.getElementById('profilePhone').value,
+                location: document.getElementById('profileLocation').value
+            };
+            localStorage.setItem('karibu_profile', JSON.stringify(profile));
+            alert('✅ Profile saved!');
+        }
+
+        function saveStore() {
+            const store = {
+                name: document.getElementById('storeName').value,
+                currency: document.getElementById('currency').value,
+                hours: document.getElementById('workHours').value,
+                delivery: document.getElementById('deliveryArea').value
+            };
+            localStorage.setItem('karibu_store', JSON.stringify(store));
+            alert('✅ Store settings saved!');
+        }
+
+        function toggleSwitch(id) {
+            const el = document.getElementById('toggle-' + id);
+            el.classList.toggle('on');
+        }
+
+        function clearSales() {
+            if (confirm('Are you sure? This will delete all sales history!')) {
+                localStorage.removeItem('karibu_sales');
+                alert('✅ Sales history cleared!');
+            }
+        }
+
+        function clearBasket() {
+            if (confirm('Are you sure? This will clear all basket data!')) {
+                localStorage.removeItem('karibu_basket');
+                alert('✅ Basket data cleared!');
+            }
+        }
+    </script>
 </body>
 
 </html>

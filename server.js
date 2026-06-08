@@ -1,6 +1,3 @@
-
-
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,95 +6,132 @@ require("dotenv").config();
 
 const app = express();
 
-// --- MIDDLEWARE ---
-
-
-
-// ADD THIS LINE:
- 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://karibugroceriesrushdi.netlify.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:5500"
+  ],
+  credentials: true
+}));
 app.use(express.static(__dirname));
-// --- DATABASE CONNECTION ---
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB ✅"))
-  .catch((err) => {
-    console.error("CRITICAL CONNECTION ERROR ❌:", err.message);
-    // This will tell us if it's an "Authentication Failed" or "Connection Timeout"
-  });
+  .catch((err) => console.error("DB ERROR ❌:", err.message));
 
-
-// --- MODELS ---
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
+  email: { type: String, unique: true, required: true, lowercase: true },
   password: { type: String, required: true },
-  isVerified: { type: Boolean, default: true }, // Default to true to skip verification
+  role: { type: String, default: "customer" },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const orderSchema = new mongoose.Schema({
+  id: String,
+  customer: {
+    name: String,
+    phone: String,
+    address: String,
+    time: String,
+    payment: String,
+    notes: String
+  },
+  items: Array,
+  total: Number,
+  status: { type: String, default: 'pending' },
+  date: { type: Date, default: Date.now }
+});
+const Order = mongoose.model('Order', orderSchema);
+
+// Save order
+app.post('/api/orders', async (req, res) => {
+  try {
+    const order = new Order(req.body);
+    await order.save();
+    res.status(201).json({ message: 'Order saved!', order });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get all orders (Admin only)
+app.get('/api/orders', async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ date: -1 });
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update order status
+app.put('/api/orders/:id', async (req, res) => {
+  try {
+    const order = await Order.findOneAndUpdate(
+      { id: req.params.id },
+      { status: req.body.status },
+      { new: true }
+    );
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 const User = mongoose.model("User", userSchema);
 
 const Product = require("./models/product");
 
-// --- AUTH ROUTES ---
-// --- AUTH ROUTES ---
-
-// 1. Registration (Change this path from /api/login to /api/register)
 app.post("/api/register", async (req, res) => {
-    const { name, email, password } = req.body;
-    const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-    
-    if (!pwRegex.test(password)) {
-        return res.status(400).json({ message: "Password must be 8+ chars with a number and symbol." });
-    }
-
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await User.findOneAndUpdate(
-            { email: email.toLowerCase() },
-            { name, email: email.toLowerCase(), password: hashedPassword, isVerified: true },
-            { upsert: true, new: true }
-        );
-        res.status(200).json({ message: "Registration successful! You can now log in." });
-    } catch (error) {
-        console.error("Registration Error:", error);
-        res.status(500).json({ message: "Server error during registration." });
-    }
+  const { name, email, password } = req.body;
+  if (!name || !email || !password)
+    return res.status(400).json({ message: "All fields are required." });
+  const pwRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+  if (!pwRegex.test(password))
+    return res.status(400).json({ message: "Password must be 8+ chars with a number and symbol." });
+  try {
+    const existing = await User.findOne({ email: email.toLowerCase() });
+    if (existing)
+      return res.status(400).json({ message: "Email already registered." });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      name,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      role: email.toLowerCase() === "karibugroceries@gmail.com" ? "admin" : "customer"
+    });
+    await newUser.save();
+    res.status(200).json({ message: "Registration successful! You can now log in." });
+  } catch (error) {
+    console.error("Registration Error:", error);
+    res.status(500).json({ message: "Server error during registration." });
+  }
 });
 
-// 2. Login (Keep this as /api/login)
-app.post("/api/login", (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        // Validate input
-        if (!email || !password) {
-            return res.status(400).json({ message: "All fields are required" });
-        }
-
-        // Example login check
-        if (email === "karibugroceries@gmail.com" && password === "Rushdi@1234") {
-            return res.status(200).json({
-                message: "Login successful",
-                user: {
-                    name: "Rushdi Mustafa Yousif Adam",
-                    email: email
-                }
-            });
-        }
-
-        // Invalid login
-        return res.status(401).json({ message: "Invalid credentials" });
-
-    } catch (error) {
-        console.error("SERVER ERROR:", error);
-        return res.status(500).json({ message: "Server error" });
-    }
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ message: "All fields are required." });
+  try {
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user)
+      return res.status(401).json({ message: "Invalid email or password." });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(401).json({ message: "Invalid email or password." });
+    res.status(200).json({
+      message: "Login successful",
+      user: { name: user.name, email: user.email, role: user.role }
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).json({ message: "Server error during login." });
+  }
 });
 
-
-// --- PRODUCT ROUTES ---
 app.get("/api/products", async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
@@ -117,10 +151,16 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-// --- SERVER STATUS ---
+app.get("/api/health", (req, res) => {
+  res.json({ status: "Server is running ✅", time: new Date() });
+});
+
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
+// التعديل الخاص بـ Vercel هنا 👇
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`Server running on port ${PORT}`)
-);
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+module.exports = app; // مهم جداً لـ Vercel

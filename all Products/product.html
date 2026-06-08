@@ -11,241 +11,1134 @@
     <link rel="stylesheet" href="/HomePage/home.css">
 </head>
 <body>
-        <div class="row g-3">
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img src="/img/Beans.jpg" class="produce-img mb-2" alt="Beans">
-                    <h6>Beans</h6>
-                    <small class="text-muted">Stock: 4,000kg</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    <main style="padding: 40px 20px;">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+            <h2 style="color: #1a6b3c; margin: 0;">🥦 Fresh Products</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <select id="categoryFilter" onchange="filterProducts()"
+                    style="padding: 8px 15px; border: 2px solid #1a6b3c; border-radius: 20px; outline: none; font-size: 14px;">
+                    <option value="all">All Categories</option>
+                    <option value="vegetables">🥦 Vegetables</option>
+                    <option value="fruits">🍌 Fruits</option>
+                    <option value="grains">🌽 Grains</option>
+                    <option value="bakery">🍰 Cakes & Bakery</option>
+                    <option value="clothes">👕 Clothes</option>
+                    <option value="electronics">💻 Electronics</option>
+                    <option value="accessories">⌚ Accessories</option>
+                    <option value="phones">📱 Phones</option>
+                </select>
+                <select id="priceFilter" onchange="filterProducts()"
+                    style="padding: 8px 15px; border: 2px solid #1a6b3c; border-radius: 20px; outline: none; font-size: 14px;">
+                    <option value="all">All Prices</option>
+                    <option value="low">Under 2,000 UGX</option>
+                    <option value="mid">2,000 - 5,000 UGX</option>
+                    <option value="high">Over 5,000 UGX</option>
+                </select>
+            </div>
+        </div>
+    
+        <div id="no-results-msg" style="display: none; text-align: center; padding: 40px;">
+            <h3 style="color: #999;">No products found</h3>
+        </div>
+    
+        <div class="row g-3" id="productGrid">
+    
+            <!-- Beans -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="4000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Beans', 4000, '/img/Beans.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/Beans.jpg" class="card-img-top" alt="Beans"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Beans</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">4,000 UGX</p>
+                        <button onclick="addToBasket('Beans', 4000, '/img/Beans.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/beans2.jpg" class="produce-img mb-2" alt="Maize">
-                    <h6>Bean</h6>
-                    <small class="text-muted"> 8,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
-                </div>
-        
-            </div>
-            <!-- G-nuts Card -->
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img src="/img/g-nuts.jpg" class="produce-img mb-2" alt="G-nuts">
-                    <h6>G-nuts</h6>
-                    <small class="text-muted"> 1,200 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Maize -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="8500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Maize', 8500, '/img/maize.webp', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/maize.webp" class="card-img-top" alt="Maize"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Maize</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">8,500 UGX</p>
+                        <button onclick="addToBasket('Maize', 8500, '/img/maize.webp')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-        
-            <!-- Tomatow Card -->
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img src="/img/tommatow.jpg" class="produce-img mb-2" alt="Tomatow">
-                    <h6>Tomatow</h6>
-                    <small class="text-muted"> 1,200 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- G-nuts -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="1200">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('G-nuts', 1200, '/img/g-nuts.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/g-nuts.jpg" class="card-img-top" alt="G-nuts"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">G-nuts</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,200 UGX</p>
+                        <button onclick="addToBasket('G-nuts', 1200, '/img/g-nuts.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/maize.webp" class="produce-img mb-2" alt="Maize">
-                    <h6>Maize</h6>
-                    <small class="text-muted"> 8,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Tomato -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1200">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Tomato', 1200, '/img/tommatow.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/tommatow.jpg" class="card-img-top" alt="Tomato"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Tomato</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,200 UGX</p>
+                        <button onclick="addToBasket('Tomato', 1200, '/img/tommatow.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-        
-        
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/onion.jpg" class="produce-img mb-2" alt="Maize">
-                    <h6>Onion</h6>
-                    <small class="text-muted"> 3,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Onion -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="3000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Onion', 3000, '/img/onion.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/onion.jpg" class="card-img-top" alt="Onion"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Onion</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">3,000 UGX</p>
+                        <button onclick="addToBasket('Onion', 3000, '/img/onion.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/kassava.jpg" class="produce-img mb-2" alt="Kassava">
-                    <h6>Kassava</h6>
-                    <small class="text-muted"> 2,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Kassava -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="5000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Kassava', 5000, '/img/kassava.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/kassava.jpg" class="card-img-top" alt="Kassava"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Kassava</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">5,000 UGX</p>
+                        <button onclick="addToBasket('Kassava', 5000, '/img/kassava.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/eggplant.jpg" class="produce-img mb-2" alt="Eggplant">
-                    <h6>Eggplant</h6>
-                    <small class="text-muted"> 1,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Eggplant -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Eggplant', 1500, '/img/eggplant.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/eggplant.jpg" class="card-img-top" alt="Eggplant"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Eggplant</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,500 UGX</p>
+                        <button onclick="addToBasket('Eggplant', 1500, '/img/eggplant.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/carote.jpg" class="produce-img mb-2" alt="Carote">
-                    <h6>Carote</h6>
-                    <small class="text-muted"> 10,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Carrot -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="10000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Carrot', 10000, '/img/carote.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/carote.jpg" class="card-img-top" alt="Carrot"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Carrot</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">10,000 UGX</p>
+                        <button onclick="addToBasket('Carrot', 10000, '/img/carote.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-        
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/okrajpg.webp" class="produce-img mb-2" alt="Okra">
-                    <h6>Okra</h6>
-                    <small class="text-muted"> 2,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Okra -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="2500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Okra', 2500, '/img/okrajpg.webp', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/okrajpg.webp" class="card-img-top" alt="Okra"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Okra</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">2,500 UGX</p>
+                        <button onclick="addToBasket('Okra', 2500, '/img/okrajpg.webp')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-        
-        
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/greenpaper.jpg" class="produce-img mb-2" alt="Green Paper">
-                    <h6>Green Paper</h6>
-                    <small class="text-muted"> 8,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Green Pepper -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="8500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Green Pepper', 8500, '/img/greenpaper.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/greenpaper.jpg" class="card-img-top" alt="Green Pepper"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Green Pepper</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">8,500 UGX</p>
+                        <button onclick="addToBasket('Green Pepper', 8500, '/img/greenpaper.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/matunda.jpg" class="produce-img mb-2" alt="Maize">
-                    <h6>Passion Fruits</h6>
-                    <small class="text-muted"> 8,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Passion Fruits -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="8500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Passion Fruits', 8500, '/img/matunda.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/matunda.jpg" class="card-img-top" alt="Passion Fruits"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Passion Fruits</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">8,500 UGX</p>
+                        <button onclick="addToBasket('Passion Fruits', 8500, '/img/matunda.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/banana.jpg" class="produce-img mb-2" alt="Maize">
-                    <h6>Banana</h6>
-                    <small class="text-muted"> 2,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Banana -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="2000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Banana', 2000, '/img/banana.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/banana.jpg" class="card-img-top" alt="Banana"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Banana</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">2,000 UGX</p>
+                        <button onclick="addToBasket('Banana', 2000, '/img/banana.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/cabage.jpg" class="produce-img mb-2" alt="Carote">
-                    <h6>Cabage</h6>
-                    <small class="text-muted"> 1,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Cabbage -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Cabbage', 1000, '/img/cabage.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/cabage.jpg" class="card-img-top" alt="Cabbage"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Cabbage</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,000 UGX</p>
+                        <button onclick="addToBasket('Cabbage', 1000, '/img/cabage.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/sukuma.jpg" class="produce-img mb-2" alt="Maize">
-                    <h6>Sukuma Wiki</h6>
-                    <small class="text-muted"> 1,500 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Sukuma Wiki -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn" onclick="toggleWishlist('Sukuma Wiki', 1500, '/img/sukuma.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/sukuma.jpg" class="card-img-top" alt="Sukuma Wiki"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Sukuma Wiki</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,500 UGX</p>
+                        <button onclick="addToBasket('Sukuma Wiki', 1500, '/img/sukuma.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card h-100 p-2 text-center">
-                    <img width="200" src="/img/sweetpotato.jpg" class="produce-img mb-2" alt="Sweet Potato">
-                    <h6>Sweet Potato</h6>
-                    <small class="text-muted"> 1,000 Ush</small>
-                    <a href="/Basket/basket.html">
-        
-                        <button class="btn btn-primary mt-2">
-        
-                            Add to Basket
-                        </button>
-                    </a>
+    
+            <!-- Sweet Potato -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Sweet Potato', 1000, '/img/sweetpotato.jpg', this)"
+                        style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
+                    <img src="/img/sweetpotato.jpg" class="card-img-top" alt="Sweet Potato"
+                        style="height: 140px; object-fit: cover; border-radius: 10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title" style="color: #1a6b3c; font-size: 14px;">Sweet Potato</h6>
+                        <p class="card-text text-muted fw-bold" style="font-size: 13px;">1,000 UGX</p>
+                        <button onclick="addToBasket('Sweet Potato', 1000, '/img/sweetpotato.jpg')" class="btn btn-sm w-100"
+                            style="background: #1a6b3c; color: white; border-radius: 8px; font-size: 12px;">🛒 Add to
+                            Basket</button>
+                    </div>
                 </div>
             </div>
-            </section>
-            </main>
-</body>
-</html>
+            <!-- BROCCOLI -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="3500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Broccoli',3500,'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc" class="card-img-top"
+                        alt="Broccoli" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Broccoli</h6>
+                        <p class="card-text text-muted fw-bold">3,500 UGX</p>
+                        <button
+                            onclick="addToBasket('Broccoli',3500,'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- SPINACH -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Spinach',1500,'https://images.unsplash.com/photo-1576045057995-568f588f82fb',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb" class="card-img-top"
+                        alt="Spinach" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Spinach</h6>
+                        <p class="card-text text-muted fw-bold">1,500 UGX</p>
+                        <button
+                            onclick="addToBasket('Spinach',1500,'https://images.unsplash.com/photo-1576045057995-568f588f82fb')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- LETTUCE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="2000">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Lettuce',2000,'https://images.unsplash.com/photo-1622205313162-be1d5712a43f',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f" class="card-img-top"
+                        alt="Lettuce" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Lettuce</h6>
+                        <p class="card-text text-muted fw-bold">2,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Lettuce',2000,'https://images.unsplash.com/photo-1622205313162-be1d5712a43f')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- CUCUMBER -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1800">
+                <div class="card h-100 p-2 text-center product-card"
+                    style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Cucumber',1800,'https://images.unsplash.com/photo-1604977042946-1eecc30f269e',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1604977042946-1eecc30f269e" class="card-img-top"
+                        alt="Cucumber" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Cucumber</h6>
+                        <p class="card-text text-muted fw-bold">1,800 UGX</p>
+                        <button
+                            onclick="addToBasket('Cucumber',1800,'https://images.unsplash.com/photo-1604977042946-1eecc30f269e')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- MANGO -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="5000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Mango',5000,'https://images.unsplash.com/photo-1553279768-865429fa0078',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1553279768-865429fa0078" class="card-img-top" alt="Mango"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Mango</h6>
+                        <p class="card-text text-muted fw-bold">5,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Mango',5000,'https://images.unsplash.com/photo-1553279768-865429fa0078')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- ORANGE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="3500">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Orange',3500,'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1580052614034-c55d20bfee3b" class="card-img-top"
+                        alt="Orange" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Orange</h6>
+                        <p class="card-text text-muted fw-bold">3,500 UGX</p>
+                        <button
+                            onclick="addToBasket('Orange',3500,'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- PINEAPPLE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="6000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Pineapple',6000,'https://images.unsplash.com/photo-1550258987-190a2d41a8ba',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba" class="card-img-top"
+                        alt="Pineapple" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Pineapple</h6>
+                        <p class="card-text text-muted fw-bold">6,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Pineapple',6000,'https://images.unsplash.com/photo-1550258987-190a2d41a8ba')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- APPLE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="4000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Apple',4000,'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" class="card-img-top" alt="Apple"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Apple</h6>
+                        <p class="card-text text-muted fw-bold">4,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Apple',4000,'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- RICE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="4000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Rice',4000,'https://images.unsplash.com/photo-1586201375761-83865001e31c',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c" class="card-img-top" alt="Rice"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Rice</h6>
+                        <p class="card-text text-muted fw-bold">4,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Rice',4000,'https://images.unsplash.com/photo-1586201375761-83865001e31c')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- LENTILS -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="2500">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Lentils',2500,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e3" class="card-img-top"
+                        alt="Lentils" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Lentils</h6>
+                        <p class="card-text text-muted fw-bold">2,500 UGX</p>
+                        <button
+                            onclick="addToBasket('Lentils',2500,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- CHICKPEAS -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="3200">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Chickpeas',3200,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e3" class="card-img-top"
+                        alt="Chickpeas" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Chickpeas</h6>
+                        <p class="card-text text-muted fw-bold">3,200 UGX</p>
+                        <button
+                            onclick="addToBasket('Chickpeas',3200,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3')"
+                            class="btn btn-sm w-100" style="background:#1a6b3c;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+            <!-- BAKERY — CROISSANT -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="bakery" data-price="2500">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Croissant',2500,'https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa" class="card-img-top"
+                        alt="Croissant" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Croissant</h6>
+                        <p class="card-text text-muted fw-bold">2,500 UGX</p>
+                        <button
+                            onclick="addToBasket('Croissant',2500,'https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa')"
+                            class="btn btn-sm w-100" style="background:#d2691e;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- PIZZA — MARGHERITA -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="bakery" data-price="12000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Margherita Pizza',12000,'https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb" class="card-img-top"
+                        alt="Margherita Pizza" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Margherita Pizza</h6>
+                        <p class="card-text text-muted fw-bold">12,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Margherita Pizza',12000,'https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb')"
+                            class="btn btn-sm w-100" style="background:#d2691e;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- CLOTHING — T-SHIRT -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="clothes" data-price="8000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('T-Shirt',8000,'https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a" class="card-img-top"
+                        alt="T-Shirt" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">T-Shirt</h6>
+                        <p class="card-text text-muted fw-bold">8,000 UGX</p>
+                        <button
+                            onclick="addToBasket('T-Shirt',8000,'https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a')"
+                            class="btn btn-sm w-100" style="background:#007bff;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- CLOTHING — JEANS -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="clothes" data-price="15000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Jeans',15000,'https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a" class="card-img-top" alt="Jeans"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Jeans</h6>
+                        <p class="card-text text-muted fw-bold">15,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Jeans',15000,'https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a')"
+                            class="btn btn-sm w-100" style="background:#007bff;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- PHONES — SMARTPHONE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="phones" data-price="450000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Smartphone',450000,'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" class="card-img-top"
+                        alt="Smartphone" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Smartphone</h6>
+                        <p class="card-text text-muted fw-bold">450,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Smartphone',450000,'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9')"
+                            class="btn btn-sm w-100" style="background:#28a745;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- PHONES — FEATURE PHONE -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="phones" data-price="120000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Feature Phone',120000,'https://images.unsplash.com/photo-1580910051075-84e24c6e15b0',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1580910051075-84e24c6e15b0" class="card-img-top"
+                        alt="Feature Phone" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Feature Phone</h6>
+                        <p class="card-text text-muted fw-bold">120,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Feature Phone',120000,'https://images.unsplash.com/photo-1580910051075-84e24c6e15b0')"
+                            class="btn btn-sm w-100" style="background:#28a745;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ELECTRONICS — LAPTOP -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="electronics" data-price="1200000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Laptop',1200000,'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8" class="card-img-top"
+                        alt="Laptop" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Laptop</h6>
+                        <p class="card-text text-muted fw-bold">1,200,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Laptop',1200000,'https://images.unsplash.com/photo-1517336714731-489689fd1ca8')"
+                            class="btn btn-sm w-100" style="background:#17a2b8;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- ELECTRONICS — TABLET -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="electronics" data-price="800000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Tablet',800000,'https://images.unsplash.com/photo-1523473827534-0e2094a1a6de',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1523473827534-0e2094a1a6de" class="card-img-top"
+                        alt="Tablet" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Tablet</h6>
+                        <p class="card-text text-muted fw-bold">800,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Tablet',800000,'https://images.unsplash.com/photo-1523473827534-0e2094a1a6de')"
+                            class="btn btn-sm w-100" style="background:#17a2b8;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- ACCESSORIES — WATCH -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="accessories" data-price="350000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Watch',350000,'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b',this)">🤍</button>
+                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b" class="card-img-top" alt="Watch"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title">Watch</h6>
+                        <p class="card-text text-muted fw-bold">350,000 UGX</p>
+                        <button
+                            onclick="addToBasket('Watch',350000,'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b')"
+                            class="btn btn-sm w-100" style="background:#ffc107;color:white;">🛒 Add to Basket</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- ACCESSORIES — HEADPHONES -->
+            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="accessories" data-price="120000">
+                <div class="card h-100 p-2 text-center product-card">
+                    <button class="wishlist-btn"
+                        onclick="toggleWishlist('Headphones',120000,'https://images.unsplash.com/photo-1516707579738-5a936d1c0eeb',this)">🤍</button>
+    
+                </div>
+    
+    
+                <script>
+                    function addToBasket(name, price, img) {
+                        let basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+                        const existing = basket.find(item => item.name === name);
+                        if (existing) { existing.qty += 1; }
+                        else { basket.push({ name, price, img, qty: 1 }); }
+                        localStorage.setItem('karibu_basket', JSON.stringify(basket));
+                        recordSale(name, price);
+                        showToastMsg('✅ ' + name + ' added to basket!');
+                    }
+
+                    function recordSale(name, price) {
+                        let sales = JSON.parse(localStorage.getItem('karibu_sales')) || [];
+                        sales.push({ name, price, date: new Date().toISOString() });
+                        localStorage.setItem('karibu_sales', JSON.stringify(sales));
+                    }
+
+                    function filterProducts() {
+                        const category = document.getElementById('categoryFilter').value;
+                        const priceRange = document.getElementById('priceFilter').value;
+                        const items = document.querySelectorAll('.product-item');
+                        let found = 0;
+
+                        items.forEach(item => {
+                            const itemCategory = item.dataset.category;
+                            const itemPrice = parseInt(item.dataset.price);
+                            let showCategory = category === 'all' || itemCategory === category;
+                            let showPrice = priceRange === 'all' ||
+                                (priceRange === 'low' && itemPrice < 2000) ||
+                                (priceRange === 'mid' && itemPrice >= 2000 && itemPrice <= 5000) ||
+                                (priceRange === 'high' && itemPrice > 5000);
+
+                            if (showCategory && showPrice) {
+                                item.style.display = 'block';
+                                found++;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+
+                        document.getElementById('no-results-msg').style.display = found === 0 ? 'block' : 'none';
+                    }
+
+                    function toggleWishlist(name, price, img, btn) {
+                        let wishlist = JSON.parse(localStorage.getItem('karibu_wishlist')) || [];
+                        const exists = wishlist.find(item => item.name === name);
+                        if (exists) {
+                            wishlist = wishlist.filter(item => item.name !== name);
+                            btn.textContent = '🤍';
+                        } else {
+                            wishlist.push({ name, price, img });
+                            btn.textContent = '❤️';
+                        }
+                        localStorage.setItem('karibu_wishlist', JSON.stringify(wishlist));
+                        showToastMsg(exists ? name + ' removed from wishlist' : name + ' added to wishlist ❤️');
+                    }
+
+                    function showToastMsg(msg) {
+                        const toast = document.createElement('div');
+                        toast.textContent = msg;
+                        toast.style.cssText = 'position:fixed;bottom:160px;right:30px;background:#1a6b3c;color:white;padding:10px 20px;border-radius:20px;font-size:14px;z-index:9999;box-shadow:0 4px 15px rgba(0,0,0,0.2);';
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 2500);
+                    }
+                </script>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer style="background: #1a6b3c; color: white; text-align: center; padding: 30px; margin-top: 40px;">
+        <p style="font-size: 18px; font-weight: bold;">🛒 Karibu Groceries LTD</p>
+        <p style="margin-top: 5px; opacity: 0.8;">Kampala, Uganda | +256 789 817 673</p>
+        <p style="margin-top: 5px; opacity: 0.8;">
+            <a href="/Contact/contact.html" style="color: white;">Contact Us</a> |
+            <a href="/creataccount/signin.html" style="color: white;">Create Account</a> |
+            <a href="/login.html" style="color: white;">Sign In</a>
+        </p>
+        <p style="margin-top: 10px; opacity: 0.6; font-size: 12px;">
+            © 2026 Built by Rushdi Mustafa Yousif Adam
+        </p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        window.onload = () => {
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.product-item');
+            let found = 0;
+            items.forEach(item => {
+                const name = item.querySelector('.card-title').textContent.toLowerCase();
+                if (name.includes(query)) {
+                    item.style.display = 'block';
+                    found++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            document.getElementById('no-results-msg').style.display = found === 0 ? 'block' : 'none';
+        }
+
+        function addToBasket(name, price, img) {
+            let basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+            const existing = basket.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                basket.push({ name, price, img, qty: 1 });
+            }
+            localStorage.setItem('karibu_basket', JSON.stringify(basket));
+            alert(`✅ ${name} added to basket!`);
+        }
+        // WISHLIST FUNCTIONS
+        function getWishlist() {
+            return JSON.parse(localStorage.getItem('karibu_wishlist')) || [];
+        }
+
+        function saveWishlist(list) {
+            localStorage.setItem('karibu_wishlist', JSON.stringify(list));
+        }
+
+        function toggleWishlist(name, price, img, btn) {
+            let wishlist = getWishlist();
+            const exists = wishlist.find(item => item.name === name);
+
+            if (exists) {
+                wishlist = wishlist.filter(item => item.name !== name);
+                btn.classList.remove('active');
+                btn.textContent = '🤍';
+                showToastMsg(name + ' removed from wishlist');
+            } else {
+                wishlist.push({ name, price, img });
+                btn.classList.add('active');
+                btn.textContent = '❤️';
+                showToastMsg(name + ' added to wishlist! ❤️');
+            }
+
+            saveWishlist(wishlist);
+            updateWishlistBadge();
+        }
+
+        function isInWishlist(name) {
+            return getWishlist().some(item => item.name === name);
+        }
+
+        function updateWishlistBadge() {
+            const badge = document.getElementById('wishlistBadge');
+            if (badge) badge.textContent = getWishlist().length;
+        }
+
+        function showToastMsg(msg) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.cssText = `
+        position: fixed; bottom: 160px; right: 30px;
+        background: #1a6b3c; color: white; padding: 10px 20px;
+        border-radius: 20px; font-size: 14px; z-index: 9999;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        animation: fadeIn 0.3s ease;
+      `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateWishlistBadge);
+    </script>
+    <!-- WHATSAPP BUTTON -->
+    <a id="whatsappBtn"
+        href="https://wa.me/256789817673?text=Hello%20Karibu%20Groceries!%20I%20would%20like%20to%20place%20an%20order."
+        target="_blank" style="position: fixed; bottom: 90px; right: 30px; background: #25D366;
+          color: white; width: 55px; height: 55px; border-radius: 50%;
+          display: flex; justify-content: center; align-items: center;
+          font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+          text-decoration: none; z-index: 999; transition: transform 0.3s;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <script>
+        // WhatsApp button with basket items
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.getElementById('whatsappBtn');
+            if (!btn) return;
+
+            const basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+
+            if (basket.length > 0) {
+                const items = basket.map(item =>
+                    `• ${item.name} x${item.qty} = ${(item.price * item.qty).toLocaleString()} UGX`
+                ).join('%0A');
+                const total = basket.reduce((sum, item) => sum + item.price * item.qty, 0);
+                const msg = `Hello Karibu Groceries!%0AI would like to order:%0A${items}%0A%0ATotal: ${total.toLocaleString()} UGX%0APlease confirm my order.`;
+                btn.href = `https://wa.me/256789817673?text=${msg}`;
+            }
+
+            btn.addEventListener('mouseover', () => btn.style.transform = 'scale(1.1)');
+            btn.addEventListener('mouseout', () => btn.style.transform = 'scale(1)');
+        });
+    </script>
+    <!-- CHATBOT -->
+    <style>
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 9999;
+        }
+    
+        .chat-toggle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+    
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+    
+        .chat-box {
+            display: none;
+            width: 320px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+    
+        .chat-box.open {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+    
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+    
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    
+        .chat-header {
+            background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .chat-messages {
+            height: 280px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+    
+        .msg {
+            margin-bottom: 12px;
+            display: flex;
+        }
+    
+        .msg.bot {
+            justify-content: flex-start;
+        }
+    
+        .msg.user {
+            justify-content: flex-end;
+        }
+    
+        .msg-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+    
+        .msg.bot .msg-bubble {
+            background: white;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-bottom-left-radius: 4px;
+        }
+    
+        .msg.user .msg-bubble {
+            background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+    
+        .chat-suggestions {
+            padding: 8px 15px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            border-top: 1px solid #f0f0f0;
+        }
+    
+        .suggestion-btn {
+            background: #f0f9f4;
+            border: 1px solid #1a6b3c;
+            color: #1a6b3c;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    
+        .suggestion-btn:hover {
+            background: #1a6b3c;
+            color: white;
+        }
+    
+        .chat-input-area {
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #f0f0f0;
+        }
+    
+        .chat-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 13px;
+        }
+    
+        .chat-send {
+            background: #1a6b3c;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+    
+    <div class="chat-widget">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div
+                        style="width: 35px; height: 35px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                        🤖</div>
+                    <div>
+                        <p style="color: white; margin: 0; font-weight: bold; font-size: 14px;">Karibu Assistant</p>
+                        <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 11px;">🟢 Online</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="background: none; border: none; color: white; font-size: 18px; cursor: pointer;">✕</button>
+            </div>
+    
+            <div class="chat-messages" id="chatMessages"></div>
+    
+            <div class="chat-suggestions">
+                <button class="suggestion-btn" onclick="quickReply('products')">🥦 Products</button>
+                <button class="suggestion-btn" onclick="quickReply('prices')">💰 Prices</button>
+                <button class="suggestion-btn" onclick="quickReply('order')">🛒 How to Order</button>
+                <button class="suggestion-btn" onclick="quickReply('delivery')">🚚 Delivery</button>
+                <button class="suggestion-btn" onclick="quickReply('contact')">📞 Contact</button>
+            </div>
+    
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleKey(event)">
+                <button class="chat-send" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+    
+        <button class="chat-toggle" onclick="toggleChat()">💬</button>
+    </div>
+    
+    <script>
+        const botResponses = {
+            hello: "Hello! Welcome to Karibu Groceries! 🛒 How can I help you today?",
+            hi: "Hi there! 👋 Welcome to Karibu Groceries! What can I help you with?",
+            products: "We sell fresh vegetables, fruits, and grains! 🥦🍌🌽\n\nIncluding: Beans, Maize, Tomatoes, Onions, Bananas, Passion Fruits and more!\n\n<a href='/all Products/product.html' style='color:#1a6b3c;'>View all products →</a>",
+            prices: "Our prices are very affordable! 💰\n\n• Beans: 4,000 UGX\n• Maize: 8,500 UGX\n• Tomato: 1,200 UGX\n• Onion: 3,000 UGX\n• Banana: 2,000 UGX\n• Cabbage: 1,000 UGX\n\n<a href='/all Products/product.html' style='color:#1a6b3c;'>See all prices →</a>",
+            order: "Ordering is easy! 🛒\n\n1. Browse products\n2. Click 'Add to Basket'\n3. Go to Basket\n4. Fill your details\n5. Confirm your order!\n\nOr order via WhatsApp: <a href='https://wa.me/256789817673' style='color:#1a6b3c;'>+256 789 817 673</a>",
+            delivery: "We deliver in Kampala! 🚚\n\n✅ Free delivery on all orders\n✅ Same day delivery available\n⏰ Mon-Sat: 8am - 8pm\n\nDelivery areas: Kampala and surrounding areas",
+            contact: "You can reach us! 📞\n\n📱 WhatsApp: +256 789 817 673\n📧 Email: karibugroceries@gmail.com\n📍 Location: Kampala, Uganda\n⏰ Mon-Sat: 8am - 8pm",
+            payment: "We accept multiple payment methods! 💳\n\n✅ Cash on Delivery\n✅ MTN Mobile Money\n✅ Airtel Money",
+            hours: "We are open Monday to Saturday, 8am to 8pm! ⏰",
+            basket: "To add items to your basket, click the '🛒 Add to Basket' button on any product. You can view your basket at any time!",
+            help: "I can help you with:\n\n🥦 Products & Prices\n🛒 How to Order\n🚚 Delivery Info\n💳 Payment Methods\n📞 Contact Us\n\nJust ask me anything!",
+            thanks: "You're welcome! 😊 Happy shopping at Karibu Groceries! 🛒",
+            bye: "Goodbye! 👋 Thank you for visiting Karibu Groceries! Come back soon! 🛒",
+        };
+
+        function getResponse(input) {
+            const msg = input.toLowerCase().trim();
+            if (msg.includes('hello') || msg.includes('hey')) return botResponses.hello;
+            if (msg.includes('hi')) return botResponses.hi;
+            if (msg.includes('product') || msg.includes('sell') || msg.includes('have')) return botResponses.products;
+            if (msg.includes('price') || msg.includes('cost') || msg.includes('how much') || msg.includes('ugx')) return botResponses.prices;
+            if (msg.includes('order') || msg.includes('buy') || msg.includes('purchase')) return botResponses.order;
+            if (msg.includes('deliver') || msg.includes('shipping') || msg.includes('bring')) return botResponses.delivery;
+            if (msg.includes('contact') || msg.includes('phone') || msg.includes('call') || msg.includes('whatsapp')) return botResponses.contact;
+            if (msg.includes('pay') || msg.includes('payment') || msg.includes('money') || msg.includes('momo')) return botResponses.payment;
+            if (msg.includes('hour') || msg.includes('open') || msg.includes('time') || msg.includes('when')) return botResponses.hours;
+            if (msg.includes('basket') || msg.includes('cart') || msg.includes('add')) return botResponses.basket;
+            if (msg.includes('help') || msg.includes('what can')) return botResponses.help;
+            if (msg.includes('thank')) return botResponses.thanks;
+            if (msg.includes('bye') || msg.includes('goodbye')) return botResponses.bye;
+            return "I'm not sure about that 🤔 But I can help you with:\n\n• Products & Prices\n• How to Order\n• Delivery Info\n• Payment Methods\n• Contact Us\n\nWhat would you like to know?";
+        }
+
+        function addMessage(text, sender) {
+            const messages = document.getElementById('chatMessages');
+            const msg = document.createElement('div');
+            msg.className = `msg ${sender}`;
+            msg.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+            messages.appendChild(msg);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            input.value = '';
+            setTimeout(() => {
+                addMessage(getResponse(text), 'bot');
+            }, 600);
+        }
+
+        function quickReply(topic) {
+            const questions = {
+                products: 'What products do you sell?',
+                prices: 'What are your prices?',
+                order: 'How do I place an order?',
+                delivery: 'Do you deliver?',
+                contact: 'How can I contact you?'
+            };
+            addMessage(questions[topic], 'user');
+            setTimeout(() => addMessage(botResponses[topic], 'bot'), 600);
+        }
+
+        function handleKey(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        let chatOpen = false;
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            const box = document.getElementById('chatBox');
+            box.classList.toggle('open', chatOpen);
+            if (chatOpen && document.getElementById('chatMessages').children.length === 0) {
+                setTimeout(() => {
+                    addMessage("Hello! 👋 Welcome to <strong>Karibu Groceries</strong>! 🛒<br><br>I'm your shopping assistant. How can I help you today?", 'bot');
+                }, 300);
+            }
+        }
+    </script>
+    </body>
+    
+    </html>

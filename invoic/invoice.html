@@ -104,6 +104,38 @@
 
         
     </script>
+    <!-- WHATSAPP BUTTON -->
+    <a id="whatsappBtn"
+        href="https://wa.me/256789817673?text=Hello%20Karibu%20Groceries!%20I%20would%20like%20to%20place%20an%20order."
+        target="_blank" style="position: fixed; bottom: 90px; right: 30px; background: #25D366;
+      color: white; width: 55px; height: 55px; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      text-decoration: none; z-index: 999; transition: transform 0.3s;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <script>
+        // WhatsApp button with basket items
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.getElementById('whatsappBtn');
+            if (!btn) return;
+
+            const basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+
+            if (basket.length > 0) {
+                const items = basket.map(item =>
+                    `• ${item.name} x${item.qty} = ${(item.price * item.qty).toLocaleString()} UGX`
+                ).join('%0A');
+                const total = basket.reduce((sum, item) => sum + item.price * item.qty, 0);
+                const msg = `Hello Karibu Groceries!%0AI would like to order:%0A${items}%0A%0ATotal: ${total.toLocaleString()} UGX%0APlease confirm my order.`;
+                btn.href = `https://wa.me/256789817673?text=${msg}`;
+            }
+
+            btn.addEventListener('mouseover', () => btn.style.transform = 'scale(1.1)');
+            btn.addEventListener('mouseout', () => btn.style.transform = 'scale(1)');
+        });
+    </script>
 </body>
 
 </html>

@@ -3,369 +3,353 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>KGL Director</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Karibu Groceries</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="cdn.jsdelivr.net" rel="stylesheet">
-    <link href="cdnjs.cloudflare.com" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/Home/st.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
+        body {
+            background: #f5f7fa;
+        }
 
+        .sidebar {
+            background: #1a2035;
+            min-height: 100vh;
+            padding: 20px 0;
+            position: fixed;
+            width: 240px;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-brand {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 3px solid #2d9e5f;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+
+        .order-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .badge-green {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .badge-orange {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- MOBILE TOP BAR (Only shows on phones/tablets) -->
-            <div
-                class="col-12 d-md-none bg-dark text-white p-3 d-flex justify-content-between align-items-center sticky-top">
-                <h4 class="mb-0">KGL Admin</h4>
-                <!-- THE MENU ICON BUTTON -->
-                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#adminSidebar">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="/img/2.png" alt="logo" style="height: 40px; margin-bottom: 8px;">
+            <h5 style="color: white; margin: 0; font-size: 16px;">Karibu Admin</h5>
+            <small style="color: rgba(255,255,255,0.5);">Management Panel</small>
+        </div>
+        <a href="/index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+        <a href="/Dashboard/dashboard.html" class="sidebar-link active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a href="/report/report.html" class="sidebar-link"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="/all Products/product.html" class="sidebar-link"><i class="fas fa-box"></i> Products</a>
+        <a href="/invoic/invoice.html" class="sidebar-link"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="/sales/sales.html" class="sidebar-link"><i class="fas fa-cash-register"></i> Sales</a>
+        <a href="/customer/customer.html" class="sidebar-link"><i class="fas fa-users"></i> Customers</a>
+        <a href="/procurment/procurment.html" class="sidebar-link"><i class="fas fa-truck"></i> Procurement</a>
+        <a href="/settings/settings.html" class="sidebar-link"><i class="fas fa-cog"></i> Settings</a>
+        <a href="/login.html" class="sidebar-link" style="margin-top: 20px; color: #ff6b6b;"><i
+                class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div>
+                <button class="btn btn-sm d-md-none"
+                    onclick="document.getElementById('sidebar').classList.toggle('open')"
+                    style="background: #1a6b3c; color: white; border-radius: 8px; margin-right: 10px;">
                     <i class="fas fa-bars"></i>
                 </button>
+                <h4 style="display: inline; color: #1a2035;">Dashboard Overview</h4>
+                <p style="color: #999; font-size: 13px; margin: 0;" id="currentDate"></p>
             </div>
-
-            <!-- Sidebar with Icons -->
-            <nav id="adminSidebar"
-                class="col-md-3 col-lg-2 d-md-block bg-dark sidebar offcanvas-md offcanvas-start text-white p-3">
-                <div class="offcanvas-header d-md-none">
-                    <h5 class="offcanvas-title">KGL Admin Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        data-bs-target="#adminSidebar"></button>
-                </div>
-                <h4 class="mb-4 d-none d-md-block">KGL Admin</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-3"><a href="/index.html" class="nav-link text-white">
-                            <i class="fas fa-home"></i> Home</a></li>
-                    <div id="admin-sidebar-tools">
-                        <li class="nav-item mb-3"><a onclick="showSection ('procurement')"
-                                href="/procurment/procurment.html" class="nav-link text-white"><i
-                                    class="fas fa-truck me-2"></i>
-                                Procurement</a></li>
-                        <li class="nav-item mb-3">
-                            <a href="/product/addProduct.html" class="nav-link text-white ">
-
-                                <i class="fas fa-box"></i>
-                                <span>Add Product</span>
-
-                        </li>
-                        <li class="nav-item mb-3">
-                            <a href="/report/report.html" class="nav-link text-white">
-
-
-                                <i class="fas fa-chart-bar"></i>
-                                <span>View Reports</span>
-
-                            </a>
-                        </li>
-                    </div>
-
-                    <li class="nav-item mb-3"><a href="/sales/sales.html" class="nav-link text-white"><i
-                                class="fas fa-file-invoice-dollar me-2"></i> Credit Sales</a></li>
-                    <li class="nav-itemnmb-3">
-                        <a href="/sales/newSale.html" class="nav-link text-white ">
-
-
-                            <i class="fas fa-cash-register"></i>
-                            <span>New Sale</span>
-
-
-                        </a>
-                    </li>
-
-                    <li class="nav-item mb-3">
-                        <a href="/customer/customer.html" class="nav-link text-white">
-
-                            <i class="fas fa-user-plus"> </i>
-                            <span>Add Customer</span>
-
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item mb-3">
-                        <a href="/invoic/invoice.html" class="nav-link text-white">
-
-                            <i class="fas fa-file-invoice"></i>
-                            <span>Create Invoice</span>
-
-                        </a>
-                    </li>
-
-                    </li>
-
-                    <li>
-                        <a href="/login.html" class="nav-link text-white mt-4">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>logout</span>
-
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Main Content: Displaying Results -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-                <header class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                        <h2 id="welcome-title">Director Overview</h2>
-                        <!-- This ID below is where the Name will appear -->
-                        <p id="user-greeting" class="text-muted">Welcome, Rushdi Mustafa Yousif Adam</p>
-                    </div>
-                    <img width="80" src="/img/2.png" class="rounded-circle border shadow-sm" alt="Admin Profile">
-                </header>
-
-
-
-                <!-- Aggregated Totals (Requirement [2]) -->
-                <div class="row g-4 mb-5" id="admin-stats-grid">
-
-                    <div class="col-md-4">
-                        <div class="card stat-card bg-primary text-white p-3 shadow-sm">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h5>Total Revenue</h5>
-                                    <h3 id="aggSales">UgX 45,000,000</h3>
-                                </div>
-                                <i class="fas fa-money-bill-wave fa-2x opacity-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card stat-card bg-success text-white p-3 shadow-sm">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h5>Total Stock</h5>
-                                    <h3>12,500 kg</h3>
-                                </div>
-                                <i class="fas fa-boxes fa-2x opacity-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produce Images & Results -->
-                <h4 class="mb-3">Inventory Status (Maganjo & Matugga)</h4>
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img src="/img/Beans.jpg" class="produce-img mb-2" alt="Beans">
-                            <h6>Beans</h6>
-                            <small class="text-muted">Stock: 4,000kg</small>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img src="/img/maize.webp" class="produce-img mb-2" alt="Maize">
-                            <h6>Grain Maize</h6>
-                            <small class="text-muted">Stock: 8,500kg</small>
-                        </div>
-
-                    </div>
-                    <!-- G-nuts Card -->
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img src="/img/g-nuts.jpg" class="produce-img mb-2" alt="G-nuts">
-                            <h6>G-nuts</h6>
-                            <small class="text-muted">Stock: 2,500kg</small>
-                        </div>
-                    </div>
-
-                    <!-- Tomatow Card -->
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img src="/img/tommatow.jpg" class="produce-img mb-2" alt="Tomatow">
-                            <h6>Tomatow</h6>
-                            <small class="text-muted">Stock: 1,200kg</small>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/onion.jpg" class="produce-img mb-2" alt="Maize">
-                            <h6>Onion</h6>
-                            <small class="text-muted"> 3,000 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/kassava.jpg" class="produce-img mb-2" alt="Kassava">
-                            <h6>Kassava</h6>
-                            <small class="text-muted"> 2,000 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/eggplant.jpg" class="produce-img mb-2" alt="Eggplant">
-                            <h6>Eggplant</h6>
-                            <small class="text-muted"> 1,500 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/carote.jpg" class="produce-img mb-2" alt="Carote">
-                            <h6>Carote</h6>
-                            <small class="text-muted"> 10,000 Ush</small>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/okrajpg.webp" class="produce-img mb-2" alt="Okra">
-                            <h6>Okra</h6>
-                            <small class="text-muted"> 2,500 Ush</small>
-
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/greenpaper.jpg" class="produce-img mb-2" alt="Green Paper">
-                            <h6>Green Paper</h6>
-                            <small class="text-muted"> 8,500 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/matunda.jpg" class="produce-img mb-2" alt="Maize">
-                            <h6>Passion Fruits</h6>
-                            <small class="text-muted"> 8,500 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/banana.jpg" class="produce-img mb-2" alt="Maize">
-                            <h6>Banana</h6>
-                            <small class="text-muted"> 2,000 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/cabage.jpg" class="produce-img mb-2" alt="Carote">
-                            <h6>Cabage</h6>
-                            <small class="text-muted"> 1,000 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/sukuma.jpg" class="produce-img mb-2" alt="Maize">
-                            <h6>Sukuma Wiki</h6>
-                            <small class="text-muted"> 1,500 Ush</small>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100 p-2 text-center">
-                            <img width="200" src="/img/sweetpotato.jpg" class="produce-img mb-2" alt="Sweet Potato">
-                            <h6>Sweet Potato</h6>
-                            <small class="text-muted"> 1,000 Ush</small>
-
-                        </div>
-                    </div>
-
-
-                    <!-- Stats Grid [1] -->
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-info">
-                                <span>Today's Sales</span>
-                                <h2 id="todaySales">0</h2>
-                            </div>
-                            <div class="icon-circle green"><i class="fas fa-chart-line"></i></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-info">
-                                <span>Total Customers</span>
-                                <h2 id="totalCustomers">0</h2>
-                            </div>
-                            <div class="icon-circle blue"><i class="fas fa-users"></i></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-info">
-                                <span>Total Products</span>
-                                <h2 id="totalProducts">2</h2>
-                            </div>
-                            <div class="icon-circle orange"><i class="fas fa-box"></i></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-info">
-                                <span>Low Stock</span>
-                                <h2 id="lowStock">0</h2>
-                            </div>
-                            <div class="icon-circle red"><i class="fas fa-exclamation-triangle"></i></div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions Section [1] -->
-                    <section class="quick-actions">
-                        <h3>Quick Actions</h3>
-                        <div class="action-grid">
-                            <a href="/sales/newSale.html" style="text-decoration: none;">
-
-                                <button class="action-btn green-border">
-                                    <i class="fas fa-cash-register"></i>
-                                    <span>New Sale</span>
-                                </button>
-
-                            </a>
-                            <a href="/product/addProduct.html" style="text-decoration: none;">
-                                <button class="action-btn orange-border">
-                                    <i class="fas fa-box"></i>
-                                    <span>Add Product</span>
-                                </button>
-                            </a>
-                            <a href="/customer/customer.html" style="text-decoration: none;">
-                                <button class="action-btn blue-border">
-                                    <i class="fas fa-user-plus"></i>
-                                    <span>Add Customer</span>
-                                </button>
-                            </a>
-
-                            <a href="/invoic/invoice.html" style="text-decoration: none;">
-                                <button class="action-btn purple-border">
-                                    <i class="fas fa-file-invoice"></i>
-                                    <span>Create Invoice</span>
-                                </button>
-                            </a>
-
-                            <a href="/report/report.html" style="text-decoration: none;">
-
-                                <button class="action-btn navy-border">
-                                    <i class="fas fa-chart-bar"></i>
-                                    <span>View Reports</span>
-                                </button>
-                            </a>
-                        </div>
-                    </section>
-                </div>
-
-
-
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span
+                    style="background: #d4edda; color: #155724; padding: 6px 15px; border-radius: 20px; font-size: 13px;">
+                    🟢 Admin: <span id="adminName">Rushdi</span>
+                </span>
+                <img src="/img/2.png" alt="admin"
+                    style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #1a6b3c;">
+            </div>
         </div>
-        </main>
+
+        <!-- STATS CARDS -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <p style="color: #999; font-size: 13px; margin: 0;">Today's Sales</p>
+                            <h3 style="color: #1a2035; margin: 5px 0;" id="todaySales">0</h3>
+                            <small style="color: #1a6b3c;">UGX</small>
+                        </div>
+                        <div class="icon" style="background: #d4edda;"><i class="fas fa-chart-line"
+                                style="color: #1a6b3c;"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <p style="color: #999; font-size: 13px; margin: 0;">Total Orders</p>
+                            <h3 style="color: #1a2035; margin: 5px 0;" id="totalOrders">0</h3>
+                            <small style="color: #2196F3;">orders</small>
+                        </div>
+                        <div class="icon" style="background: #e3f2fd;"><i class="fas fa-shopping-bag"
+                                style="color: #2196F3;"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <p style="color: #999; font-size: 13px; margin: 0;">Total Revenue</p>
+                            <h3 style="color: #1a2035; margin: 5px 0;" id="totalRevenue">0</h3>
+                            <small style="color: #9c27b0;">UGX</small>
+                        </div>
+                        <div class="icon" style="background: #f3e5f5;"><i class="fas fa-money-bill-wave"
+                                style="color: #9c27b0;"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <p style="color: #999; font-size: 13px; margin: 0;">Products</p>
+                            <h3 style="color: #1a2035; margin: 5px 0;">15</h3>
+                            <small style="color: #ff9800;">items</small>
+                        </div>
+                        <div class="icon" style="background: #fff3e0;"><i class="fas fa-boxes"
+                                style="color: #ff9800;"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECENT ORDERS + TOP PRODUCTS -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-8">
+                <div class="stat-card">
+                    <h5 style="color: #1a2035; margin-bottom: 20px;">📦 Recent Orders</h5>
+                    <div id="recentOrdersList">
+                        <p style="color: #999; text-align: center; padding: 30px;">No orders yet today</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5 style="color: #1a2035; margin-bottom: 20px;">🏆 Top Products</h5>
+                    <div id="topProductsList">
+                        <p style="color: #999; text-align: center; padding: 20px;">No data yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="stat-card mb-4">
+            <h5 style="color: #1a2035; margin-bottom: 20px;">⚡ Quick Actions</h5>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="/product/addProduct.html">
+                    <button
+                        style="background: #1a6b3c; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px;">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </a>
+                <a href="/invoic/invoice.html">
+                    <button
+                        style="background: #2196F3; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px;">
+                        <i class="fas fa-file-invoice"></i> New Invoice
+                    </button>
+                </a>
+                <a href="/sales/newSale.html">
+                    <button
+                        style="background: #9c27b0; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px;">
+                        <i class="fas fa-cash-register"></i> New Sale
+                    </button>
+                </a>
+                <a href="/report/report.html">
+                    <button
+                        style="background: #ff9800; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px;">
+                        <i class="fas fa-chart-bar"></i> View Reports
+                    </button>
+                </a>
+            </div>
+        </div>
+
     </div>
-    </div>
-    <script src="dashborad.js">
 
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-UG', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
 
+        // Load admin name
+        const session = JSON.parse(localStorage.getItem('userSession'));
+        if (session) document.getElementById('adminName').textContent = session.name || 'Admin';
 
+        // Load sales data
+        function loadDashboard() {
+            const sales = JSON.parse(localStorage.getItem('karibu_sales')) || [];
+            const today = new Date().toDateString();
+            const todaySales = sales.filter(s => new Date(s.date).toDateString() === today);
+            const todayRevenue = todaySales.reduce((sum, s) => sum + s.price, 0);
+            const totalRevenue = sales.reduce((sum, s) => sum + s.price, 0);
 
+            document.getElementById('todaySales').textContent = todayRevenue.toLocaleString();
+            document.getElementById('totalOrders').textContent = sales.length;
+            document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString();
+
+            // Recent orders
+            const list = document.getElementById('recentOrdersList');
+            if (todaySales.length === 0) {
+                list.innerHTML = '<p style="color: #999; text-align: center; padding: 30px;">No orders yet today</p>';
+            } else {
+                list.innerHTML = todaySales.slice(-5).reverse().map(s => `
+          <div class="order-item">
+            <div>
+              <strong>${s.name}</strong>
+              <p style="color: #999; font-size: 12px; margin: 0;">${new Date(s.date).toLocaleTimeString()}</p>
+            </div>
+            <span class="badge-green">${s.price.toLocaleString()} UGX</span>
+          </div>
+        `).join('');
+            }
+
+            // Top products
+            const productCount = {};
+            sales.forEach(s => {
+                productCount[s.name] = (productCount[s.name] || 0) + 1;
+            });
+            const sorted = Object.entries(productCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const topList = document.getElementById('topProductsList');
+            if (sorted.length === 0) {
+                topList.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">No data yet</p>';
+            } else {
+                topList.innerHTML = sorted.map(([name, count], i) => `
+          <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
+            <span style="font-size: 14px;">${i + 1}. ${name}</span>
+            <span class="badge-orange">${count} sold</span>
+          </div>
+        `).join('');
+            }
+        }
+
+        loadDashboard();
     </script>
-
-
-    <script src="script.js"></script>
-    <script src="https://jsdelivr.net"></script>
 </body>
 
 </html>

@@ -1,133 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
-    <link rel="stylesheet" href="invoice.css">
-    <!-- Chart.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
-    <!-- Vue.js 3 -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Invoice — Karibu Groceries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+        }
+
+        .invoice-paper {
+            background: white;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .invoice-table th {
+            background: #1a6b3c;
+            color: white;
+            padding: 12px;
+        }
+
+        .invoice-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .invoice-table tr:hover td {
+            background: #f9f9f9;
+        }
+
+        .total-row {
+            background: #f0f9f4 !important;
+            font-weight: bold;
+            color: #1a6b3c;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .invoice-paper,
+            .invoice-paper * {
+                visibility: visible;
+            }
+
+            .invoice-paper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div id="app">
-        <div id="createInvoicePage" class="page">
-            <h2 style="color: var(--purple);">Create Invoice & Sales Dashboard</h2>
-            
-            <!-- Sales Form -->
-            <div class="sales-form">
-                <h3>Add New Sale</h3>
-                <div class="form-group-container">
-                    <input 
-                        v-model="newSale.productName" 
-                        type="text" 
-                        class="form-input" 
-                        placeholder="Product Name"
-                    >
-                    <input 
-                        v-model.number="newSale.quantity" 
-                        type="number" 
-                        class="form-input" 
-                        placeholder="Quantity"
-                        min="1"
-                    >
-                    <input 
-                        v-model.number="newSale.price" 
-                        type="number" 
-                        class="form-input" 
-                        placeholder="Price"
-                        min="0"
-                        step="0.01"
-                    >
-                    <button @click="addSale" class="btn btn-add" style="background: var(--purple);">Add Sale</button>
-                </div>
-            </div>
 
-            <!-- Recent Sales List -->
-            <div v-if="sales.length > 0" class="recent-sales">
-                <h3>Recent Sales</h3>
-                <select v-model="selectedSaleIndex" class="form-group">
-                    <option value="">Select Recent Sale...</option>
-                    <option v-for="(sale, index) in sales" :key="index" :value="index">
-                        {{ sale.productName }} - ${{ (sale.quantity * sale.price).toFixed(2) }}
-                    </option>
+    <!-- CONTROLS -->
+    <div class="no-print"
+        style="background: #1a2035; padding: 15px 30px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <h5 style="color: white; margin: 0;">🧾 Invoice Generator</h5>
+        <button onclick="addItem()"
+            style="background: #1a6b3c; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;">+
+            Add Item</button>
+        <button onclick="window.print()"
+            style="background: #2196F3; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;"><i
+                class="fas fa-print"></i> Print</button>
+        <button onclick="saveInvoice()"
+            style="background: #ff9800; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;"><i
+                class="fas fa-save"></i> Save</button>
+        <a href="/Dashboard/dashboard.html"
+            style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">← Dashboard</a>
+    </div>
+
+    <div class="invoice-paper" id="invoicePaper">
+
+        <!-- HEADER -->
+        <div class="invoice-header">
+            <div>
+                <img src="/img/2.png" alt="logo" style="height: 60px; margin-bottom: 10px;">
+                <h2 style="color: #1a6b3c; margin: 0;">Karibu Groceries LTD</h2>
+                <p style="color: #666; font-size: 13px; margin: 5px 0;">Kampala, Uganda</p>
+                <p style="color: #666; font-size: 13px;">📞 +256 789 817 673</p>
+                <p style="color: #666; font-size: 13px;">📧 karibugroceries@gmail.com</p>
+            </div>
+            <div style="text-align: right;">
+                <h1 style="color: #1a6b3c; font-size: 36px; margin: 0;">INVOICE</h1>
+                <p style="color: #999; font-size: 14px; margin: 5px 0;">Invoice #: <strong
+                        id="invoiceNum">KGL-001</strong></p>
+                <p style="color: #999; font-size: 14px;">Date: <strong id="invoiceDate"></strong></p>
+                <p style="color: #999; font-size: 14px;">Due: <strong id="invoiceDue"></strong></p>
+            </div>
+        </div>
+
+        <!-- BILL TO -->
+        <div style="display: flex; justify-content: space-between; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;">
+            <div style="background: #f5f7fa; padding: 20px; border-radius: 10px; flex: 1; min-width: 200px;">
+                <h6 style="color: #1a6b3c; margin-bottom: 10px;">BILL TO:</h6>
+                <input id="customerName" placeholder="Customer Name"
+                    style="border: none; background: transparent; font-size: 14px; font-weight: bold; width: 100%; outline: none; margin-bottom: 5px;">
+                <input id="customerPhone" placeholder="Phone Number"
+                    style="border: none; background: transparent; font-size: 13px; color: #666; width: 100%; outline: none; margin-bottom: 5px;">
+                <input id="customerAddress" placeholder="Address"
+                    style="border: none; background: transparent; font-size: 13px; color: #666; width: 100%; outline: none;">
+            </div>
+            <div style="background: #f0f9f4; padding: 20px; border-radius: 10px; min-width: 200px;">
+                <h6 style="color: #1a6b3c; margin-bottom: 10px;">PAYMENT METHOD:</h6>
+                <select id="paymentMethod"
+                    style="border: none; background: transparent; font-size: 13px; width: 100%; outline: none; color: #666;">
+                    <option>Cash on Delivery</option>
+                    <option>MTN Mobile Money</option>
+                    <option>Airtel Money</option>
                 </select>
+                <p style="color: #999; font-size: 12px; margin-top: 10px;">Status: <span
+                        style="background: #d4edda; color: #155724; padding: 2px 8px; border-radius: 10px; font-size: 11px;">Pending</span>
+                </p>
             </div>
+        </div>
 
-            <!-- Invoice Preview Area with Charts -->
-            <div class="invoice-preview" v-if="sales.length > 0">
-                <h3>Sales Dashboard</h3>
-                
-                <!-- Summary Stats -->
-                <div class="stats-container">
-                    <div class="stat-box">
-                        <p class="stat-label">Total Sales</p>
-                        <p class="stat-value">${{ totalSales.toFixed(2) }}</p>
-                    </div>
-                    <div class="stat-box">
-                        <p class="stat-label">Average Sale</p>
-                        <p class="stat-value">${{ averageSale.toFixed(2) }}</p>
-                    </div>
-                    <div class="stat-box">
-                        <p class="stat-label">Total Items</p>
-                        <p class="stat-value">{{ totalItems }}</p>
-                    </div>
+        <!-- ITEMS TABLE -->
+        <table class="invoice-table table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Unit Price (UGX)</th>
+                    <th>Total (UGX)</th>
+                    <th class="no-print">Action</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceItems">
+                <tr id="row-1">
+                    <td>1</td>
+                    <td><select onchange="selectProduct(1, this.value)"
+                            style="border: none; outline: none; width: 100%; font-size: 13px;">
+                            <option value="">Select product...</option>
+                            <option value="Beans|4000">Beans</option>
+                            <option value="Maize|8500">Maize</option>
+                            <option value="G-nuts|1200">G-nuts</option>
+                            <option value="Tomato|1200">Tomato</option>
+                            <option value="Onion|3000">Onion</option>
+                            <option value="Kassava|5000">Kassava</option>
+                            <option value="Eggplant|1500">Eggplant</option>
+                            <option value="Carrot|10000">Carrot</option>
+                            <option value="Okra|2500">Okra</option>
+                            <option value="Green Pepper|8500">Green Pepper</option>
+                            <option value="Passion Fruits|8500">Passion Fruits</option>
+                            <option value="Banana|2000">Banana</option>
+                            <option value="Cabbage|1000">Cabbage</option>
+                            <option value="Sukuma Wiki|1500">Sukuma Wiki</option>
+                            <option value="Sweet Potato|1000">Sweet Potato</option>
+                        </select></td>
+                    <td><input type="number" id="qty-1" value="1" min="1" onchange="calcRow(1)"
+                            style="width: 60px; border: 1px solid #ddd; border-radius: 5px; padding: 4px; font-size: 13px;">
+                    </td>
+                    <td id="price-1" style="color: #666;">0</td>
+                    <td id="total-1" style="color: #1a6b3c; font-weight: bold;">0</td>
+                    <td class="no-print"><button onclick="removeRow(1)"
+                            style="background: #ff4d4d; color: white; border: none; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">✕</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- TOTALS -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
+            <div style="width: 300px;">
+                <div
+                    style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                    <span style="color: #666;">Subtotal:</span>
+                    <span id="subtotalAmt" style="font-weight: bold;">0 UGX</span>
                 </div>
-
-                <!-- Charts Container -->
-                <div class="charts-container">
-                    <!-- Sales Trends Chart -->
-                    <div class="chart-box">
-                        <h4>Sales Trends</h4>
-                        <canvas id="salesTrendsChart"></canvas>
-                    </div>
-
-                    <!-- Product Breakdown Chart -->
-                    <div class="chart-box">
-                        <h4>Product Breakdown</h4>
-                        <canvas id="productBreakdownChart"></canvas>
-                    </div>
+                <div
+                    style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                    <span style="color: #666;">Delivery:</span>
+                    <span style="color: #1a6b3c; font-weight: bold;">FREE</span>
                 </div>
-
-                <!-- Sales Details Table -->
-                <div class="sales-table">
-                    <h4>Sales Details</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(sale, index) in sales" :key="index">
-                                <td>{{ sale.productName }}</td>
-                                <td>{{ sale.quantity }}</td>
-                                <td>${{ sale.price.toFixed(2) }}</td>
-                                <td>${{ (sale.quantity * sale.price).toFixed(2) }}</td>
-                                <td>
-                                    <button @click="removeSale(index)" class="btn-delete">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div
+                    style="display: flex; justify-content: space-between; padding: 12px 0; background: #f0f9f4; border-radius: 8px; padding: 12px; margin-top: 10px;">
+                    <span style="font-size: 18px; font-weight: bold; color: #1a2035;">TOTAL:</span>
+                    <span id="totalAmt" style="font-size: 18px; font-weight: bold; color: #1a6b3c;">0 UGX</span>
                 </div>
             </div>
+        </div>
 
-            <!-- Empty State -->
-            <div v-else style="border: 1px dashed #ccc; padding: 20px; text-align: center; border-radius: 12px;">
-                <p>No sales recorded yet. Add a sale to see the dashboard!</p>
-            </div>
-
-            <!-- Print Invoice Button -->
-            <button @click="printInvoice" v-if="sales.length > 0" class="btn" style="background: var(--purple); margin-top: 10px;">Print Invoice</button>
+        <!-- NOTES -->
+        <div style="border-top: 2px solid #f0f0f0; padding-top: 20px;">
+            <h6 style="color: #1a6b3c;">Notes:</h6>
+            <textarea id="invoiceNotes" placeholder="Thank you for shopping with Karibu Groceries!"
+                style="width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px; font-size: 13px; color: #666; outline: none; resize: none;"
+                rows="2"></textarea>
+            <p style="color: #999; font-size: 12px; margin-top: 15px; text-align: center;">© 2026 Karibu Groceries LTD —
+                Kampala, Uganda | +256 789 817 673</p>
         </div>
     </div>
 
-    <script src="invoice.js"></script>
+    <script>
+        let rowCount = 1;
+        const prices = { Beans: 4000, Maize: 8500, 'G-nuts': 1200, Tomato: 1200, Onion: 3000, Kassava: 5000, Eggplant: 1500, Carrot: 10000, Okra: 2500, 'Green Pepper': 8500, 'Passion Fruits': 8500, Banana: 2000, Cabbage: 1000, 'Sukuma Wiki': 1500, 'Sweet Potato': 1000 };
+
+        document.getElementById('invoiceDate').textContent = new Date().toLocaleDateString();
+        document.getElementById('invoiceDue').textContent = new Date().toLocaleDateString();
+        document.getElementById('invoiceNum').textContent = 'KGL-' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
+
+        // Pre-fill from basket
+        const basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+        if (basket.length > 0) {
+            document.getElementById('invoiceItems').innerHTML = '';
+            basket.forEach((item, i) => {
+                rowCount = i + 1;
+                addItemWithData(rowCount, item.name, item.qty, item.price);
+            });
+            updateTotals();
+        }
+
+        function addItemWithData(id, name, qty, price) {
+            const tbody = document.getElementById('invoiceItems');
+            const productOptions = Object.keys(prices).map(p =>
+                `<option value="${p}|${prices[p]}" ${p === name ? 'selected' : ''}>${p}</option>`
+            ).join('');
+            const row = document.createElement('tr');
+            row.id = 'row-' + id;
+            row.innerHTML = `
+        <td>${id}</td>
+        <td><select onchange="selectProduct(${id}, this.value)" style="border: none; outline: none; width: 100%; font-size: 13px;"><option value="">Select...</option>${productOptions}</select></td>
+        <td><input type="number" id="qty-${id}" value="${qty}" min="1" onchange="calcRow(${id})" style="width: 60px; border: 1px solid #ddd; border-radius: 5px; padding: 4px; font-size: 13px;"></td>
+        <td id="price-${id}" style="color: #666;">${price.toLocaleString()}</td>
+        <td id="total-${id}" style="color: #1a6b3c; font-weight: bold;">${(price * qty).toLocaleString()}</td>
+        <td class="no-print"><button onclick="removeRow(${id})" style="background: #ff4d4d; color: white; border: none; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">✕</button></td>
+      `;
+            tbody.appendChild(row);
+        }
+
+        function selectProduct(id, val) {
+            if (!val) return;
+            const [name, price] = val.split('|');
+            document.getElementById('price-' + id).textContent = parseInt(price).toLocaleString();
+            calcRow(id);
+        }
+
+        function calcRow(id) {
+            const priceEl = document.getElementById('price-' + id);
+            const qty = parseInt(document.getElementById('qty-' + id).value) || 1;
+            const price = parseInt(priceEl.textContent.replace(/,/g, '')) || 0;
+            document.getElementById('total-' + id).textContent = (price * qty).toLocaleString();
+            updateTotals();
+        }
+
+        function updateTotals() {
+            let total = 0;
+            document.querySelectorAll('[id^="total-"]').forEach(el => {
+                total += parseInt(el.textContent.replace(/,/g, '')) || 0;
+            });
+            document.getElementById('subtotalAmt').textContent = total.toLocaleString() + ' UGX';
+            document.getElementById('totalAmt').textContent = total.toLocaleString() + ' UGX';
+        }
+
+        function addItem() {
+            rowCount++;
+            addItemWithData(rowCount, '', 1, 0);
+        }
+
+        function removeRow(id) {
+            const row = document.getElementById('row-' + id);
+            if (row) row.remove();
+            updateTotals();
+        }
+
+        function saveInvoice() {
+            const invoices = JSON.parse(localStorage.getItem('karibu_invoices')) || [];
+            invoices.push({
+                id: document.getElementById('invoiceNum').textContent,
+                customer: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                total: document.getElementById('totalAmt').textContent,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('karibu_invoices', JSON.stringify(invoices));
+            alert('✅ Invoice saved successfully!');
+        }
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist — Karibu Groceries</title>
+    <link rel="icon" type="image/png" href="/img/2.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+        }
+
+        .wish-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .wish-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f); padding: 15px 30px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="/img/2.png" alt="logo" style="height: 50px;">
+            <h2 style="color: white; margin: 0;">Karibu Groceries</h2>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="/index.html" style="color: white; text-decoration: none;">Home</a>
+            <a href="/all Products/product.html" style="color: white; text-decoration: none;">Products</a>
+            <a href="/Basket/basket.html" style="color: white; text-decoration: none;">🛒 Basket</a>
+            <a href="/login.html" style="color: white; text-decoration: none;
+        background: white; color: #1a6b3c; padding: 8px 20px; border-radius: 20px; font-weight: bold;">Sign In</a>
+        </div>
+    </nav>
+
+    <section style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
+    color: white; padding: 40px; text-align: center;">
+        <h1>❤️ My Wishlist</h1>
+        <p style="opacity: 0.9;">Your saved favourite products</p>
+    </section>
+
+    <div class="container" style="padding: 40px 20px;">
+        <div id="wishlistGrid" class="row g-4"></div>
+        <div id="emptyWishlist" style="display: none; text-align: center; padding: 80px 20px;">
+            <div style="font-size: 80px;">🤍</div>
+            <h3 style="color: #999; margin-top: 20px;">Your wishlist is empty</h3>
+            <p style="color: #bbb; margin-bottom: 20px;">Save products you love!</p>
+            <a href="/all Products/product.html">
+                <button style="background: #1a6b3c; color: white; border: none;
+          padding: 12px 30px; border-radius: 20px; font-size: 16px; cursor: pointer;">
+                    Browse Products →
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <footer style="background: #1a6b3c; color: white; text-align: center; padding: 30px; margin-top: 40px;">
+        <p>© 2026 Karibu Groceries LTD — Built by Rushdi Mustafa Yousif Adam</p>
+    </footer>
+
+    <script>
+        function addToBasket(name, price, img) {
+            let basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+            const existing = basket.find(item => item.name === name);
+            if (existing) { existing.qty += 1; }
+            else { basket.push({ name, price, img, qty: 1 }); }
+            localStorage.setItem('karibu_basket', JSON.stringify(basket));
+            alert('✅ ' + name + ' added to basket!');
+        }
+
+        function removeFromWishlist(name) {
+            let wishlist = JSON.parse(localStorage.getItem('karibu_wishlist')) || [];
+            wishlist = wishlist.filter(item => item.name !== name);
+            localStorage.setItem('karibu_wishlist', JSON.stringify(wishlist));
+            renderWishlist();
+        }
+
+        function renderWishlist() {
+            const wishlist = JSON.parse(localStorage.getItem('karibu_wishlist')) || [];
+            const grid = document.getElementById('wishlistGrid');
+            const empty = document.getElementById('emptyWishlist');
+
+            if (wishlist.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.innerHTML = wishlist.map(item => `
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="wish-card">
+            <img src="${item.img}" alt="${item.name}"
+              style="width: 100%; height: 150px; object-fit: cover;"
+              onerror="this.src='/img/2.png'">
+            <div style="padding: 15px;">
+              <h6 style="color: #1a6b3c;">${item.name}</h6>
+              <p style="color: #666; font-weight: bold;">${item.price.toLocaleString()} UGX</p>
+              <button onclick="addToBasket('${item.name}', ${item.price}, '${item.img}')"
+                style="width: 100%; background: #1a6b3c; color: white; border: none;
+                padding: 8px; border-radius: 8px; cursor: pointer; margin-bottom: 8px;">
+                🛒 Add to Basket
+              </button>
+              <button onclick="removeFromWishlist('${item.name}')"
+                style="width: 100%; background: #ff4d4d; color: white; border: none;
+                padding: 8px; border-radius: 8px; cursor: pointer;">
+                ✕ Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        renderWishlist();
+    </script>
+</body>
+
+</html>
