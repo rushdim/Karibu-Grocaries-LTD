@@ -9,14 +9,19 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: [
-    "https://karibugroceriesrushdi.netlify.app",
-    "https://karibu-grocaries-ltd.vercel.app",
-    "http://localhost:3000",
-    "http://127.0.0.1:5500"
-  ],
-  credentials: true
+    origin: [
+        "https://karibugroceriesrushdi.netlify.app", // Your live Netlify frontend URL (Must match exactly)
+        "https://karibu-groceries-ltd.vercel.app",    // Your Vercel backend production URL
+        "http://localhost:3000",                      // Local testing port
+        "http://127.0.0.1:5500"                       // Local Live Server port
+    ],
+    credentials: true,                                // Allow cookies and authorization headers
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// Handle CORS Preflight options globally
+app.options("*", cors());
 app.use(express.static(__dirname));
 
 mongoose.connect(process.env.MONGO_URI)
