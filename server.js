@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
         "https://karibugroceriesrushdi.netlify.app", // Your live Netlify frontend URL (Must match exactly)
-        "https://karibu-groceries-ltd.vercel.app",    // Your Vercel backend production URL
+        "https://karibu-groceries-ltd.vercel.app", 
+   // my Vercel backend production URL
         "http://localhost:3000",                      // Local testing port
         "http://127.0.0.1:5500"                       // Local Live Server port
     ],

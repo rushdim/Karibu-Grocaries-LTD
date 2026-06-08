@@ -1,5 +1,6 @@
 // --- CONFIGURATION ---
-const API_URL = "https://karibu-grocaries-ltd.vercel.app"; // Default to production URL
+// 
+const API_URL = "https://karibu-groceries-ltd.vercel.app"; 
 
 // --- AUTHENTICATION LOGIC ---
 
@@ -54,7 +55,8 @@ async function sendVerification() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        // FIXED: Added missing '/api' prefix to the route path
+        const response = await fetch(`${API_URL}/api/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password })

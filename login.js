@@ -1,5 +1,6 @@
 // Configuration: Set the production API endpoint hosted on Vercel
-const API_URL = "https://karibu-groceries-ltd.vercel.app";
+const API_URL = "https://karibu-groceries-ltd.vercel.app"; 
+
 
 /* --- UTILS: TOAST NOTIFICATIONS --- */
 function showToast(message, type) {
