@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: [
     "https://karibugroceriesrushdi.netlify.app",
+    "https://karibu-grocaries-ltd.vercel.app",
     "http://localhost:3000",
     "http://127.0.0.1:5500"
   ],
