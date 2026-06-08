@@ -1,6 +1,5 @@
-// This automatically detects if you are on localhost or railway
-const API_URL = "https://karibu-grocaries-ltd.vercel.app"; // Default to production URL
-
+// Configuration: Set the production API endpoint hosted on Vercel
+const API_URL = "https://karibu-groceries-ltd.vercel.app";
 
 /* --- UTILS: TOAST NOTIFICATIONS --- */
 function showToast(message, type) {
@@ -12,33 +11,21 @@ function showToast(message, type) {
     toast.innerHTML = `<span>${message}</span>`;
     container.appendChild(toast);
 
+    // Fade out and remove toast after 3 seconds
     setTimeout(() => {
         toast.classList.add('fade-out');
         setTimeout(() => toast.remove(), 500);
     }, 3000);
 }
 
-
-const isAdmin = (email === "karibugroceries@gmail.com");
-const userSession = {
-  name: data.user.name,
-  email: email,
-  role: isAdmin ? "admin" : "customer"
-};
-localStorage.setItem('userSession', JSON.stringify(userSession));
-
-if (isAdmin) {
-  window.location.href = "../Dashboard/dashboard.html";
-} else {
-  window.location.href = "../index.html";
-}
-/* --- LOGIC: PASSWORD TOGGLE --- */
+/* --- LOGIC: PASSWORD VISIBILITY TOGGLE --- */
 const toggleBtn = document.querySelector('#togglePassword');
 const passField = document.querySelector('#adminPass');
 const eyeIcon = document.querySelector('#eyeIcon');
 
 if (toggleBtn) {
     toggleBtn.addEventListener('click', function () {
+        // Toggle the input type between password and text
         const type = passField.getAttribute('type') === 'password' ? 'text' : 'password';
         passField.setAttribute('type', type);
         eyeIcon.classList.toggle('fa-eye');
@@ -53,61 +40,67 @@ document.getElementById('loginForm').onsubmit = async (e) => {
     const email = document.getElementById('adminUser').value.trim();
     const password = document.getElementById('adminPass').value.trim();
 
+    // Validate inputs locally
     if (!email || !password) {
         showToast("Please fill in all fields.", "error");
         return;
     }
 
     try {
+        // Send login credentials to the Vercel backend API
         const response = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
 
-       let data;
-
-try {
-    data = await response.json();
-} catch (err) {
-    console.error("Invalid JSON from server");
-    showToast("Server returned invalid response", "error");
-    return;
-}
+        let data;
+        try {
+            data = await response.json();
+        } catch (err) {
+            console.error("Invalid JSON response from server");
+            showToast("Server returned an invalid response", "error");
+            return;
+        }
 
         if (response.ok) {
-            // 1. Identify if this is Rushdi (Admin)
-            const isAdmin = (email === "karibugroceries@gmail.com") && (password === "Rushdi@1234");
+            // Explicitly check if the user logging in matches the Admin credentials
+            const isAdmin = (email.toLowerCase() === "karibugroceries@gmail.com") && (password === "Rushdi@1234");
 
+            // Build user session object
             const userSession = {
-                name: isAdmin ? "Rushdi Mustafa Yousif Adam" : data.user.name,
+                name: isAdmin ? "Rushdi Mustafa" : data.user.name,
                 email: email,
-                role: isAdmin ? "admin" : "user"
+                role: isAdmin ? "admin" : "customer"
             };
 
-            // 2. Save to Memory (LocalStorage)
+            // Permanently save the session to LocalStorage so the home page can access it
             localStorage.setItem('userSession', JSON.stringify(userSession));
 
-            showToast(`Welcome, ${userSession.name}!`, "success");
+            // Display customized greeting message based on authorization level
+            if (userSession.role === "admin") {
+                showToast("Welcome Admin Rushdi Mustafa", "success");
+            } else {
+                showToast(`Welcome back, ${userSession.name}`, "success");
+            }
 
-            // 3. Redirect to Dashboard
+            // Redirect the user to their designated view after 1.5 seconds
             setTimeout(() => {
-               if (userSession.role === "admin") {
-                    // Admin goes to the Dashboard folder
+                if (userSession.role === "admin") {
+                    // Admin goes straight to the backend panel folder
                     window.location.href = "../Dashboard/dashboard.html"; 
                 } else {
-                    // Normal user goes to the main website home page
-                    // Adjust this path if your index.html is in a different folder
+                    // Regular customers go straight to the main shop home page
                     window.location.href = "../HomePage/index.html"; 
                 }
             }, 1500);
 
-
         } else {
+            // Backend rejected login credentials
             showToast(data.message || "Invalid credentials.", "error");
         }
     } catch (err) {
-        console.error("Login Error:", err);
+        console.error("Login Network Error:", err);
         showToast("Server error. Please try again later.", "error");
     }
 };

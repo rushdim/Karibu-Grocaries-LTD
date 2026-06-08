@@ -875,6 +875,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+                // Retrieve authenticated user data from device storage
+                const sessionData = localStorage.getItem('userSession');
+
+                if (sessionData) {
+                    const user = JSON.parse(sessionData);
+
+                    // Target the element in the top navbar designated to display user information
+                    const userDisplayElement = document.getElementById("userDisplay");
+
+                    if (userDisplayElement) {
+                        // Apply customized UI states based on role
+                        if (user.role === "admin") {
+                            userDisplayElement.innerHTML = `<span>Welcome Admin Rushdi Mustafa 👑</span>`;
+                        } else {
+                            userDisplayElement.innerHTML = `<span>Welcome back, ${user.name} 🛒</span>`;
+                        }
+                    }
+
+                    // Execute grocery store logic to calculate basket metrics
+                    updateGroceryBasketUI();
+                }
+            });
+
+            // Calculate metrics and synchronize the UI counter for the shopping cart
+            function updateGroceryBasketUI() {
+                const basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+                const basketCountElement = document.getElementById("basketCount");
+
+                if (basketCountElement) {
+                    // Accumulate total quantity of all items added to the cart
+                    basketCountElement.innerText = basket.reduce((sum, item) => sum + item.qty, 0);
+                }
+            }
         window.onload = () => {
             document.getElementById('loader').style.display = 'none';
         }
