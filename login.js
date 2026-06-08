@@ -1,5 +1,5 @@
 // This automatically detects if you are on localhost or railway
-const API_URL = "https://karibu-grocaries-ltd-production-7a76.up.railway.app";
+const API_URL = "https://karibu-grocaries-ltd.vercel.app"; // Default to production URL
 
 
 /* --- UTILS: TOAST NOTIFICATIONS --- */

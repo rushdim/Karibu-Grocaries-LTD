@@ -1,5 +1,5 @@
 // --- CONFIGURATION ---
-const API_URL = "https://karibu-grocaries-ltd-production.up.railway.app"; 
+const API_URL = "https://karibu-grocaries-ltd.vercel.app"; // Default to production URL
 
 // --- AUTHENTICATION LOGIC ---
 
