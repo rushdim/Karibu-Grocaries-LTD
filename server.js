@@ -14,7 +14,8 @@ app.use(cors({
         "https://karibu-groceries-ltd.vercel.app", 
    // my Vercel backend production URL
         "http://localhost:3000",                      // Local testing port
-        "http://127.0.0.1:5500"                       // Local Live Server port
+        "http://127.0.0.1:5500",
+        "https://127.0.0.1:5500"                      // Local Live Server port
     ],
     credentials: true,                                // Allow cookies and authorization headers
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

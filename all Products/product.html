@@ -11,6 +11,25 @@
     <link rel="stylesheet" href="/HomePage/home.css">
 </head>
 <body>
+    <nav style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f); padding: 15px 30px;
+        display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="/img/2.png" alt="logo" style="height: 50px;">
+            <h2 style="color: white; margin: 0; font-size: 22px;">Karibu Groceries</h2>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <a href="/index.html" style="color: white; text-decoration: none; font-weight: 500;">Home</a>
+            <a href="/about/about.html" style="color: white; text-decoration: none; font-weight: 500;">About Us</a>
+            <a href="/all Products/product.html" style="color: white; text-decoration: none;">Products</a>
+            <a href="/Basket/basket.html" style="color: white; text-decoration: none;">🛒 Basket</a>
+            <a href="/Contact/contact.html" style="color: white; text-decoration: none;">Contact</a>
+            <a href="/wishlist/wishlist.html" style="color: white; text-decoration: none;">❤️ Wishlist</a>
+            <a href="/login.html" style="color: white; text-decoration: none;
+            background: white; color: #1a6b3c; padding: 8px 20px;
+            border-radius: 20px; font-weight: bold;">Sign In</a>
+        </div>
+    </nav>
     <main style="padding: 40px 20px;">
         <div
             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
@@ -319,9 +338,9 @@
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
-                        onclick="toggleWishlist('Broccoli',3500,'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc" class="card-img-top"
-                        alt="Broccoli" style="height:140px;object-fit:cover;border-radius:10px;">
+                        onclick="toggleWishlist('Broccoli',3500,'/img/broccoli.jpg',this)">🤍</button>
+                    <img src="/img/broccoli.webp" class="card-img-top" alt="Broccoli"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Broccoli</h6>
                         <p class="card-text text-muted fw-bold">3,500 UGX</p>
@@ -338,8 +357,8 @@
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Spinach',1500,'https://images.unsplash.com/photo-1576045057995-568f588f82fb',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb" class="card-img-top"
-                        alt="Spinach" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/spinach.avif" class="card-img-top" alt="Spinach"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Spinach</h6>
                         <p class="card-text text-muted fw-bold">1,500 UGX</p>
@@ -356,8 +375,8 @@
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Lettuce',2000,'https://images.unsplash.com/photo-1622205313162-be1d5712a43f',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f" class="card-img-top"
-                        alt="Lettuce" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/lettuce.webp" class="card-img-top" alt="Lettuce"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Lettuce</h6>
                         <p class="card-text text-muted fw-bold">2,000 UGX</p>
@@ -374,8 +393,8 @@
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Cucumber',1800,'https://images.unsplash.com/photo-1604977042946-1eecc30f269e',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1604977042946-1eecc30f269e" class="card-img-top"
-                        alt="Cucumber" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/cucumber.webp" class="card-img-top" alt="Cucumber"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Cucumber</h6>
                         <p class="card-text text-muted fw-bold">1,800 UGX</p>
@@ -391,7 +410,7 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Mango',5000,'https://images.unsplash.com/photo-1553279768-865429fa0078',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1553279768-865429fa0078" class="card-img-top" alt="Mango"
+                    <img src="/img/mango.webp" class="card-img-top" alt="Mango"
                         style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Mango</h6>
@@ -408,8 +427,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Orange',3500,'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1580052614034-c55d20bfee3b" class="card-img-top"
-                        alt="Orange" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/orange.jpg" class="card-img-top" alt="Orange"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Orange</h6>
                         <p class="card-text text-muted fw-bold">3,500 UGX</p>
@@ -425,8 +444,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Pineapple',6000,'https://images.unsplash.com/photo-1550258987-190a2d41a8ba',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba" class="card-img-top"
-                        alt="Pineapple" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/Pineapple.jpg" class="card-img-top" alt="Pineapple"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Pineapple</h6>
                         <p class="card-text text-muted fw-bold">6,000 UGX</p>
@@ -442,7 +461,7 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Apple',4000,'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" class="card-img-top" alt="Apple"
+                    <img src="/img/apple.jpg" class="card-img-top" alt="Apple"
                         style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Apple</h6>
@@ -459,7 +478,7 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Rice',4000,'https://images.unsplash.com/photo-1586201375761-83865001e31c',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c" class="card-img-top" alt="Rice"
+                    <img src="/img/rice.webp" class="card-img-top" alt="Rice"
                         style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Rice</h6>
@@ -476,8 +495,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Lentils',2500,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e3" class="card-img-top"
-                        alt="Lentils" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/lentils.webp" class="card-img-top" alt="Lentils"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Lentils</h6>
                         <p class="card-text text-muted fw-bold">2,500 UGX</p>
@@ -493,8 +512,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Chickpeas',3200,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e3" class="card-img-top"
-                        alt="Chickpeas" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/chickpeas.jpg" class="card-img-top" alt="Chickpeas"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Chickpeas</h6>
                         <p class="card-text text-muted fw-bold">3,200 UGX</p>
@@ -509,8 +528,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Croissant',2500,'https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa" class="card-img-top"
-                        alt="Croissant" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/corissant.jpg" class="card-img-top" alt="Croissant"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Croissant</h6>
                         <p class="card-text text-muted fw-bold">2,500 UGX</p>
@@ -526,8 +545,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Margherita Pizza',12000,'https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb" class="card-img-top"
-                        alt="Margherita Pizza" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/marpizza.jpg" class="card-img-top" alt="Margherita Pizza"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Margherita Pizza</h6>
                         <p class="card-text text-muted fw-bold">12,000 UGX</p>
@@ -543,8 +562,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('T-Shirt',8000,'https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a" class="card-img-top"
-                        alt="T-Shirt" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/t-shirt2.jpg" class="card-img-top" alt="T-Shirt"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">T-Shirt</h6>
                         <p class="card-text text-muted fw-bold">8,000 UGX</p>
@@ -560,7 +579,7 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Jeans',15000,'https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a" class="card-img-top" alt="Jeans"
+                    <img src="/img/jeans1.jpg" class="card-img-top" alt="Jeans"
                         style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Jeans</h6>
@@ -577,8 +596,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Smartphone',450000,'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" class="card-img-top"
-                        alt="Smartphone" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/v405g.jpg" class="card-img-top" alt="Smartphone"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Smartphone</h6>
                         <p class="card-text text-muted fw-bold">450,000 UGX</p>
@@ -594,8 +613,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Feature Phone',120000,'https://images.unsplash.com/photo-1580910051075-84e24c6e15b0',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1580910051075-84e24c6e15b0" class="card-img-top"
-                        alt="Feature Phone" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/not10+.webp" class="card-img-top" alt="Feature Phone"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Feature Phone</h6>
                         <p class="card-text text-muted fw-bold">120,000 UGX</p>
@@ -610,8 +629,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Laptop',1200000,'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8" class="card-img-top"
-                        alt="Laptop" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/laptop hp.webp" class="card-img-top" alt="Laptop"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Laptop</h6>
                         <p class="card-text text-muted fw-bold">1,200,000 UGX</p>
@@ -627,8 +646,8 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Tablet',800000,'https://images.unsplash.com/photo-1523473827534-0e2094a1a6de',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1523473827534-0e2094a1a6de" class="card-img-top"
-                        alt="Tablet" style="height:140px;object-fit:cover;border-radius:10px;">
+                    <img src="/img/tablet.avif" class="card-img-top" alt="Tablet"
+                        style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Tablet</h6>
                         <p class="card-text text-muted fw-bold">800,000 UGX</p>
@@ -644,7 +663,7 @@
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Watch',350000,'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b',this)">🤍</button>
-                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b" class="card-img-top" alt="Watch"
+                    <img src="/img/watch1.jpg" class="card-img-top" alt="Watch"
                         style="height:140px;object-fit:cover;border-radius:10px;">
                     <div class="card-body p-2">
                         <h6 class="card-title">Watch</h6>
@@ -731,7 +750,6 @@
                     }
                 </script>
     </main>
-    
     <!-- FOOTER -->
     <footer style="background: #1a6b3c; color: white; text-align: center; padding: 30px; margin-top: 40px;">
         <p style="font-size: 18px; font-weight: bold;">🛒 Karibu Groceries LTD</p>
