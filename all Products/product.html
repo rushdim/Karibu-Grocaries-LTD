@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="cdn.jsdelivr.net" rel="stylesheet">
     <link href="cdnjs.cloudflare.com" rel="stylesheet">
-    <link rel="stylesheet" href="/HomePage/home.css">
+    <!-- <link rel="stylesheet" href="/HomePage/home.css"> -->
 </head>
 <body>
     <style>
-            * {
+               * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -37,93 +37,115 @@
 
         /* Nav Bar  */
 
-        .navbar {
-            background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+      .navbar{
+    background:linear-gradient(135deg,#1a6b3c,#2d9e5f);
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
 
-        .logo {
+.logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
 
-            display: flex;
-            align-items: center;
-            gap: 10px;
+.logo img{
+    height:40px;
+}
 
-        }
+.logo h2{
+    color:white;
+    font-size:20px;
+    margin:0;
+}
 
-        .logo img {
-            height: 50px;
-        }
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+}
 
-        .logo h2 {
-            color: white;
-            margin: 0;
-            font-size: 22px;
-        }
+.nav-links{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+.nav-links a{
+    color:white;
+    text-decoration:none;
+}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
+.signin-btn{
+    background:white;
+    color:#1a6b3c !important;
+    padding:8px 15px;
+    border-radius:20px;
+}
 
-        .signin-btn {
-            background: white;
-            color: #1a6b3c !important;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
+@media(max-width:768px){
 
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 32px;
-            cursor: pointer;
-        }
+    .logo img{
+        height:32px;
+    }
 
-        /* MOBILE
-        @media(max-width:768px) {
-            .menu-toggle {
-                display: block;
-            }
+    .logo h2{
+        font-size:14px;
+    }
 
-            .nav-links {
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: #1a6b3c;
-                flex-direction: column;
-                display: none;
-                padding: 20px 0;
-                gap: 15px;
-                text-align: center;
-            }
+    .menu-toggle{
+        display:block;
+    }
 
-            .nav-links.active {
-                display: flex;
-            }
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        background:#1a6b3c;
+        flex-direction:column;
+        padding:15px;
+    }
 
-            .nav-links a {
-                width: 100%;
-                padding: 10px;
-            }
-        } */
+    .nav-links.active{
+        display:flex;
+    }
+}
 
+/* Mobile */
+
+@media(max-width:768px){
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        background:#1a6b3c;
+        flex-direction:column;
+        text-align:center;
+        padding:15px;
+        gap:10px;
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+}
         .wishlist-btn {
             position: absolute;
             top:
@@ -258,8 +280,7 @@
             }
 
             #productGrid {
-                display: flex;
-                flex-wrap: wrap;
+
                 justify-content: space-between;
                 /* يوزع المنتجات بكامل عرض شاشة الكمبيوتر */
             }
@@ -380,7 +401,20 @@
             /* تقليل الهوامش الخارجية ليعطي مساحة للمنتجات */
         }
 
-         
+        @media (max-width:768px) {
+
+            #productGrid .col-6 {
+                width: 50% !important;
+                max-width: 50% !important;
+                flex: 0 0 50% !important;
+            }
+
+            .product-card {
+                width: 100% !important;
+            }
+        }
+
+
         @media(max-width:768px) {
             footer {
                 text-align: center;
@@ -397,26 +431,46 @@
             max-width: 500px;
         }
     
+    
     </style>
-    <nav style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f); padding: 15px 30px;
-        display: flex; justify-content: space-between; align-items: center;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="/img/2.png" alt="logo" style="height: 50px;">
-            <h2 style="color: white; margin: 0; font-size: 22px;">Karibu Groceries</h2>
+    <nav class="navbar">
+    
+        <div class="logo">
+            <img src="/img/2.png" alt="logo">
+            <h2>Karibu Groceries</h2>
         </div>
-        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-            <a href="/index.html" style="color: white; text-decoration: none; font-weight: 500;">Home</a>
-            <a href="/about/about.html" style="color: white; text-decoration: none; font-weight: 500;">About Us</a>
-            <a href="/all Products/product.html" style="color: white; text-decoration: none;">Products</a>
-            <a href="/Basket/basket.html" style="color: white; text-decoration: none;">🛒 Basket</a>
-            <a href="/Contact/contact.html" style="color: white; text-decoration: none;">Contact</a>
-            <a href="/wishlist/wishlist.html" style="color: white; text-decoration: none;">❤️ Wishlist</a>
-            <a href="/login.html" style="color: white; text-decoration: none;
-            background: white; color: #1a6b3c; padding: 8px 20px;
-            border-radius: 20px; font-weight: bold;">Sign In</a>
+    
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    
+        <div class="nav-links" id="navLinks">
+            <a href="/index.html">Home</a>
+            <a href="/about/about.html">About Us</a>
+            <a href="/all Products/product.html">Products</a>
+            <a href="/Basket/basket.html">🛒 Basket</a>
+            <a href="/Contact/contact.html">Contact</a>
+            <a href="/wishlist/wishlist.html">❤️ Wishlist</a>
+            <a href="/login.html" class="signin-btn">Sign In</a>
         </div>
+    
     </nav>
+    
+    
+    
+    <!-- SEARCH -->
+    <div style="padding: 30px 40px; text-align: center; background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <input type="text" id="searchInput" onkeyup="searchProducts()"
+            placeholder="🔍 Search products... (e.g. Beans, Onion)" style="width: 100%; max-width: 500px; padding: 12px 20px; font-size: 16px;
+          border: 2px solid #1a6b3c; border-radius: 30px; outline: none;">
+    </div>
+    
+    <!-- NO RESULTS -->
+    <div id="no-results-msg" style="display: none; text-align: center; padding: 40px;">
+        <h3>No products found</h3>
+        <p>Try searching for "Beans" or "Onion".</p>
+    </div>
+    
+    <!-- PRODUCTS -->
     <main style="padding: 40px 20px;">
         <div
             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
@@ -448,10 +502,10 @@
             <h3 style="color: #999;">No products found</h3>
         </div>
     
-        <div class="row g-3" id="productGrid">
+        <div class="row g-2" id="productGrid">
     
             <!-- Beans -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="4000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="4000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Beans', 4000, '/img/Beans.jpg', this)"
@@ -469,8 +523,8 @@
             </div>
     
             <!-- Maize -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="8500">
-                <div class="card h-100 p-2 text-center product-card"
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="8500">
+                <div class="card h-100  text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Maize', 8500, '/img/maize.webp', this)"
                         style="position: absolute; top: 8px; right: 8px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1;">🤍</button>
@@ -487,7 +541,7 @@
             </div>
     
             <!-- G-nuts -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="1200">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="1200">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('G-nuts', 1200, '/img/g-nuts.jpg', this)"
@@ -505,7 +559,8 @@
             </div>
     
             <!-- Tomato -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1200">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1200">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Tomato', 1200, '/img/tommatow.jpg', this)"
@@ -523,7 +578,8 @@
             </div>
     
             <!-- Onion -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="3000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="3000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Onion', 3000, '/img/onion.jpg', this)"
@@ -541,7 +597,8 @@
             </div>
     
             <!-- Kassava -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="5000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="5000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Kassava', 5000, '/img/kassava.jpg', this)"
@@ -559,7 +616,8 @@
             </div>
     
             <!-- Eggplant -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Eggplant', 1500, '/img/eggplant.jpg', this)"
@@ -577,7 +635,8 @@
             </div>
     
             <!-- Carrot -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="10000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="10000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Carrot', 10000, '/img/carote.jpg', this)"
@@ -595,7 +654,8 @@
             </div>
     
             <!-- Okra -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="2500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="2500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Okra', 2500, '/img/okrajpg.webp', this)"
@@ -613,7 +673,8 @@
             </div>
     
             <!-- Green Pepper -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="8500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="8500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Green Pepper', 8500, '/img/greenpaper.jpg', this)"
@@ -631,7 +692,7 @@
             </div>
     
             <!-- Passion Fruits -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="8500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="8500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Passion Fruits', 8500, '/img/matunda.jpg', this)"
@@ -649,7 +710,7 @@
             </div>
     
             <!-- Banana -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="2000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="2000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Banana', 2000, '/img/banana.jpg', this)"
@@ -667,7 +728,8 @@
             </div>
     
             <!-- Cabbage -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Cabbage', 1000, '/img/cabage.jpg', this)"
@@ -685,7 +747,8 @@
             </div>
     
             <!-- Sukuma Wiki -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn" onclick="toggleWishlist('Sukuma Wiki', 1500, '/img/sukuma.jpg', this)"
@@ -703,7 +766,8 @@
             </div>
     
             <!-- Sweet Potato -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s;">
                     <button class="wishlist-btn"
@@ -721,7 +785,8 @@
                 </div>
             </div>
             <!-- BROCCOLI -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="3500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="3500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
@@ -739,7 +804,8 @@
             </div>
     
             <!-- SPINACH -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1500">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
@@ -757,7 +823,8 @@
             </div>
     
             <!-- LETTUCE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="2000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="2000">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
@@ -775,7 +842,8 @@
             </div>
     
             <!-- CUCUMBER -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="vegetables" data-price="1800">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="vegetables"
+                data-price="1800">
                 <div class="card h-100 p-2 text-center product-card"
                     style="border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative;">
                     <button class="wishlist-btn"
@@ -793,7 +861,7 @@
             </div>
     
             <!-- MANGO -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="5000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="5000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Mango',5000,'https://images.unsplash.com/photo-1553279768-865429fa0078',this)">🤍</button>
@@ -810,7 +878,7 @@
             </div>
     
             <!-- ORANGE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="3500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="3500">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Orange',3500,'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b',this)">🤍</button>
@@ -827,7 +895,7 @@
             </div>
     
             <!-- PINEAPPLE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="6000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="6000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Pineapple',6000,'https://images.unsplash.com/photo-1550258987-190a2d41a8ba',this)">🤍</button>
@@ -844,7 +912,7 @@
             </div>
     
             <!-- APPLE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="fruits" data-price="4000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="fruits" data-price="4000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Apple',4000,'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce',this)">🤍</button>
@@ -861,7 +929,7 @@
             </div>
     
             <!-- RICE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="4000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="4000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Rice',4000,'https://images.unsplash.com/photo-1586201375761-83865001e31c',this)">🤍</button>
@@ -878,7 +946,7 @@
             </div>
     
             <!-- LENTILS -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="2500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="2500">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Lentils',2500,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
@@ -895,7 +963,7 @@
             </div>
     
             <!-- CHICKPEAS -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="grains" data-price="3200">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="grains" data-price="3200">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Chickpeas',3200,'https://images.unsplash.com/photo-1515543904379-3d757afe72e3',this)">🤍</button>
@@ -911,7 +979,7 @@
                 </div>
             </div>
             <!-- BAKERY — CROISSANT -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="bakery" data-price="2500">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="bakery" data-price="2500">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Croissant',2500,'https://images.unsplash.com/photo-1570197787595-2fffe0c2f5fa',this)">🤍</button>
@@ -928,7 +996,7 @@
             </div>
     
             <!-- PIZZA — MARGHERITA -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="bakery" data-price="12000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="bakery" data-price="12000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Margherita Pizza',12000,'https://images.unsplash.com/photo-1601924575967-2a1e8f83b9cb',this)">🤍</button>
@@ -945,7 +1013,7 @@
             </div>
     
             <!-- CLOTHING — T-SHIRT -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="clothes" data-price="8000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="clothes" data-price="8000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('T-Shirt',8000,'https://images.unsplash.com/photo-1600185362492-4fc2d9b58a7a',this)">🤍</button>
@@ -962,7 +1030,7 @@
             </div>
     
             <!-- CLOTHING — JEANS -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="clothes" data-price="15000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="clothes" data-price="15000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Jeans',15000,'https://images.unsplash.com/photo-1602810313839-2b8b22b07e0a',this)">🤍</button>
@@ -979,7 +1047,7 @@
             </div>
     
             <!-- PHONES — SMARTPHONE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="phones" data-price="450000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="phones" data-price="450000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Smartphone',450000,'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9',this)">🤍</button>
@@ -996,7 +1064,7 @@
             </div>
     
             <!-- PHONES — FEATURE PHONE -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="phones" data-price="120000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="phones" data-price="120000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Feature Phone',120000,'https://images.unsplash.com/photo-1580910051075-84e24c6e15b0',this)">🤍</button>
@@ -1012,7 +1080,8 @@
                 </div>
             </div>
             <!-- ELECTRONICS — LAPTOP -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="electronics" data-price="1200000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="electronics"
+                data-price="1200000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Laptop',1200000,'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',this)">🤍</button>
@@ -1029,7 +1098,8 @@
             </div>
     
             <!-- ELECTRONICS — TABLET -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="electronics" data-price="800000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 product-item" data-category="electronics"
+                data-price="800000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Tablet',800000,'https://images.unsplash.com/photo-1523473827534-0e2094a1a6de',this)">🤍</button>
@@ -1046,7 +1116,7 @@
             </div>
     
             <!-- ACCESSORIES — WATCH -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="accessories" data-price="350000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2  " data-category="accessories" data-price="350000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Watch',350000,'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b',this)">🤍</button>
@@ -1063,7 +1133,7 @@
             </div>
     
             <!-- ACCESSORIES — HEADPHONES -->
-            <div class="col-6 col-md-4 col-lg-3 product-item" data-category="accessories" data-price="120000">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2  " data-category="accessories" data-price="120000">
                 <div class="card h-100 p-2 text-center product-card">
                     <button class="wishlist-btn"
                         onclick="toggleWishlist('Headphones',120000,'https://images.unsplash.com/photo-1516707579738-5a936d1c0eeb',this)">🤍</button>
@@ -1137,6 +1207,7 @@
                     }
                 </script>
     </main>
+    
     <!-- FOOTER -->
     <footer style="background: #1a6b3c; color: white; text-align: center; padding: 30px; margin-top: 40px;">
         <p style="font-size: 18px; font-weight: bold;">🛒 Karibu Groceries LTD</p>
@@ -1154,6 +1225,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Retrieve authenticated user data from device storage
+            const sessionData = localStorage.getItem('userSession');
+
+            if (sessionData) {
+                const user = JSON.parse(sessionData);
+
+                // Target the element in the top navbar designated to display user information
+                const userDisplayElement = document.getElementById("userDisplay");
+
+                if (userDisplayElement) {
+                    // Apply customized UI states based on role
+                    if (user.role === "admin") {
+                        userDisplayElement.innerHTML = `<span>Welcome Admin Rushdi Mustafa 👑</span>`;
+                    } else {
+                        userDisplayElement.innerHTML = `<span>Welcome back, ${user.name} 🛒</span>`;
+                    }
+                }
+
+                // Execute grocery store logic to calculate basket metrics
+                updateGroceryBasketUI();
+            }
+        });
+
+        // Calculate metrics and synchronize the UI counter for the shopping cart
+        function updateGroceryBasketUI() {
+            const basket = JSON.parse(localStorage.getItem('karibu_basket')) || [];
+            const basketCountElement = document.getElementById("basketCount");
+
+            if (basketCountElement) {
+                // Accumulate total quantity of all items added to the cart
+                basketCountElement.innerText = basket.reduce((sum, item) => sum + item.qty, 0);
+            }
+        }
         window.onload = () => {
             document.getElementById('loader').style.display = 'none';
         }
@@ -1544,6 +1650,15 @@
             }
         }
     </script>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
     </body>
     
     </html>
