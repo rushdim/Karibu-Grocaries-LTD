@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: [
         "https://karibugroceriesrushdi.netlify.app", // Your live Netlify frontend URL (Must match exactly)
-        "https://karibu-groceries-ltd.vercel.app", 
+        "https://karibu-grocaries-ltd.vercel.app", 
    // my Vercel backend production URL
         "http://localhost:3000",                      // Local testing port
         "http://127.0.0.1:5500",
@@ -165,10 +165,6 @@ app.get("/api/health", (req, res) => {
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
-// التعديل الخاص بـ Vercel هنا 👇
-const PORT = process.env.PORT || 3000;
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
+
 
 module.exports = app; // مهم جداً لـ Vercel

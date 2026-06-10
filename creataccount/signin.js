@@ -1,7 +1,6 @@
 // --- CONFIGURATION ---
 // 
-const API_URL = "https://karibu-groceries-ltd.vercel.app"; 
-
+const API_URL = "https://karibu-grocaries-ltd.vercel.app";
 // --- AUTHENTICATION LOGIC ---
 
 // 1. LOGIN FUNCTION
