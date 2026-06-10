@@ -30,16 +30,53 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB ✅"))
   .catch((err) => console.error("DB ERROR ❌:", err.message));
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true, lowercase: true },
-  password: { type: String, required: true },
-  role: { type: String, default: "customer" },
-  createdAt: { type: Date, default: Date.now }
+
+  const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true
+    },
+
+    password: {
+        type: String,
+        required: true
+    },
+
+    role: {
+        type: String,
+        default: "customer"
+    },
+
+    phone: {
+        type: String,
+        default: ""
+    },
+
+    address: {
+        type: String,
+        default: ""
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
+const User = mongoose.model("User", userSchema);
+const Product = require("./models/product");
 
 const orderSchema = new mongoose.Schema({
+  userEmail: String,
+
   id: String,
+
   customer: {
     name: String,
     phone: String,
@@ -48,13 +85,53 @@ const orderSchema = new mongoose.Schema({
     payment: String,
     notes: String
   },
+
   items: Array,
+
   total: Number,
-  status: { type: String, default: 'pending' },
-  date: { type: Date, default: Date.now }
+
+  status: {
+    type: String,
+    default: "pending"
+  },
+
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
+
+
 const Order = mongoose.model('Order', orderSchema);
 
+app.get("/api/account/:email", async (req, res) => {
+    try {
+
+        const user = await User.findOne({
+            email: req.params.email.toLowerCase()
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        res.json({
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            phone: user.phone,
+            address: user.address,
+            createdAt: user.createdAt
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});
 // Save order
 app.post('/api/orders', async (req, res) => {
   try {
@@ -76,6 +153,26 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
+app.get("/api/orders/user/:email", async (req, res) => {
+
+    try {
+
+        const orders = await Order.find({
+            userEmail: req.params.email.toLowerCase()
+        }).sort({ date: -1 });
+
+        res.json(orders);
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
+
 // Update order status
 app.put('/api/orders/:id', async (req, res) => {
   try {
@@ -89,9 +186,8 @@ app.put('/api/orders/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-const User = mongoose.model("User", userSchema);
 
-const Product = require("./models/product");
+
 
 app.post("/api/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -118,6 +214,38 @@ app.post("/api/register", async (req, res) => {
     res.status(500).json({ message: "Server error during registration." });
   }
 });
+
+app.put("/api/account/:email", async (req, res) => {
+
+    try {
+
+        const user = await User.findOneAndUpdate(
+            {
+                email: req.params.email.toLowerCase()
+            },
+            {
+                name: req.body.name,
+                phone: req.body.phone,
+                address: req.body.address
+            },
+            {
+                new: true
+            }
+        );
+
+        res.json(user);
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
+
+
 
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;

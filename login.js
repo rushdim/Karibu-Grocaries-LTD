@@ -92,7 +92,7 @@ document.getElementById('loginForm').onsubmit = async (e) => {
                     window.location.href = "../Dashboard/dashboard.html"; 
                 } else {
                     // Regular customers go straight to the main shop home page
-                    window.location.href = "../HomePage/index.html"; 
+                    window.location.href = "../account.html"; 
                 }
             }, 1500);
 

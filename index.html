@@ -42,115 +42,116 @@
 
         /* Nav Bar  */
 
-      .navbar{
-    background:linear-gradient(135deg,#1a6b3c,#2d9e5f);
-    padding:12px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
+        .navbar {
+            background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.logo img{
-    height:40px;
-}
+        .logo img {
+            height: 40px;
+        }
 
-.logo h2{
-    color:white;
-    font-size:20px;
-    margin:0;
-}
+        .logo h2 {
+            color: white;
+            font-size: 20px;
+            margin: 0;
+        }
 
-.menu-toggle{
-    display:none;
-    background:none;
-    border:none;
-    color:white;
-    font-size:30px;
-    cursor:pointer;
-}
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
 
-.nav-links{
-    display:flex;
-    gap:15px;
-    align-items:center;
-}
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
 
-.signin-btn{
-    background:white;
-    color:#1a6b3c !important;
-    padding:8px 15px;
-    border-radius:20px;
-}
+        .signin-btn {
+            background: white;
+            color: #1a6b3c !important;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
 
-@media(max-width:768px){
+        @media(max-width:768px) {
 
-    .logo img{
-        height:32px;
-    }
+            .logo img {
+                height: 32px;
+            }
 
-    .logo h2{
-        font-size:14px;
-    }
+            .logo h2 {
+                font-size: 14px;
+            }
 
-    .menu-toggle{
-        display:block;
-    }
+            .menu-toggle {
+                display: block;
+            }
 
-    .nav-links{
-        display:none;
-        position:absolute;
-        top:65px;
-        left:0;
-        width:100%;
-        background:#1a6b3c;
-        flex-direction:column;
-        padding:15px;
-    }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: #1a6b3c;
+                flex-direction: column;
+                padding: 15px;
+            }
 
-    .nav-links.active{
-        display:flex;
-    }
-}
+            .nav-links.active {
+                display: flex;
+            }
+        }
 
-/* Mobile */
+        /* Mobile */
 
-@media(max-width:768px){
+        @media(max-width:768px) {
 
-    .menu-toggle{
-        display:block;
-    }
+            .menu-toggle {
+                display: block;
+            }
 
-    .nav-links{
-        display:none;
-        position:absolute;
-        top:65px;
-        left:0;
-        width:100%;
-        background:#1a6b3c;
-        flex-direction:column;
-        text-align:center;
-        padding:15px;
-        gap:10px;
-    }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: #1a6b3c;
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+                gap: 10px;
+            }
 
-    .nav-links.active{
-        display:flex;
-    }
-}
+            .nav-links.active {
+                display: flex;
+            }
+        }
+
         .wishlist-btn {
             position: absolute;
             top:
@@ -443,6 +444,8 @@
 <body>
 
 
+
+
     <!-- LOADER -->
     <div id="loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: white; display: flex; justify-content: center; align-items: center; z-index: 9999;">
@@ -463,27 +466,51 @@
         <img src="/img/2.png" alt="logo">
         <h2>Karibu Groceries</h2>
     </div> -->
-          
-        <nav class="navbar">
-        
-            <div class="logo">
-                <img src="/img/2.png" alt="logo">
-                <h2>Karibu Groceries</h2>
-            </div>
-        
-            <button class="menu-toggle" id="menuToggle">☰</button>
-        
-            <div class="nav-links" id="navLinks">
-                <a href="/index.html">Home</a>
-                <a href="/about/about.html">About Us</a>
-                <a href="/all Products/product.html">Products</a>
-                <a href="/Basket/basket.html">🛒 Basket</a>
-                <a href="/Contact/contact.html">Contact</a>
-                <a href="/wishlist/wishlist.html">❤️ Wishlist</a>
-                <a href="/login.html" class="signin-btn">Sign In</a>
-            </div>
-        
-        </nav>
+
+
+    <nav class="navbar">
+
+
+
+        <div class="logo">
+            <img src="/img/2.png" alt="logo">
+            <h2>Karibu Groceries</h2>
+        </div>
+        <select id="languageSwitcher">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+        </select>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+            <a href="/index.html" data-lang="home">Home</a>
+
+            <a href="/about/about.html" data-lang="about">
+                About Us
+            </a>
+
+            <a href="/all Products/product.html" data-lang="products">
+                Products
+            </a>
+
+            <a href="/Basket/basket.html" data-lang="basket">
+                🛒 Basket
+            </a>
+
+            <a href="/Contact/contact.html" data-lang="contact">
+                Contact
+            </a>
+
+            <a href="/wishlist/wishlist.html" data-lang="wishlist">
+                ❤️ Wishlist
+            </a>
+
+            <a href="/login.html" class="signin-btn" data-lang="signin">
+                Sign In
+            </a>
+        </div>
+    </nav>
+
 
     <!-- HERO -->
     <section style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
@@ -1733,6 +1760,7 @@
             navLinks.classList.toggle('active');
         });
     </script>
+    <script src="/js/translations.js"></script>
 
 </body>
 

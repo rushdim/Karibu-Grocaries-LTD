@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Karibu Groceries</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #2d6a4f;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .box {
+            flex: 1;
+            min-width: 250px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1f4d38;
+        }
+
+        .logout {
+            background: #e74c3c;
+        }
+
+        .logout:hover {
+            background: #c0392b;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- USER INFO -->
+        <div class="card">
+            <h2>👤 My Account</h2>
+            <div id="userInfo"></div>
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- BASKET -->
+        <div class="card">
+            <h2>🛒 My Basket</h2>
+            <div id="basketContainer"></div>
+            <h3 id="totalPrice"></h3>
+        </div>
+
+        <!-- FUTURE ORDERS -->
+    <div class="card">
+        <h2>📦 My Orders</h2>
+        <div id="ordersContainer"></div>
+    </div>
+
+    </div>
+    <h2>Edit Profile</h2>
+
+<input type="text" id="name">
+
+<input type="text" id="phone">
+
+<input type="text" id="address">
+
+<button onclick="saveProfile()">
+    Save Changes
+</button>
+
+    <script>
+
+
+
+   
+
+    async function loadOrders() {
+
+        try {
+
+            const response = await fetch(
+                `https://karibu-grocaries-ltd.vercel.app/api/orders/user/${user.email}`
+            );
+
+            const orders = await response.json();
+
+            const container =
+                document.getElementById("ordersContainer");
+
+            if (!orders.length) {
+
+                container.innerHTML =
+                    "<p>No orders found.</p>";
+
+                return;
+            }
+
+            container.innerHTML = "";
+
+            orders.forEach(order => {
+
+                container.innerHTML += `
+                <div style="
+                    border:1px solid #ddd;
+                    padding:15px;
+                    margin-bottom:10px;
+                    border-radius:8px;
+                ">
+                    <p><strong>Order ID:</strong> ${order.id}</p>
+
+                    <p><strong>Total:</strong>
+                    ${order.total.toLocaleString()} UGX</p>
+
+                    <p><strong>Status:</strong>
+                    ${order.status}</p>
+
+                    <p><strong>Date:</strong>
+                    ${new Date(order.date).toLocaleDateString()}</p>
+                </div>
+            `;
+
+            });
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+
+    }
+        /* =========================
+           LOAD USER SESSION
+        ========================= */
+        const user = JSON.parse(localStorage.getItem("userSession"));
+
+        if (!user) {
+            window.location.href = "/login.html";
+        }
+
+        loadAccount();
+             loadOrders();
+
+
+            async function loadAccount() {
+
+                try {
+
+                    const response = await fetch(
+                        `https://karibu-grocaries-ltd.vercel.app/api/account/${user.email}`
+                    );
+
+                    const account = await response.json();
+
+                    document.getElementById("userInfo").innerHTML = `
+            <p><strong>Name:</strong> ${account.name}</p>
+            <p><strong>Email:</strong> ${account.email}</p>
+            <p><strong>Phone:</strong> ${account.phone || "Not set"}</p>
+            <p><strong>Address:</strong> ${account.address || "Not set"}</p>
+            <p><strong>Role:</strong> ${account.role}</p>
+            <p><strong>Joined:</strong> ${new Date(account.createdAt).toLocaleDateString()}</p>
+        `;
+
+                    document.getElementById("name").value =
+                        account.name || "";
+
+                    document.getElementById("phone").value =
+                        account.phone || "";
+
+                    document.getElementById("address").value =
+                        account.address || "";
+
+                } catch (err) {
+
+                    console.error(err);
+
+                }
+
+            }
+
+        /* =========================
+           LOAD USER BASKET
+        ========================= */
+        const basketKey = `basket_${user.email}`;
+        const basket = JSON.parse(localStorage.getItem(basketKey)) || [];
+
+        const basketContainer = document.getElementById("basketContainer");
+        const totalPriceEl = document.getElementById("totalPrice");
+
+        function renderBasket() {
+            if (basket.length === 0) {
+                basketContainer.innerHTML = "<p>Your basket is empty 🛒</p>";
+                totalPriceEl.innerText = "";
+                return;
+            }
+
+            let total = 0;
+
+            basketContainer.innerHTML = "<ul>";
+
+            basket.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+
+                basketContainer.innerHTML += `
+            <li class="item">
+                <span>${item.name} (x${item.qty})</span>
+                <span>${itemTotal.toLocaleString()} UGX</span>
+            </li>
+        `;
+            });
+
+            basketContainer.innerHTML += "</ul>";
+            totalPriceEl.innerText = "Total: " + total.toLocaleString() + " UGX";
+        }
+
+        renderBasket();
+
+        /* =========================
+           LOGOUT
+        ========================= */
+        function logout() {
+            localStorage.removeItem("userSession");
+            window.location.href = "/login.html";
+        }
+
+        async function saveProfile() {
+
+                const session = JSON.parse(
+                    localStorage.getItem("userSession")
+                );
+
+                await fetch(
+                    `https://karibu-grocaries-ltd.vercel.app/api/account/${session.email}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: document.getElementById("name").value,
+                            phone: document.getElementById("phone").value,
+                            address: document.getElementById("address").value
+                        })
+                    }
+                );
+
+                alert("Profile updated successfully");
+
+            }
+    </script>
+    <script src="/js/translations.js"></script>
+
+</body>
+
+</html>

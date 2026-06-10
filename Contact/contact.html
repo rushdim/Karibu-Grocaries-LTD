@@ -155,24 +155,46 @@
     <!-- NAVBAR -->
 <nav class="navbar">
 
+
+
     <div class="logo">
         <img src="/img/2.png" alt="logo">
         <h2>Karibu Groceries</h2>
     </div>
+    <select id="languageSwitcher">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+    </select>
 
     <button class="menu-toggle" id="menuToggle">☰</button>
-
     <div class="nav-links" id="navLinks">
-        <a href="/index.html">Home</a>
-        <a href="/about/about.html">About Us</a>
-        <a href="/all Products/product.html">Products</a>
-        <a href="/Basket/basket.html">🛒 Basket</a>
-        <a href="/Contact/contact.html">Contact</a>
-        <a href="/wishlist/wishlist.html">❤️ Wishlist</a>
-        <a href="/login.html" class="signin-btn">Sign In</a>
+        <a href="/index.html" data-lang="home">Home</a>
+
+        <a href="/about/about.html" data-lang="about">
+            About Us
+        </a>
+
+        <a href="/all Products/product.html" data-lang="products">
+            Products
+        </a>
+
+        <a href="/Basket/basket.html" data-lang="basket">
+            🛒 Basket
+        </a>
+
+        <a href="/Contact/contact.html" data-lang="contact">
+            Contact
+        </a>
+
+        <a href="/wishlist/wishlist.html" data-lang="wishlist">
+            ❤️ Wishlist
+        </a>
+
+        <a href="/login.html" class="signin-btn" data-lang="signin">
+            Sign In
+        </a>
     </div>
 </nav>
-
 
     <!-- HERO -->
     <section style="background: linear-gradient(135deg, #1a6b3c, #2d9e5f);
@@ -629,6 +651,8 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.toggle('active');
         });
     </script>
+    <script src="/js/translations.js"></script>
+
 </body>
 
 </html>
