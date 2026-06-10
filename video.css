@@ -1,0 +1,16 @@
+.video-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.video-container video {
+    width: 70%;
+    max-width: 800px;
+    border-radius: 16px;
+}
+@media (max-width: 768px) {
+    .video-container video {
+        width: 95%;
+    }
+}
